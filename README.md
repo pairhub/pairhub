@@ -6,4 +6,6 @@ This is the repo of pairhub.io, an open source site (currently in early developm
 
 - [ ] Log in with GitHub
 - [ ] Basic profile page w. username routing
-- [ ] Basic styling + landing page
+- [X] Add Bootstrap 4 (via reactstrap)
+- [X] Basic styling + landing page
+- [ ] Deploy to Digital Ocean + mLab

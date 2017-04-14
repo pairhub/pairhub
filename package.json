@@ -6,8 +6,13 @@
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
+    "bootstrap": "^4.0.0-alpha.6",
     "meteor-node-stubs": "~0.2.4",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-addons-css-transition-group": "^15.5.2",
+    "react-addons-transition-group": "^15.5.2",
+    "react-dom": "^15.5.4",
+    "react-router-dom": "^4.1.1",
+    "reactstrap": "^4.5.0"
   }
 }
