@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Meteor } from 'meteor/meteor';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -10,6 +10,13 @@ import Landing from './Landing';
 import About from './About';
 
 class App extends Component {
+  loginWithGithub() {
+    Meteor.loginWithGithub({}, (error) => {
+      if (error) {
+        console.log(error);
+      }
+    });
+  }
   render() {
     return (
       <Router>
@@ -32,7 +39,7 @@ class App extends Component {
             <Nav navbar className="ml-auto">
 
               <NavItem>
-                <Button><i className="fa fa-github" aria-hidden="true"></i> Log in with GitHub</Button>
+                <Button onClick={this.loginWithGithub}><i className="fa fa-github" aria-hidden="true"></i> Log in with GitHub</Button>
               </NavItem>
             </Nav>
 
