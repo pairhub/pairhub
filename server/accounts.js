@@ -1,33 +1,30 @@
-Accounts.onCreateUser(function(options,user){
+Accounts.onCreateUser((options, user) => {
     var accessToken = user.services.github.accessToken,
         result,
         profile;
 
-    result = Meteor.http.get('https://api.github.com/user',{
-        params : {
-            access_token : accessToken
-        },
-        headers: {"User-Agent": "Meteor/1.0"}
+    result = Meteor.http.get('https://api.github.com/user', {
+      params : {
+          access_token : accessToken
+      },
+      headers: {"User-Agent": "Meteor/1.0"}
     });
 
-    if(result.error){
+    if (result.error) {
         console.log(result);
         throw result.error;
     }
 
     profile = _.pick(result.data,
-        'login',
-        'name',
-        'avatar_url',
-        'url',
-        'company',
-        'blog',
-        'location',
-        'email',
-        'bio',
-        'html_url'
+      'name',
+      'avatar_url',
+      'company',
+      'blog',
+      'location',
+      'bio',
+      'html_url'
     );
-
+    
     user.profile = profile;
 
     return user;
