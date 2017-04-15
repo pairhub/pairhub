@@ -17,7 +17,7 @@ Join [the Gitter channel](https://gitter.im/pairhub/Lobby) and say hi! I ([@gust
 - [X] ~~Add Bootstrap 4 (via reactstrap)~~
 - [X] ~~Basic styling + landing page~~
 - [ ] Deploy to Digital Ocean + mLab
-- [ ] Add MIT license
+- [X] ~~Add MIT license~~
 - [ ] Matchmaking features
 
 ... and much more 🤓. Pop in to [our Gitter channel](https://gitter.im/pairhub/Lobby) to share ideas and join the development!
