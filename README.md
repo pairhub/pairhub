@@ -19,4 +19,5 @@ Join [the Gitter channel](https://gitter.im/pairhub/Lobby) and say hi! I ([@gust
 - [ ] Deploy to Digital Ocean + mLab
 - [ ] Add MIT license
 - [ ] Matchmaking features
+
 ... and much more 🤓. Pop in to [our Gitter channel](https://gitter.im/pairhub/Lobby) to share ideas and join the development!
