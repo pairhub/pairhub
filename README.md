@@ -1,11 +1,14 @@
 # PairHub
 
-This is the repo of pairhub.io, an open source community and web app (currently in early development) to find remote pair programming buddies.
+This is the repo of pairhub.io, an open source community and web app to find remote pair programming buddies, being developed by [@gustavlrsn](https://twitter.com/gustavlrsn).
 
 ### Tech stack
 - Meteor 1.4
 - React
 - Bootstrap 4 (through the [reactstrap](https://github.com/reactstrap/reactstrap) package)
+
+### Contributing
+Join [the Gitter channel](https://gitter.im/pairhub/Lobby) and say hi! I ([@gustavlrsn](https://twitter.com/gustavlrsn)) would be happy to introduce you to the project through a pair program session.
 
 ### Todo
 
@@ -14,4 +17,6 @@ This is the repo of pairhub.io, an open source community and web app (currently 
 - [X] Add Bootstrap 4 (via reactstrap)
 - [X] Basic styling + landing page
 - [ ] Deploy to Digital Ocean + mLab
+- [ ] Add MIT license
 - [ ] Matchmaking features
+... and much more 🤓. Pop in to [our Gitter channel](https://gitter.im/pairhub/Lobby) to share ideas and join the development!
