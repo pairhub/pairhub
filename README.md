@@ -1,6 +1,11 @@
 # PairHub
 
-This is the repo of pairhub.io, an open source site (currently in early development) to find remote pair programming buddies.
+This is the repo of pairhub.io, an open source community and web app (currently in early development) to find remote pair programming buddies.
+
+### Tech stack
+- Meteor 1.4
+- React
+- Bootstrap 4 (through the [reactstrap](https://github.com/reactstrap/reactstrap) package)
 
 ### Todo
 
