@@ -1,13 +1,18 @@
+body {
+  font-family: 'Lato', sans-serif;
+}
 .container {
   max-width: 980px;
 }
 p {
+  font-weight: 300;
+}
+p.landing-jumbo {
   font-size: 1.25rem;
-  font-weight: 200;
 }
 h1 {
   font-size: 3.5rem;
-  font-weight: 300;
+  font-weight: 400;
   margin-bottom: 1.5rem;
 }
 a {
