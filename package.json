@@ -10,6 +10,7 @@
     "meteor-node-stubs": "~0.2.4",
     "react": "^15.5.4",
     "react-addons-css-transition-group": "^15.5.2",
+    "react-addons-pure-render-mixin": "^15.5.2",
     "react-addons-transition-group": "^15.5.2",
     "react-dom": "^15.5.4",
     "react-router-dom": "^4.1.1",

@@ -1,6 +1,12 @@
 # PairHub
 
-This is the repo of pairhub.io, an open source community and web app to find remote pair programming buddies, being developed by [@gustavlrsn](https://twitter.com/gustavlrsn).
+This is the repo of [pairhub.io](https://pairhub.io), an open source community and web app to find remote pair programming buddies, being developed by [@gustavlrsn](https://twitter.com/gustavlrsn).
+
+Sketch of landing page:
+
+![Landing page](http://i.imgur.com/RSlG0Xi.png "Sketch of Landing page")
+
+
 
 ### Tech stack
 - Meteor 1.4
