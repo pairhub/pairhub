@@ -2,6 +2,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { NavItem, Button } from 'reactstrap';
 
+
 const handleLogin = () => {
   Meteor.loginWithGithub({}, (error) => {
     if (error) {
@@ -9,6 +10,7 @@ const handleLogin = () => {
     } else {
       // redirect to profile?
       console.log('Logged in successfully!');
+      
     }
   });
 }

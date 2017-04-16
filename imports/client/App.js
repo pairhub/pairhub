@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import history from "./history.js";
+
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './custom.css';
@@ -11,19 +13,21 @@ import Landing from './Landing';
 import About from './About';
 import Profile from './Profile';
 import Navigation from '../ui/components/Navigation';
+import Projects from '../ui/components/Projects';
 
 class App extends Component {
-  
+
   render() {
     return (
-      <Router>
-          <div>
+      <Router history={history}>
+        <div>
           <Navigation />
           <Container style={{marginTop: '50px'}}>
             <Route exact={true} path="/" component={Landing} />
             <Route path="/about" component={About} />
-            <Route path="/profile" component={Profile} />
+            <Route path="/projects" component={Projects} />
           </Container>
+          <Button onClick={() => history.push('/about')}>Test button</Button>
         </div>
       </Router>
     );
