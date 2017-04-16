@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { NavItem, NavDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import history from '../../client/history.js';
 
 class NavAuthenticatedUser extends Component {
   constructor(props) {
@@ -19,8 +20,7 @@ class NavAuthenticatedUser extends Component {
   }
 
   handleLogout() {
-    Meteor.logout();
-    // push somewhere with BrowserHistory equivalent
+    Meteor.logout(() => { history.push('/'); });
   }
 
   render() {

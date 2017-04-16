@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { NavItem, Button } from 'reactstrap';
+import history from '../../client/history.js';
 
 
 const handleLogin = () => {
@@ -8,9 +9,7 @@ const handleLogin = () => {
     if (error) {
       console.log(error);
     } else {
-      // redirect to profile?
-      console.log('Logged in successfully!');
-      
+      history.push('/projects');
     }
   });
 }

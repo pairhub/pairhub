@@ -23,11 +23,10 @@ class App extends Component {
         <div>
           <Navigation />
           <Container style={{marginTop: '50px'}}>
-            <Route exact={true} path="/" component={Landing} />
+            <Route exact path="/" component={Landing} />
             <Route path="/about" component={About} />
             <Route path="/projects" component={Projects} />
           </Container>
-          <Button onClick={() => history.push('/about')}>Test button</Button>
         </div>
       </Router>
     );
