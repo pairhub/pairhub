@@ -21,6 +21,7 @@ a {
 .btn-secondary {
   color: #0000ff;
   border-color: #0000ff;
+  cursor: pointer;
 }
 .btn-secondary:hover {
   color: white;
