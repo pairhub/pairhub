@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { Router, Link, Route } from 'react-router-dom';
 import history from "./history.js";
 
 
@@ -39,7 +39,5 @@ export default createContainer(() => {
   return {
     ready: usersSub.ready(),
     users: Meteor.users.find().fetch()
-    // items: Items.find({}).fetch()
-    // needs to be imported, the collection that is.
   }
 }, App);
