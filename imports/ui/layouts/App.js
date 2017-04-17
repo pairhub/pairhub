@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Router, Link, Route } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import history from "../history.js";
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -22,9 +22,12 @@ class App extends Component {
         <div>
           <Navigation authenticated={this.props.authenticated} />
           <Container style={{marginTop: '50px'}}>
-            <Route exact path="/" component={Landing} />
-            <Route path="/about" component={About} />
-            <Route path="/projects" component={Projects} />
+            <Switch>
+              <Route exact path="/" component={Landing} />
+              <Route path="/about" component={About} />
+              <Route path="/projects" component={Projects} />
+              <Route path="/:username" component={Profile} />
+            </Switch>
           </Container>
         </div>
       </Router>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import { createContainer } from 'meteor/react-meteor-data';
+import { Link } from 'react-router-dom';
 
 class Landing extends Component {
 
@@ -29,8 +30,10 @@ class Landing extends Component {
           {this.props.users.map((user) => {
             return (
               <Col sm="2" key={user._id}>
-                <img src={user.profile.avatar_url} className="img-fluid" />
-                @{user.services.github.username}
+                <Link to={user.services.github.username}>
+                  <img src={user.profile.avatar_url} className="img-fluid" />
+                  @{user.services.github.username}
+                </Link>
               </Col>
             )
           })}
