@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { NavItem, NavDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import history from '../../client/history.js';
+import history from '../history.js';
 
 class NavAuthenticatedUser extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class NavAuthenticatedUser extends Component {
           <img src={Meteor.user().profile.avatar_url} height="25" width="25" style={{'borderRadius':'3px'}} />
         </DropdownToggle>
         <DropdownMenu right>
-          {/* <DropdownItem header>Signed in as <strong>@{Meteor.user().services.github.username}</strong></DropdownItem> */}
+          <DropdownItem header>Signed in as <strong>@{Meteor.user().services.github.username}</strong></DropdownItem>
           <DropdownItem>Your profile</DropdownItem>
           <DropdownItem>Settings</DropdownItem>
           <DropdownItem divider />

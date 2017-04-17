@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { NavItem, Button } from 'reactstrap';
-import history from '../../client/history.js';
+import history from '../history.js';
 
 
 const handleLogin = () => {
