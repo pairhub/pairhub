@@ -21,7 +21,7 @@ class App extends Component {
     return (
       <Router history={history}>
         <div>
-          <Navigation />
+          <Navigation authenticated={this.props.authenticated} />
           <Container style={{marginTop: '50px'}}>
             <Route exact path="/" component={Landing} />
             <Route path="/about" component={About} />
@@ -34,9 +34,11 @@ class App extends Component {
 }
 
 export default createContainer(() => {
-  let usersSub = Meteor.subscribe('userData');
+  let userSub = Meteor.subscribe('userData');
+  let loggingIn = Meteor.loggingIn();
   return {
-    ready: usersSub.ready(),
-    users: Meteor.users.find().fetch()
+    loggingIn,
+    authenticated: !loggingIn && !!Meteor.userId(),
+    ready: userSub.ready()
   }
 }, App);

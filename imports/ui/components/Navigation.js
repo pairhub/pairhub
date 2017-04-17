@@ -26,7 +26,7 @@ class Navigation extends Component {
             </NavItem>
           </Nav>
           <Nav navbar className="ml-auto">
-            {Meteor.user() ? <NavAuthenticatedUser /> : <NavLoginButton />}
+            {this.props.authenticated ? <NavAuthenticatedUser /> : <NavLoginButton />}
 
           </Nav>
         </Container>

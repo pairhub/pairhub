@@ -30,7 +30,7 @@ class NavAuthenticatedUser extends Component {
           <img src={Meteor.user().profile.avatar_url} height="25" width="25" style={{'borderRadius':'3px'}} />
         </DropdownToggle>
         <DropdownMenu right>
-          <DropdownItem header>Signed in as <strong>@{Meteor.user().services.github.username}</strong></DropdownItem>
+          {/* <DropdownItem header>Signed in as <strong>@{Meteor.user().services.github.username}</strong></DropdownItem> */}
           <DropdownItem>Your profile</DropdownItem>
           <DropdownItem>Settings</DropdownItem>
           <DropdownItem divider />

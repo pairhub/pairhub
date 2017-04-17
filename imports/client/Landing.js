@@ -3,9 +3,10 @@ import { Container, Row, Col } from 'reactstrap';
 import { createContainer } from 'meteor/react-meteor-data';
 
 class Landing extends Component {
+
   render() {
     if(!this.props.ready) return <div>Loading!</div>
-    
+
     return (
       <div>
         <Row style={{marginTop: '50px'}}>
@@ -33,28 +34,16 @@ class Landing extends Component {
               </Col>
             )
           })}
-
         </Row>
         <Row style={{marginTop:'40px'}}>
-          <Col>
-            <h3>Create your profile</h3>
-            <p></p>
-          </Col>
-          <Col>
-            <h3>Join the community and say hi! 👋</h3>
-            <p></p>
-          </Col>
-          <Col>
-            <h3>Contribute</h3>
-            <p></p>
-          </Col>
+
         </Row>
       </div>
     );
   }
 }
 export default createContainer(() => {
-  let usersSub = Meteor.subscribe('userData');
+  let usersSub = Meteor.subscribe('landingUsers');
   return {
     ready: usersSub.ready(),
     users: Meteor.users.find().fetch()
