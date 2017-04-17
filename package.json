@@ -14,6 +14,7 @@
     "react-addons-transition-group": "^15.5.2",
     "react-dom": "^15.5.4",
     "react-router-dom": "^4.1.1",
-    "reactstrap": "^4.5.0"
+    "reactstrap": "^4.5.0",
+    "simpl-schema": "^0.2.3"
   }
 }

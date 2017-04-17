@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { NavItem, NavDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import history from '../history.js';
 
 class NavAuthenticatedUser extends Component {
@@ -23,6 +24,7 @@ class NavAuthenticatedUser extends Component {
     Meteor.logout(() => { history.push('/'); });
   }
 
+
   render() {
     return (
       <NavDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
@@ -31,8 +33,7 @@ class NavAuthenticatedUser extends Component {
         </DropdownToggle>
         <DropdownMenu right>
           <DropdownItem header>Signed in as <strong>@{Meteor.user().services.github.username}</strong></DropdownItem>
-          <DropdownItem>Your profile</DropdownItem>
-          <DropdownItem>Settings</DropdownItem>
+          <DropdownItem onClick={() => history.push(`/${Meteor.user().services.github.username}`)}>Your profile</DropdownItem>
           <DropdownItem divider />
           <DropdownItem onClick={this.handleLogout}>Sign out</DropdownItem>
         </DropdownMenu>

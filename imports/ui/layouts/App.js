@@ -12,7 +12,7 @@ import Navigation from '../components/Navigation';
 import Landing from '../pages/Landing';
 import About from '../pages/About';
 import Profile from '../pages/Profile';
-import Projects from '../pages/Projects';
+import ProjectsList from '../pages/ProjectsList';
 
 class App extends Component {
 
@@ -25,7 +25,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Landing} />
               <Route path="/about" component={About} />
-              <Route path="/projects" component={Projects} />
+              <Route path="/projects" component={ProjectsList} />
               <Route path="/:username" component={Profile} />
             </Switch>
           </Container>

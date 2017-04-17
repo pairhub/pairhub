@@ -20,3 +20,4 @@ shell-server@0.2.3            # Server-side component of the `meteor shell` comm
 accounts-github
 service-configuration
 react-meteor-data
+aldeed:collection2-core@2.0.0

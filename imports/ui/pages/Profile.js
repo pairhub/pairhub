@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Row, Col, Card, CardBlock, CardTitle, CardText } from 'reactstrap';
+import { Row, Col, Card, CardBlock, CardTitle, CardText, CardSubtitle } from 'reactstrap';
 
+//TODO: turn into stateless component
 class Profile extends Component {
   render() {
     if(!this.props.ready) return <div>Loading..</div>;
-    console.log(this.props.user);
+    if(!this.props.user) return <div>No user with this username!</div>;
     return (
       <Row>
         <Col sm="3">
-          <Card>
-            <CardBlock>
-              <img src={this.props.user.profile.avatar_url} className="img-fluid" />
-              <CardTitle>@{this.props.match.params.username}</CardTitle>
 
-
-              <p>{this.props.user.profile.name}</p>
-            </CardBlock>
-
-          </Card>
+          <img src={this.props.user.profile.avatar_url} className="img-fluid" style={{borderRadius:'8px'}} />
+          <CardTitle>{this.props.user.profile.name}</CardTitle>
+          <CardSubtitle>@{this.props.user.services.github.username}</CardSubtitle>
 
         </Col>
         <Col sm="9">
