@@ -19,7 +19,7 @@ Join [the Gitter channel](https://gitter.im/pairhub/Lobby) and say hi! I ([@gust
 ### Todo
 
 - [X] ~~Log in with GitHub~~
-- [ ] Basic profile page w. username routing
+- [X] Basic profile page w. username routing
 - [X] ~~Add Bootstrap 4 (via reactstrap)~~
 - [X] ~~Basic styling + landing page~~
 - [ ] Deploy to Digital Ocean + mLab
