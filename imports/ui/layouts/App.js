@@ -4,8 +4,6 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from "../history.js";
 
-import 'bootstrap/dist/css/bootstrap.css';
-import '../style.css';
 import { Container, Button, Navbar, Nav, NavbarBrand, NavLink, NavItem, Row, Col } from 'reactstrap';
 
 import Navigation from '../components/Navigation';
