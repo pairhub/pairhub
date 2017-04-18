@@ -26,6 +26,7 @@ if (Meteor.isServer) {
     return Projects.find({});
   });
 
+
   Meteor.methods({
     createNewProject(title, desc) {
       let members = [], owners = [], posts = [], lastUpdated = new Date();
@@ -38,10 +39,11 @@ if (Meteor.isServer) {
         members,
         owners,
         lastUpdated
+      }, (err, _id) => {
+        if (!err) {
+          Meteor.users.update(this.userId, {$push: {memberOfProjects: _id, ownerOfProjects: _id }})
+        }
       });
-
-      // TODO: Update user with two fields:
-      // user.memberOfGroup & user.ownerOfGroup
     }
   });
 

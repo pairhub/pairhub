@@ -3,7 +3,11 @@ import { Meteor } from 'meteor/meteor';
 // publish to null is the same as autopublish, i.e. no need to subscribe to this data
 Meteor.publish(null, function() {
   return Meteor.users.find({_id: this.userId},
-    {fields: {'services.github.username': 1}});
+    {fields: {
+      'services.github.username': 1,
+      'memberOfProjects': 1,
+      'ownerOfProjects': 1
+    }});
 });
 
 Meteor.publish('landingUsers', function() {
@@ -23,7 +27,9 @@ Meteor.publish('oneUser', function(username) {
       'profile.name': 1,
       'profile.bio': 1,
       'profile.avatar_url': 1,
-      'services.github.username': 1
+      'services.github.username': 1,
+      'memberOfProjects': 1,
+      'ownerOfProjects': 1
     }
   });
 })

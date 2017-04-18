@@ -17,9 +17,10 @@ class Profile extends Component {
 
         </Col>
         <Col sm="9">
+          <h3>Member of projects:</h3>
           <Card>
             <CardBlock>
-              <CardText>Some shit</CardText>
+              <CardText>...</CardText>
             </CardBlock>
           </Card>
         </Col>
