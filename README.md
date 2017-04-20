@@ -9,7 +9,7 @@ Sketch of landing page:
 
 
 ### Tech stack
-- Meteor 1.4
+- ~~Meteor 1.4~~ Update April 20: Will move away from Meteor, and implement a stack of GraphQL, Express, React and Webpack.
 - React
 - Bootstrap 4 (through the [reactstrap](https://github.com/reactstrap/reactstrap) package)
 
