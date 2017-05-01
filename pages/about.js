@@ -2,6 +2,6 @@ import Layout from '../components/Layout'
 
 export default () => (
   <Layout>
-    <p>Welcome to PairHub!</p>
+    <p>This is the about page.</p>
   </Layout>
 )

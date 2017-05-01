@@ -19,6 +19,6 @@ Initial tech stack of Meteor & React will be depreciated (moved to it's own [bra
 
 ### TODO:
 
-- [X] Depreciate previous Meteor/React stack
-- [ ] Set up frontend with React, Next.js, Apollo
 - [ ] Set up separate GraphQL backend server
+- [ ] Add Apollo
+- [ ] Add reactstrap
