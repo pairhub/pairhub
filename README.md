@@ -12,18 +12,13 @@ Core features:
 
 ### Tech stack
 Initial tech stack of Meteor & React will be depreciated (moved to it's own [branch](https://github.com/pairhub/pairhub/tree/meteor)) and replaced by new stack:
-- GraphQL
+- GraphQL with Apollo
 - React
+- Next.js
 - Bootstrap 4 (through the [reactstrap](https://github.com/reactstrap/reactstrap) package)
-- Express
-- Webpack
 
-### Contributing
-Join [the Gitter channel](https://gitter.im/pairhub/Lobby) and say hi! I ([@gustavlrsn](https://twitter.com/gustavlrsn)) would be happy to introduce you to the project through a pair program session.
+### TODO:
 
-### Todo
-
-- [X] Initial Meteor project moved to it's own branch
-- [ ] Set up boilerplate with React, GraphQL, Express and Webpack
-
-... and much more 🤓. Pop in to [our Gitter channel](https://gitter.im/pairhub/Lobby) to share ideas and join the development!
+- [X] Depreciate previous Meteor/React stack
+- [ ] Set up frontend with React, Next.js, Apollo
+- [ ] Set up separate GraphQL backend server
