@@ -1,10 +1,14 @@
-import Header from './Header';
+import Header from './Header'
+
+import { Container } from 'reactstrap'
 
 const Layout = (props) => (
   <div>
     <Header />
-    {props.children}
+    <Container>
+      {props.children}
+    </Container>
   </div>
-);
+)
 
-export default Layout;
+export default Layout
