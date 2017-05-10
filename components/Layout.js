@@ -1,6 +1,6 @@
 import Header from './Header'
-
 import { Container } from 'reactstrap'
+import withData from '../lib/withData'
 
 const Layout = (props) => (
   <div>
@@ -11,4 +11,4 @@ const Layout = (props) => (
   </div>
 )
 
-export default Layout
+export default withData(Layout);
