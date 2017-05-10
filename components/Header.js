@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Head from 'next/head'
 import { Navbar, Container, NavbarBrand, Nav, NavItem, Button } from 'reactstrap'
+import Profile from './Profile'
 
 const Header = () => (
   <div>
@@ -27,17 +28,26 @@ const Header = () => (
 
     <Navbar color="faded" light toggleable style={{padding: '0px', marginBottom: '50px'}}>
       <Container>
-        <NavbarBrand tag={Link} href="/">
-          <a><img src="/static/pairhub-logo.png" width="50" height="50" /></a>
-        </NavbarBrand>
+        <div style={{marginRight:'15px'}}>
+          <NavbarBrand tag={Link} href="/">
+            <a><img src="/static/pairhub-logo.png" width="50" height="50" /></a>
+          </NavbarBrand>
+        </div>
+
         <Nav navbar>
           <NavItem>
             <Link href="/about"><a className="nav-link">About</a></Link>
           </NavItem>
+          <NavItem>
+            <Link href="/a"><a className="nav-link">a</a></Link>
+          </NavItem>
+          <NavItem>
+            <Link href="/b"><a className="nav-link">b</a></Link>
+          </NavItem>
         </Nav>
         <Nav navbar className="ml-auto">
           {/* {this.props.authenticated ? <NavAuthenticatedUser /> : <NavLoginButton />} */}
-          <NavItem><Button><i className="fa fa-github" aria-hidden="true"></i> Log in with GitHub</Button></NavItem>
+          <NavItem><Profile /></NavItem>
 
         </Nav>
       </Container>
