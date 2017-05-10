@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "node lib/server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "NODE_ENV=production node lib/server.js"
   },
   "license": "MIT",
   "dependencies": {
