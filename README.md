@@ -16,9 +16,3 @@ Initial tech stack of Meteor & React will be depreciated (moved to it's own [bra
 - React
 - Next.js
 - Bootstrap 4 (through the [reactstrap](https://github.com/reactstrap/reactstrap) package)
-
-### TODO:
-
-- [ ] Set up separate GraphQL backend server
-- [ ] Add Apollo
-- [ ] Add reactstrap
