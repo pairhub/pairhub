@@ -14,7 +14,7 @@
     "react": "^15.5.4",
     "react-addons-css-transition-group": "^15.5.2",
     "react-addons-transition-group": "^15.5.2",
-    "react-apollo": "^1.2.0",
+    "react-apollo": "1.0.0",
     "react-dom": "^15.5.4",
     "reactstrap": "^4.5.0"
   }

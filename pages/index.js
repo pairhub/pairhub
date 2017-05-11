@@ -2,13 +2,13 @@ import Layout from '../components/Layout'
 import Link from 'next/link'
 import { Row, Col } from 'reactstrap'
 
-export default () => (
+const Landing = () => (
   <Layout>
     <Row>
-      <Col sm="3">
+      <Col sm={{ size: 3, offset: 0 }}>
         <img src="/static/coder.png" className="img-fluid" />
       </Col>
-      <Col sm="9" >
+      <Col sm={{ size: 9, offset: 0 }} >
         <h1>Find remote pair programming buddies!</h1>
         <p>
           PairHub is the friendly <a href="https://github.com/pairhub/pairhub" target="_blank">open source</a> community where you’ll
@@ -20,3 +20,5 @@ export default () => (
     <hr />
   </Layout>
 )
+
+export default Landing

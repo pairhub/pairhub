@@ -22,7 +22,7 @@ const Profile = ({ loading, currentUser }) => {
 const PROFILE_QUERY = gql`
   query CurrentUserForLayout {
     currentUser {
-      login
+      username
       avatar_url
     }
   }

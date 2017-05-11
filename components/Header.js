@@ -38,12 +38,6 @@ const Header = () => (
           <NavItem>
             <Link href="/about"><a className="nav-link">About</a></Link>
           </NavItem>
-          <NavItem>
-            <Link href="/a"><a className="nav-link">a</a></Link>
-          </NavItem>
-          <NavItem>
-            <Link href="/b"><a className="nav-link">b</a></Link>
-          </NavItem>
         </Nav>
         <Nav navbar className="ml-auto">
           {/* {this.props.authenticated ? <NavAuthenticatedUser /> : <NavLoginButton />} */}
