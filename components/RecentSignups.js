@@ -11,7 +11,7 @@ const RecentSignups = ({ loading, users }) => {
     return (
       <Row>
         {users.map((user) =>
-          <Col sm="2">
+          <Col key={user.username} sm="2">
             <Link as={`/@${user.username}`} href={`/profile?user=${user.username}`}>
             <a><img src={user.avatar_url} className="img-fluid" style={{borderRadius:'5px'}} />
             @{user.username}</a>

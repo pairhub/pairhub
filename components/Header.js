@@ -23,6 +23,9 @@ const Header = () => (
           border-color: #0000ff;
           background-color: #0000ff;
         }
+        .container {
+          max-width: 960px;
+        }
       `}</style>
     </Head>
 
