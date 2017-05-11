@@ -1,6 +1,7 @@
 import Layout from '../components/Layout'
 import Link from 'next/link'
 import { Row, Col } from 'reactstrap'
+import RecentSignups from '../components/RecentSignups'
 
 const Landing = () => (
   <Layout>
@@ -18,6 +19,8 @@ const Landing = () => (
       </Col>
     </Row>
     <hr />
+    <h4 style={{marginBottom:'20px'}}>Latest signups 👋</h4>
+    <RecentSignups />
   </Layout>
 )
 

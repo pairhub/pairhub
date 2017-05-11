@@ -8,7 +8,6 @@ const ProfilePage = ({ loading, user }) => {
     );
   } else if (user) {
     return (
-
         <Row>
           <Col sm="3">
             <img src={user.avatar_url} className="img-fluid" style={{borderRadius:'5px', marginBottom: '10px'}}/>
@@ -20,10 +19,6 @@ const ProfilePage = ({ loading, user }) => {
             <Card><CardBlock><CardText>Not much to see here yet!</CardText></CardBlock></Card>
           </Col>
         </Row>
-
-
-
-
     );
   }
   return (
