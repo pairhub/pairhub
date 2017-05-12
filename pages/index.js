@@ -15,7 +15,7 @@ const Landing = () => (
           on open source or your own projects, and become a better developer!
         </p>
         <Alert color="warning">
-          Currently in <strong>development</strong> mode, database may be resetted before launch!
+          Currently in <strong>development</strong> mode, so there's not much to do yet, except signing up!
         </Alert>
       </Col>
       <Col sm={{ size: 5, offset: 0 }}>
