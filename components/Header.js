@@ -26,6 +26,12 @@ const Header = () => (
         .container {
           max-width: 960px;
         }
+        a {
+          color: #0000ff;
+        }
+        a:hover {
+          color: #0000ff;
+        }
       `}</style>
     </Head>
 
