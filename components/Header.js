@@ -47,6 +47,12 @@ const Header = () => (
           <NavItem>
             <Link href="/about"><a className="nav-link">About</a></Link>
           </NavItem>
+          <NavItem>
+            <Link href="/guide"><a className="nav-link">Guide</a></Link>
+          </NavItem>
+          <NavItem>
+            <a href="https://gitter.im/pairhub/Lobby" target="_blank" className="nav-link">Chat</a>
+          </NavItem>
         </Nav>
         <Nav navbar className="ml-auto">
           {/* {this.props.authenticated ? <NavAuthenticatedUser /> : <NavLoginButton />} */}

@@ -37,5 +37,3 @@ class ProfileDropdown extends Component {
 }
 
 export default ProfileDropdown;
-
-// <Link as={`/@${this.props.currentUser.username}`} href={`/profile?user=${this.props.currentUser.username}`}><a>Your profile</a></Link>
