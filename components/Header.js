@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Head from 'next/head'
 import { Navbar, Container, NavbarBrand, Nav, NavItem, Button } from 'reactstrap'
-import Profile from './Profile'
+import LoginButton from './LoginButton'
 
 const Header = () => (
   <div>
@@ -35,7 +35,7 @@ const Header = () => (
       `}</style>
     </Head>
 
-    <Navbar color="faded" light toggleable style={{padding: '0px', marginBottom: '50px'}}>
+    <Navbar color="faded" light toggleable style={{padding: '0px', marginBottom: '35px'}}>
       <Container>
         <div style={{marginRight:'15px'}}>
           <NavbarBrand tag={Link} href="/">
@@ -55,9 +55,7 @@ const Header = () => (
           </NavItem>
         </Nav>
         <Nav navbar className="ml-auto">
-          {/* {this.props.authenticated ? <NavAuthenticatedUser /> : <NavLoginButton />} */}
-          <NavItem><Profile /></NavItem>
-
+          <LoginButton />
         </Nav>
       </Container>
     </Navbar>
