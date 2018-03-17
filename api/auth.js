@@ -26,7 +26,7 @@ function setupGitHubLogin(app) {
     User.findOne({ userId: profile.id }).then((res) => {
       // Found a user
       if (res) {
-        // Update profile information from GitHub here?
+        // TODO: Add updating of GitHub details here?
         return done(null, res);
       }
       // Found no user, add new user
@@ -43,9 +43,9 @@ function setupGitHubLogin(app) {
     });
   }));
 
-  passport.serializeUser((user, cb) => cb(null, user));
+  passport.serializeUser((user, done) => done(null, user._id));
 
-  passport.deserializeUser((obj, cb) => cb(null, obj));
+  passport.deserializeUser((_id, done) => User.findOne({ _id }).then(user => done(null, user)));
 
   const MongoStore = connectMongo(session);
 
