@@ -8,6 +8,7 @@ type User {
   github_url: String
   email: String
   created_at: String!
+  posts: [Post]
 }
 
 type Post {

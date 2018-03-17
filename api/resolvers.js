@@ -1,6 +1,7 @@
 export default {
   User: {
     email: (parent, args, { currentUser }) => (currentUser ? parent.email : null),
+    posts: async (parent, args, { Post }) => Post.find({ authorId: parent.userId }),
   },
   Post: {
     comments: async (parent, args, { Comment }) => Comment.find({ postId: parent._id }),
