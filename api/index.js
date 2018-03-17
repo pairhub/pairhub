@@ -8,6 +8,7 @@ import dotenv from 'dotenv';
 import typeDefs from './schema';
 import resolvers from './resolvers';
 import setupGitHubLogin from './auth';
+import { User, Post, Comment } from './models';
 
 dotenv.config();
 
@@ -17,47 +18,6 @@ const schema = makeExecutableSchema({
 });
 
 mongoose.connect('mongodb://localhost/db');
-
-export const User = mongoose.model('User', {
-  userId: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  name: String,
-  avatar_url: String,
-  github_url: String,
-  email: String,
-  created_at: {
-    type: Date,
-    default: Date.now,
-  },
-});
-
-export const Post = mongoose.model('Post', {
-  title: String,
-  content: String,
-  authorId: String,
-  created_at: {
-    type: Date,
-    default: Date.now,
-  },
-});
-
-export const Comment = mongoose.model('Comment', {
-  content: String,
-  authorId: String,
-  postId: mongoose.Schema.Types.ObjectId,
-  created_at: {
-    type: Date,
-    default: Date.now,
-  },
-});
 
 const PORT = 3000;
 

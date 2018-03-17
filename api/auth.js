@@ -3,7 +3,7 @@ import { Strategy as GitHubStrategy } from 'passport-github';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import mongoose from 'mongoose';
-import { User } from './index';
+import { User } from './models';
 
 function setupGitHubLogin(app) {
   const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, NODE_ENV } = process.env;
