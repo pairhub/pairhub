@@ -1,4 +1,7 @@
 export default {
+  User: {
+    email: (parent, args, { currentUser }) => (currentUser ? parent.email : null),
+  },
   Post: {
     comments: async (parent, args, { Comment }) => {
       const comments = await Comment.find({ postId: parent._id });
