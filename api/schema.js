@@ -3,6 +3,7 @@ type User {
   _id: String!
   userId: String!
   username: String!
+  name: String
   avatar_url: String
   github_url: String
   email: String
