@@ -13,7 +13,7 @@ function setupGitHubLogin(app) {
     return;
   }
 
-  const gitHubStrategyOptions = {
+  const githubOptions = {
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
     callbackURL:
@@ -22,7 +22,7 @@ function setupGitHubLogin(app) {
         : 'https://pairhub.io/login/github/callback',
   };
 
-  passport.use(new GitHubStrategy(gitHubStrategyOptions, (accessToken, refreshToken, profile, done) => {
+  passport.use(new GitHubStrategy(githubOptions, (accessToken, refreshToken, profile, done) => {
     User.findOne({ userId: profile.id }).then((res) => {
       // Found a user
       if (res) {
