@@ -1,19 +1,34 @@
 export default `
+type User {
+  _id: String!
+  userId: String!
+  username: String!
+  avatar_url: String
+  github_url: String
+  email: String
+  created_at: String!
+}
+
 type Post {
   _id: String!
   title: String!
   content: String!
+  author: User!
   comments: [Comment]
+  created_at: String!
 }
 
 type Comment {
   _id: String!
   content: String!
-  postId: String
-  post: Post
+  author: User!
+  post: Post!
+  created_at: String!
 }
 
 type Query {
+  user(id: String!): User
+  allUsers: [User]
   post(id: String!): Post
   allPosts: [Post]
   comment(id: String!): Comment

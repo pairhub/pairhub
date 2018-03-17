@@ -4,41 +4,66 @@ export default {
       const comments = await Comment.find({ postId: parent._id });
       return comments;
     },
+    author: async (parent, args, { User }) => {
+      const user = await User.findOne({ userId: parent.authorId });
+      return user;
+    },
   },
   Comment: {
     post: async (parent, args, { Post }) => {
       const post = await Post.findOne({ _id: parent.postId });
       return post;
     },
+    author: async (parent, args, { User }) => {
+      const user = await User.findOne({ userId: parent.authorId });
+      return user;
+    },
   },
   Query: {
-    post: async (_, args, { Post }) => {
-      const post = await Post.findOne({ _id: args.id });
-      post._id = post._id.toString();
+    user: async (_, { id }, { User }) => {
+      const user = await User.findOne({ userId: id });
+      return user;
+    },
+    allUsers: async (_, args, { User }) => {
+      const users = await User.find();
+      return users;
+    },
+    post: async (_, { id }, { Post }) => {
+      const post = await Post.findOne({ _id: id });
       return post;
     },
     allPosts: async (_, args, { Post }) => {
       const posts = await Post.find();
-      return posts.map((x) => {
-        x._id = x._id.toString();
-        return x;
-      });
+      return posts;
     },
-    comment: async (_, args, { Comment }) => {
-      const comment = await Comment.findOne({ _id: args.id });
+    comment: async (_, { id }, { Comment }) => {
+      const comment = await Comment.findOne({ _id: id });
       return comment;
     },
   },
   Mutation: {
-    createPost: async (_, args, { Post }) => {
-      const post = await new Post(args).save();
-      post._id = post._id.toString();
-      return post;
+    createPost: async (_, { title, content }, { Post, currentUser }) => {
+      if (currentUser) {
+        const post = await new Post({
+          title,
+          content,
+          authorId: currentUser.userId,
+        }).save();
+        return post;
+      }
+      // TODO: is this correct?
+      return null;
     },
-    createComment: async (_, args, { Comment }) => {
-      const comment = await new Comment(args).save();
-      comment._id = comment._id.toString();
-      return comment;
+    createComment: async (_, { postId, content }, { Comment, currentUser }) => {
+      if (currentUser) {
+        const comment = await new Comment({
+          postId,
+          content,
+          authorId: currentUser.userId,
+        }).save();
+        return comment;
+      }
+      return null;
     },
   },
 };
