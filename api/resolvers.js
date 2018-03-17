@@ -19,27 +19,22 @@ export default {
   },
   Mutation: {
     createPost: async (_, { title, content }, { Post, currentUser }) => {
-      if (currentUser) {
-        const post = await new Post({
-          title,
-          content,
-          authorId: currentUser.userId,
-        }).save();
-        return post;
-      }
-      // TODO: is this correct?
-      return null;
+      if (!currentUser) throw new Error('Not logged in');
+
+      return new Post({
+        title,
+        content,
+        authorId: currentUser.userId,
+      }).save();
     },
     createComment: async (_, { postId, content }, { Comment, currentUser }) => {
-      if (currentUser) {
-        const comment = await new Comment({
-          postId,
-          content,
-          authorId: currentUser.userId,
-        }).save();
-        return comment;
-      }
-      return null;
+      if (!currentUser) throw new Error('Not logged in');
+
+      return new Comment({
+        postId,
+        content,
+        authorId: currentUser.userId,
+      }).save();
     },
   },
 };
