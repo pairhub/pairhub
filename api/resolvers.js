@@ -12,7 +12,7 @@ export default {
     author: async (parent, args, { User }) => User.findOne({ userId: parent.authorId }),
   },
   Query: {
-    user: async (_, { id }, { User }) => User.findOne({ userId: id }),
+    user: async (_, { username }, { User }) => User.findOne({ username }),
     allUsers: async (_, args, { User }) => User.find(),
     post: async (_, { id }, { Post }) => Post.findOne({ _id: id }),
     allPosts: async (_, args, { Post }) => Post.find(),
