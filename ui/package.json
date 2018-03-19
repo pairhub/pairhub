@@ -1,21 +1,37 @@
 {
-  "name": "pairhub",
+  "name": "pairhub-ui",
+  "version": "1.0.0",
+  "description": "Frontend for PairHub",
+  "main": "index.js",
+  "dependencies": {
+    "apollo-cache-inmemory": "^1.1.11",
+    "apollo-client": "^2.2.7",
+    "apollo-link-http": "^1.5.3",
+    "express": "^4.16.3",
+    "graphql": "^0.13.2",
+    "graphql-tag": "^2.8.0",
+    "http-proxy-middleware": "^0.18.0",
+    "isomorphic-unfetch": "^2.0.0",
+    "next": "^5.0.0",
+    "prop-types": "^15.6.1",
+    "react": "^16.2.0",
+    "react-apollo": "^2.0.4",
+    "react-dom": "^16.2.0"
+  },
+  "devDependencies": {},
   "scripts": {
     "dev": "node lib/server.js",
     "build": "next build",
     "start": "NODE_ENV=production node lib/server.js"
   },
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.15.2",
-    "http-proxy-middleware": "^0.17.4",
-    "isomorphic-fetch": "^2.2.1",
-    "next": "4.2.0",
-    "react": "^16.2.0",
-    "react-addons-css-transition-group": "^15.5.2",
-    "react-addons-transition-group": "^15.5.2",
-    "react-apollo": "1.0.0",
-    "react-dom": "^16.2.0",
-    "reactstrap": "^4.5.0"
-  }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pairhub/pairhub.git"
+  },
+  "author": "gustavlrsn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pairhub/pairhub/issues"
+  },
+  "homepage": "https://github.com/pairhub/pairhub#readme"
 }

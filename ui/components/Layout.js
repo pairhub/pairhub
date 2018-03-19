@@ -1,14 +1,16 @@
-import Header from './Header'
-import { Container } from 'reactstrap'
-import withData from '../lib/withData'
+import Header from "./Header";
 
-const Layout = (props) => (
-  <div>
+const layoutStyle = {
+  margin: 20,
+  padding: 20,
+  border: "1px solid #DDD"
+};
+
+const Layout = props => (
+  <div style={layoutStyle}>
     <Header />
-    <Container>
-      {props.children}
-    </Container>
+    {props.children}
   </div>
-)
+);
 
-export default withData(Layout);
+export default Layout;
