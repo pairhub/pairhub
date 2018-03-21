@@ -14,6 +14,7 @@ export default {
   Query: {
     user: async (_, { username }, { User }) => User.findOne({ username }),
     allUsers: async (_, args, { User }) => User.find(),
+    currentUser: (_, args, { currentUser }) => currentUser,
     post: async (_, { id }, { Post }) => Post.findOne({ _id: id }),
     allPosts: async (_, args, { Post }) => Post.find(),
     comment: async (_, { id }, { Comment }) => Comment.findOne({ _id: id }),

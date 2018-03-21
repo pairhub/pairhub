@@ -31,6 +31,7 @@ type Comment {
 type Query {
   user(username: String!): User
   allUsers: [User]
+  currentUser: User
   post(id: String!): Post
   allPosts: [Post]
   comment(id: String!): Comment
