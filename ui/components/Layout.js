@@ -1,38 +1,31 @@
 import Header from "./Header";
+import styled, { injectGlobal } from "styled-components";
+
+injectGlobal`
+  body {
+    padding: 0;
+    margin: 0;
+    background: #f4f5f6;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+  }
+`;
+
+const MainLayout = styled.div`
+  display: grid;
+  grid-template-rows: 100px 1fr;
+  grid-template-columns: 900px;
+  justify-content: center;
+`;
+
+const Content = styled.div``;
 
 const Layout = props => (
-  <div className="layout">
-    <div className="header">
-      <Header />
-    </div>
-    <div className="content">{props.children}</div>
-
-    <style jsx>{`
-      .layout {
-        display: grid;
-        grid-template-rows: 60px 1fr;
-      }
-      .header {
-        background: #f4f5f6;
-        display: grid;
-        align-items: center;
-        padding: 20px;
-      }
-      .content {
-        padding: 20px;
-      }
-    `}</style>
-
-    <style jsx global>{`
-      body {
-        padding: 0;
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-          "Segoe UI Symbol";
-      }
-    `}</style>
-  </div>
+  <MainLayout>
+    <Header />
+    <Content>{props.children}</Content>
+  </MainLayout>
 );
 
 export default Layout;

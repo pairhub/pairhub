@@ -4,11 +4,29 @@ import Link from "next/link";
 import styled from "styled-components";
 import Head from "./Head";
 
+const Logo = styled.img`
+  height: 50px;
+  width: 50px;
+  margin-right: 15px;
+  cursor: pointer;
+`;
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 25px 0;
+`;
+
+const FlexEnd = styled.div`
+  margin-left: auto;
+`;
+
 const Avatar = styled.img`
   height: 50px;
   width: 50px;
-  border: 1px solid red;
+  border-radius: 25px;
   display: inline-block;
+  cursor: pointer;
 `;
 
 const MenuLink = styled.a`
@@ -23,8 +41,13 @@ const Header = ({ loading, currentUser }) => {
   } else if (currentUser) {
     loginOrProfile = (
       <span>
-        <Avatar src={currentUser.avatar_url} />
         <a href="/logout">Log out</a>
+        <Link
+          as={`/@${currentUser.username}`}
+          href={`/profile?username=${currentUser.username}`}
+        >
+          <Avatar src={currentUser.avatar_url} />
+        </Link>
       </span>
     );
   } else {
@@ -32,16 +55,19 @@ const Header = ({ loading, currentUser }) => {
   }
 
   return (
-    <div>
+    <Container>
       <Head />
+      <Link href="/">
+        <Logo src="/static/pairhub-logo.png" />
+      </Link>
       <Link href="/">
         <MenuLink>Home</MenuLink>
       </Link>
       <Link href="/about">
         <MenuLink>About</MenuLink>
       </Link>
-      {loginOrProfile}
-    </div>
+      <FlexEnd>{loginOrProfile}</FlexEnd>
+    </Container>
   );
 };
 
