@@ -1,9 +1,10 @@
 import Layout from "../components/Layout";
 import withData from "../lib/withData";
+import Posts from "../components/Posts";
 
 const Index = () => (
   <Layout>
-    <p>Welcome to PairHub</p>
+    <Posts />
   </Layout>
 );
 
