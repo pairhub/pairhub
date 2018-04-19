@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Post = styled.div`
   background: white;
   padding: 10px;
-  margin: 10px 0;
+  margin-bottom: 20px;
 `;
 
 const Posts = ({ loading, allPosts }) => {
@@ -19,7 +19,7 @@ const Posts = ({ loading, allPosts }) => {
         {post.created_at}
       </Post>
     ));
-    return cards;
+    return <div>{cards}</div>;
   }
   return <p>404..</p>;
 };

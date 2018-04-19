@@ -10,12 +10,19 @@ injectGlobal`
       Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
       "Segoe UI Symbol";
   }
+  a {
+    color: #0000FF;
+    cursor: pointer;
+  }
 `;
 
 const MainLayout = styled.div`
   display: grid;
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 0 20px;
   grid-template-rows: 100px 1fr;
-  grid-template-columns: 900px;
+  grid-template-columns: 1fr;
   justify-content: center;
 `;
 
