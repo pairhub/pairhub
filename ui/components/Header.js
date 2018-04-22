@@ -7,7 +7,7 @@ import Head from "./Head";
 const Logo = styled.img`
   height: 50px;
   width: 50px;
-  margin-right: 15px;
+  margin-right: 20px;
   cursor: pointer;
 `;
 
@@ -30,7 +30,40 @@ const Avatar = styled.img`
 `;
 
 const MenuLink = styled.a`
-  margin-right: 15px;
+  margin: 0 15px;
+  color: #7f7f7f;
+  font-weight: 500;
+  font-size: 18px;
+  transition: color 50ms ease-in-out;
+  text-decoration: none;
+
+  &:hover {
+    color: #404040;
+  }
+`;
+
+const Search = styled.input`
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px 0 rgba(126, 126, 126, 0.075);
+  height: 50px;
+  padding: 0 15px;
+  font-size: 18px;
+  font-weight: 300;
+  border: 0;
+  margin-right: 20px;
+  transition: box-shadow 100ms ease-in-out;
+  width: 285px;
+
+  ::placeholder {
+    color: #878787;
+    font-weight: 300;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 2px 4px 0 rgba(126, 126, 126, 0.2);
+  }
 `;
 
 const Header = ({ loading, currentUser }) => {
@@ -60,12 +93,16 @@ const Header = ({ loading, currentUser }) => {
       <Link href="/">
         <Logo src="/static/pairhub-logo.png" />
       </Link>
-      <Link href="/">
-        <MenuLink>Home</MenuLink>
-      </Link>
+      <Search type="text" placeholder="Search posts" />
       <Link href="/about">
         <MenuLink>About</MenuLink>
       </Link>
+      <MenuLink href="https://gitter.im/pairhub/Lobby" target="_blank">
+        Chat
+      </MenuLink>
+      <MenuLink href="https://github.com/pairhub/pairhub" target="_blank">
+        Source
+      </MenuLink>
       <FlexEnd>{loginOrProfile}</FlexEnd>
     </Container>
   );

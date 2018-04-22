@@ -23,6 +23,7 @@ const MainLayout = styled.div`
   padding: 0 20px;
   grid-template-rows: 100px 1fr;
   grid-template-columns: 1fr;
+  grid-gap: 20px;
   justify-content: center;
 `;
 
