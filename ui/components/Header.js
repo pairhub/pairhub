@@ -30,7 +30,7 @@ const Avatar = styled.img`
 `;
 
 const MenuLink = styled.a`
-  margin: 0 15px;
+  padding: 10px 15px;
   color: #7f7f7f;
   font-weight: 500;
   font-size: 18px;

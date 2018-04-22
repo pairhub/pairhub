@@ -31,12 +31,12 @@ const Button = styled.button`
 
 const Sidebar = styled.div``;
 
-const Index = () => (
+const Index = props => (
   <Layout>
     <Grid>
       <Posts />
       <Sidebar>
-        <Button>New post</Button>
+        <Button onClick={props.toggleModal}>New post</Button>
       </Sidebar>
     </Grid>
   </Layout>

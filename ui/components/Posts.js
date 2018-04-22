@@ -53,13 +53,6 @@ const Date = styled.div`
   font-weight: 300;
 `;
 
-const formatDate = date => {
-  console.log(date);
-  const formatted = moment(date).format("MMM D");
-  console.log(formatted);
-  return formatted;
-};
-
 const Posts = ({ loading, allPosts }) => {
   if (loading) {
     return <p>Loading...</p>;
@@ -72,7 +65,7 @@ const Posts = ({ loading, allPosts }) => {
             <AuthorName>
               {post.author.name} <Username>@{post.author.username}</Username>
             </AuthorName>
-            <Date>{formatDate(post.created_at)}</Date>
+            <Date>{moment(post.created_at).format("MMM D")}</Date>
           </Header>
           <Content>{post.content}</Content>
         </Card>
