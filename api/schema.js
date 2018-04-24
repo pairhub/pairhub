@@ -13,7 +13,6 @@ type User {
 
 type Post {
   _id: String!
-  title: String!
   content: String!
   author: User!
   comments: [Comment]
@@ -38,7 +37,7 @@ type Query {
 }
 
 type Mutation {
-  createPost(title: String!, content: String!): Post
+  createPost(content: String!): Post
   createComment(postId: String!, content: String!): Comment
 }
 `;

@@ -20,11 +20,10 @@ export default {
     comment: async (_, { id }, { Comment }) => Comment.findOne({ _id: id }),
   },
   Mutation: {
-    createPost: async (_, { title, content }, { Post, currentUser }) => {
+    createPost: async (_, { content }, { Post, currentUser }) => {
       if (!currentUser) throw new Error('Not logged in');
 
       return new Post({
-        title,
         content,
         authorId: currentUser.userId,
       }).save();
