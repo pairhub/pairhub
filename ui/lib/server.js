@@ -18,23 +18,19 @@ app
   .then(() => {
     const server = express();
 
-    server.get("/a", (req, res) => {
-      return app.render(req, res, "/b", req.query);
-    });
-
-    server.get("/b", (req, res) => {
-      return app.render(req, res, "/a", req.query);
-    });
-
     server.use("/graphql", apiProxy);
     server.use("/graphiql", apiProxy);
     server.use("/login", apiProxy);
     server.use("/logout", apiProxy);
 
     server.get("/@:username", (req, res) => {
-      const actualPage = "/profile";
-      const queryParams = { username: req.params.username };
-      app.render(req, res, actualPage, queryParams);
+      const params = { username: req.params.username };
+      app.render(req, res, "/profile", params);
+    });
+
+    server.get("/post/:id", (req, res) => {
+      const params = { id: req.params.id };
+      app.render(req, res, "/post", params);
     });
 
     server.get("*", (req, res) => {
