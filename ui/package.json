@@ -13,7 +13,7 @@
     "http-proxy-middleware": "^0.18.0",
     "isomorphic-unfetch": "^2.0.0",
     "moment": "^2.22.1",
-    "next": "^6.0.0-canary.4",
+    "next": "^6.0.0-canary.7",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-apollo": "^2.0.4",
