@@ -1,24 +1,16 @@
 import App, { Container } from "next/app";
 import React from "react";
-import styled from "styled-components";
 
-const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
-`;
+import withData from "../lib/withData";
+import Modal from "../components/Modal";
 
-export default class MyApp extends App {
+class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
 
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
-
     return { pageProps };
   }
 
@@ -26,15 +18,23 @@ export default class MyApp extends App {
     modal: false
   };
 
-  toggleModal = () => this.setState({ modal: !this.state.modal });
+  openModal = name => {
+    this.setState({ modal: name });
+  };
+
+  closeModal = () => {
+    this.setState({ modal: null });
+  };
 
   render() {
     const { Component, pageProps } = this.props;
     return (
       <Container>
-        {this.state.modal && <Overlay onClick={this.toggleModal} />}
-        <Component toggleModal={this.toggleModal} {...pageProps} />
+        <Modal active={this.state.modal} closeModal={this.closeModal} />
+        <Component {...pageProps} openModal={this.openModal} />
       </Container>
     );
   }
 }
+
+export default withData(MyApp);
