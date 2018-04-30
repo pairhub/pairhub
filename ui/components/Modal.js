@@ -26,12 +26,14 @@ const modals = {
 };
 
 export default ({ active, closeModal }) => {
+  let modal;
+  if (active === "newPost") {
+    modal = <NewPost closeModal={closeModal} />;
+  }
   return (
     active && (
       <Overlay onClick={closeModal}>
-        <ModalCard onClick={e => e.stopPropagation()}>
-          {modals[`${active}`]}
-        </ModalCard>
+        <ModalCard onClick={e => e.stopPropagation()}>{modal}</ModalCard>
       </Overlay>
     )
   );

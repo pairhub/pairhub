@@ -4,12 +4,18 @@ import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import Router from "next/router";
 
+import { POSTS_QUERY } from "../components/Posts";
+
 const CREATE_POST = gql`
   mutation createPost($content: String!) {
     createPost(content: $content) {
+      _id
       content
+      created_at
       author {
+        name
         username
+        avatar_url
       }
     }
   }
@@ -37,20 +43,31 @@ class NewPost extends Component {
     this.setState({ value: e.target.value });
   };
 
-  onSubmit = e => {
-    e.preventDefault();
-    console.log(this.state.value);
-  };
-
   render() {
     return (
-      <Mutation mutation={CREATE_POST}>
+      <Mutation
+        mutation={CREATE_POST}
+        update={(cache, { data: { createPost } }) => {
+          const { allPosts } = cache.readQuery({ query: POSTS_QUERY });
+          cache.writeQuery({
+            query: POSTS_QUERY,
+            data: { allPosts: allPosts.concat([createPost]) }
+          });
+        }}
+      >
         {createPost => (
           <form
             onSubmit={e => {
               e.preventDefault();
-              createPost({ variables: { content: this.state.value } });
-              Router.push("/");
+              createPost({
+                variables: { content: this.state.value }
+              }).then(({ data: { createPost } }) => {
+                Router.push(
+                  `/post?id=${createPost._id}`,
+                  `/post/${createPost._id}`
+                );
+                this.props.closeModal();
+              });
             }}
           >
             <Input

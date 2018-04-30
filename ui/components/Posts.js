@@ -6,13 +6,15 @@ const Posts = ({ loading, allPosts }) => {
   if (loading) {
     return <p>Loading...</p>;
   } else if (allPosts) {
-    const cards = allPosts.map(post => <Post key={post._id} post={post} />);
+    const cards = allPosts
+      .map(post => <Post key={post._id} post={post} />)
+      .sort((a, b) => (a.created_at < b.created_at ? -1 : 1));
     return <div>{cards}</div>;
   }
   return <p>404..</p>;
 };
 
-const POSTS_QUERY = gql`
+export const POSTS_QUERY = gql`
   query allPosts {
     allPosts {
       _id
