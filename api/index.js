@@ -1,7 +1,6 @@
 import express from 'express';
-import bodyParser from 'body-parser';
-import { graphiqlExpress, graphqlExpress } from 'apollo-server-express';
-import { makeExecutableSchema } from 'graphql-tools';
+import { ApolloServer } from 'apollo-server-express';
+
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
@@ -13,30 +12,22 @@ import { User, Post, Comment } from './models';
 dotenv.config();
 mongoose.connect('mongodb://localhost/db');
 
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-});
-
 const app = express();
-const PORT = 3010;
 
 setupGitHubLogin(app);
 
-app.use(
-  '/graphql',
-  bodyParser.json(),
-  graphqlExpress(req => ({
-    schema,
-    context: {
-      currentUser: req.user,
-      User,
-      Post,
-      Comment,
-    },
-  })),
-);
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req }) => ({
+    currentUser: req.user,
+    User,
+    Post,
+    Comment,
+  }),
+});
 
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+server.applyMiddleware({ app });
 
-app.listen(PORT);
+app.listen({ port: 3010 }, () =>
+  console.log(`🚀 Server ready at http://localhost:3010${server.graphqlPath}`));
