@@ -28,6 +28,10 @@ export default {
         authorId: currentUser.userId,
       }).save();
     },
+    deletePost: async (_, { id }, { Post, currentUser }) => {
+      if (!currentUser) throw new Error('Not logged in');
+      return Post.findOneAndRemove({ _id: id, authorId: currentUser.userId });
+    },
     createComment: async (_, { postId, content }, { Comment, currentUser }) => {
       if (!currentUser) throw new Error('Not logged in');
 
