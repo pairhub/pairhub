@@ -6,6 +6,7 @@ export default {
   Post: {
     comments: async (parent, args, { Comment }) => Comment.find({ postId: parent._id }),
     author: async (parent, args, { User }) => User.findOne({ userId: parent.authorId }),
+    created_at: parent => new Date(parent.created_at).getTime(),
   },
   Comment: {
     post: async (parent, args, { Post }) => Post.findOne({ _id: parent.postId }),
@@ -16,7 +17,7 @@ export default {
     allUsers: async (_, args, { User }) => User.find(),
     currentUser: (_, args, { currentUser }) => currentUser,
     post: async (_, { id }, { Post }) => Post.findOne({ _id: id }),
-    allPosts: async (_, args, { Post }) => Post.find(),
+    allPosts: async (_, args, { Post }) => Post.find().sort({ created_at: -1 }),
     comment: async (_, { id }, { Comment }) => Comment.findOne({ _id: id }),
   },
   Mutation: {
