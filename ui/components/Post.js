@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import moment from "moment";
+import gql from "graphql-tag";
+import { Mutation } from "react-apollo";
 
 import { Card } from "./styled";
+
+import { POSTS_QUERY } from "../components/Posts";
 
 const Container = styled.div`
   display: grid;
@@ -46,7 +50,18 @@ const Date = styled.div`
   font-weight: 300;
 `;
 
-const Post = ({ post }) => {
+const Actions = styled.div``;
+
+const DELETE_POST = gql`
+  mutation deletePost($id: String!) {
+    deletePost(id: $id) {
+      _id
+    }
+  }
+`;
+
+const Post = ({ post, currentUser }) => {
+  if (!post) return null;
   return (
     <Container key={post._id}>
       <Avatar src={post.author.avatar_url} />
@@ -55,9 +70,38 @@ const Post = ({ post }) => {
           <AuthorName>
             {post.author.name} <Username>@{post.author.username}</Username>
           </AuthorName>
-          <Date>{moment(post.created_at).format("MMM D")}</Date>
+          <Date>{moment(Number(post.created_at)).format("MMM D")}</Date>
         </Header>
         <Content>{post.content}</Content>
+        <Actions>
+          <Mutation
+            mutation={DELETE_POST}
+            update={(cache, { data: { deletePost } }) => {
+              const { allPosts } = cache.readQuery({ query: POSTS_QUERY });
+              cache.writeQuery({
+                query: POSTS_QUERY,
+                data: {
+                  allPosts: allPosts.filter(post => post._id !== deletePost._id)
+                }
+              });
+            }}
+          >
+            {deletePost => (
+              <Actions>
+                {currentUser &&
+                  post.author._id === currentUser._id && (
+                    <span
+                      onClick={() =>
+                        deletePost({ variables: { id: post._id } })
+                      }
+                    >
+                      Delete
+                    </span>
+                  )}
+              </Actions>
+            )}
+          </Mutation>
+        </Actions>
       </Card>
     </Container>
   );

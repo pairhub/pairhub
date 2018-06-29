@@ -1,7 +1,9 @@
 import App, { Container } from "next/app";
 import React from "react";
+import { ApolloProvider, Query } from "react-apollo";
+import gql from "graphql-tag";
 
-import withData from "../lib/withData";
+import withApolloClient from "../lib/withApolloClient";
 import Modal from "../components/Modal";
 
 class MyApp extends App {
@@ -27,14 +29,37 @@ class MyApp extends App {
   };
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, apolloClient } = this.props;
     return (
       <Container>
-        <Modal active={this.state.modal} closeModal={this.closeModal} />
-        <Component {...pageProps} openModal={this.openModal} />
+        <ApolloProvider client={apolloClient}>
+          <Query
+            query={gql`
+              {
+                currentUser {
+                  _id
+                  avatar_url
+                  userId
+                  username
+                }
+              }
+            `}
+          >
+            {({ data: { currentUser } }) => (
+              <>
+                <Modal active={this.state.modal} closeModal={this.closeModal} />
+                <Component
+                  {...pageProps}
+                  openModal={this.openModal}
+                  currentUser={currentUser}
+                />
+              </>
+            )}
+          </Query>
+        </ApolloProvider>
       </Container>
     );
   }
 }
 
-export default withData(MyApp);
+export default withApolloClient(MyApp);

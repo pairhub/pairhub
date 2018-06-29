@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Router from "next/router";
+import Router, { withRouter } from "next/router";
 
 import Layout from "../components/Layout";
 import Posts from "../components/Posts";
@@ -45,10 +45,13 @@ const Text = styled.p`
 const Sidebar = styled.div``;
 
 const Index = props => {
+  // if (props.router.query.new) {
+  //   //props.openModal("newPost");
+  // }
   return (
-    <Layout>
+    <Layout {...props}>
       <Grid>
-        <Posts />
+        <Posts currentUser={props.currentUser} />
         <Sidebar>
           <Button onClick={() => props.openModal("newPost")}>New post</Button>
           <Card>
@@ -72,4 +75,4 @@ const Index = props => {
   );
 };
 
-export default Index;
+export default withRouter(Index);

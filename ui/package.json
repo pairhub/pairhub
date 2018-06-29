@@ -4,21 +4,21 @@
   "description": "Frontend for PairHub",
   "main": "index.js",
   "dependencies": {
-    "apollo-cache-inmemory": "^1.1.11",
-    "apollo-client": "^2.2.7",
+    "apollo-cache-inmemory": "^1.2.5",
+    "apollo-client": "^2.3.5",
     "apollo-link-http": "^1.5.3",
     "express": "^4.16.3",
     "graphql": "^0.13.2",
-    "graphql-tag": "^2.8.0",
+    "graphql-tag": "^2.9.2",
     "http-proxy-middleware": "^0.18.0",
     "isomorphic-unfetch": "^2.0.0",
-    "moment": "^2.22.1",
-    "next": "^6.0.0-canary.7",
-    "prop-types": "^15.6.1",
-    "react": "^16.2.0",
-    "react-apollo": "^2.0.4",
-    "react-dom": "^16.2.0",
-    "styled-components": "^3.2.3"
+    "moment": "^2.22.2",
+    "next": "^6.1.1",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.1",
+    "react-apollo": "^2.1.8",
+    "react-dom": "^16.4.1",
+    "styled-components": "^3.3.3"
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^1.5.1"

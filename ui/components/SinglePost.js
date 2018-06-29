@@ -1,22 +1,15 @@
-import { graphql } from "react-apollo";
+import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Post from "./Post";
-
-const SinglePost = ({ loading, post }) => {
-  if (loading) {
-    return <p>Loading...</p>;
-  } else if (post) {
-    return <Post post={post} />;
-  }
-  return <p>404..</p>;
-};
 
 const POST_QUERY = gql`
   query post($id: String!) {
     post(id: $id) {
+      _id
       content
       created_at
       author {
+        _id
         name
         username
         avatar_url
@@ -25,13 +18,14 @@ const POST_QUERY = gql`
   }
 `;
 
-export default graphql(POST_QUERY, {
-  options: ownProps => ({
-    variables: { id: ownProps.id },
-    fetchPolicy: "cache-first"
-  }),
-  props: ({ data: { loading, post } }) => ({
-    loading,
-    post
-  })
-})(SinglePost);
+const SinglePost = ({ id, currentUser }) => (
+  <Query query={POST_QUERY} variables={{ id }}>
+    {({ loading, error, data: { post } }) => {
+      if (loading) return "Loading...";
+      if (error) return `Error! ${error.message}`;
+      return <Post post={post} currentUser={currentUser} />;
+    }}
+  </Query>
+);
+
+export default SinglePost;

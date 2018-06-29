@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
-import Router from "next/router";
 
 import { POSTS_QUERY } from "../components/Posts";
 
@@ -13,6 +12,7 @@ const CREATE_POST = gql`
       content
       created_at
       author {
+        _id
         name
         username
         avatar_url
@@ -51,7 +51,7 @@ class NewPost extends Component {
           const { allPosts } = cache.readQuery({ query: POSTS_QUERY });
           cache.writeQuery({
             query: POSTS_QUERY,
-            data: { allPosts: allPosts.concat([createPost]) }
+            data: { allPosts: [createPost].concat(allPosts) }
           });
         }}
       >
@@ -62,10 +62,10 @@ class NewPost extends Component {
               createPost({
                 variables: { content: this.state.value }
               }).then(({ data: { createPost } }) => {
-                Router.push(
-                  `/post?id=${createPost._id}`,
-                  `/post/${createPost._id}`
-                );
+                // Router.push(
+                //   `/post?id=${createPost._id}`,
+                //   `/post/${createPost._id}`
+                // );
                 this.props.closeModal();
               });
             }}

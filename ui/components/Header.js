@@ -1,5 +1,3 @@
-import { graphql } from "react-apollo";
-import gql from "graphql-tag";
 import Link from "next/link";
 import styled from "styled-components";
 import Head from "./Head";
@@ -17,9 +15,7 @@ const Container = styled.div`
   margin: 25px 0;
 `;
 
-const FlexEnd = styled.div`
-  margin-left: auto;
-`;
+const FlexEnd = styled.div``;
 
 const Avatar = styled.img`
   height: 50px;
@@ -43,6 +39,7 @@ const MenuLink = styled.a`
 `;
 
 const Search = styled.input`
+  flex: 1 1 auto;
   background: white;
   border-radius: 8px;
   box-shadow: 0 1px 4px 0 rgba(126, 126, 126, 0.075);
@@ -53,7 +50,6 @@ const Search = styled.input`
   border: 0;
   margin-right: 20px;
   transition: box-shadow 100ms ease-in-out;
-  width: 285px;
 
   ::placeholder {
     color: #878787;
@@ -66,63 +62,42 @@ const Search = styled.input`
   }
 `;
 
-const Header = ({ loading, currentUser }) => {
-  let loginOrProfile;
-
-  if (loading) {
-    loginOrProfile = <p>Loading</p>;
-  } else if (currentUser) {
-    loginOrProfile = (
-      <span>
-        <a href="/logout">Log out</a>
-        <Link
-          as={`/@${currentUser.username}`}
-          href={`/profile?username=${currentUser.username}`}
-        >
-          <Avatar src={currentUser.avatar_url} />
-        </Link>
-      </span>
-    );
-  } else {
-    loginOrProfile = <a href="/login/github">Login</a>;
-  }
-
+const Header = ({ currentUser }) => {
   return (
-    <Container>
+    <>
       <Head />
-      <Link href="/">
-        <Logo src="/static/pairhub-logo.png" />
-      </Link>
-      <Search type="text" placeholder="Search posts" />
-      <Link href="/about">
-        <MenuLink>About</MenuLink>
-      </Link>
-      <MenuLink href="https://gitter.im/pairhub/Lobby" target="_blank">
-        Chat
-      </MenuLink>
-      <MenuLink href="https://github.com/pairhub/pairhub" target="_blank">
-        Source
-      </MenuLink>
-      <FlexEnd>{loginOrProfile}</FlexEnd>
-    </Container>
+      <Container>
+        <Link href="/">
+          <Logo src="/static/pairhub-logo.png" />
+        </Link>
+        <Search type="text" placeholder="Search posts" />
+        <Link href="/about">
+          <MenuLink>About</MenuLink>
+        </Link>
+        <MenuLink href="https://gitter.im/pairhub/Lobby" target="_blank">
+          Chat
+        </MenuLink>
+        <MenuLink href="https://github.com/pairhub/pairhub" target="_blank">
+          Source
+        </MenuLink>
+        <FlexEnd>
+          {currentUser ? (
+            <span>
+              <a href="/logout">Log out</a>
+              <Link
+                as={`/@${currentUser.username}`}
+                href={`/profile?username=${currentUser.username}`}
+              >
+                <Avatar src={currentUser.avatar_url} />
+              </Link>
+            </span>
+          ) : (
+            <a href="/login/github">Login</a>
+          )}
+        </FlexEnd>
+      </Container>
+    </>
   );
 };
 
-const CURRENT_USER_QUERY = gql`
-  {
-    currentUser {
-      username
-      avatar_url
-    }
-  }
-`;
-
-export default graphql(CURRENT_USER_QUERY, {
-  options: {
-    fetchPolicy: "cache-first"
-  },
-  props: ({ data: { loading, currentUser } }) => ({
-    loading,
-    currentUser
-  })
-})(Header);
+export default Header;

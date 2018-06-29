@@ -31,7 +31,7 @@ const Content = styled.div``;
 
 const Layout = props => (
   <MainLayout>
-    <Header />
+    <Header currentUser={props.currentUser} />
     <Content>{props.children}</Content>
   </MainLayout>
 );

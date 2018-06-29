@@ -2,14 +2,13 @@ import { withRouter } from "next/router";
 
 import SinglePost from "../components/SinglePost";
 import Layout from "../components/Layout";
-import withData from "../lib/withData";
 
 const Post = props => {
   return (
-    <Layout>
-      <SinglePost id={props.router.query.id} />
+    <Layout {...props}>
+      <SinglePost id={props.router.query.id} currentUser={props.currentUser} />
     </Layout>
   );
 };
 
-export default withRouter(withData(Post));
+export default withRouter(Post);

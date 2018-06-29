@@ -1,18 +1,6 @@
-import { graphql } from "react-apollo";
+import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import Post from "./Post";
-
-const Posts = ({ loading, allPosts }) => {
-  if (loading) {
-    return <p>Loading...</p>;
-  } else if (allPosts) {
-    const cards = allPosts
-      .map(post => <Post key={post._id} post={post} />)
-      .sort((a, b) => (a.created_at < b.created_at ? -1 : 1));
-    return <div>{cards}</div>;
-  }
-  return <p>404..</p>;
-};
 
 export const POSTS_QUERY = gql`
   query allPosts {
@@ -21,6 +9,7 @@ export const POSTS_QUERY = gql`
       content
       created_at
       author {
+        _id
         name
         username
         avatar_url
@@ -29,12 +18,20 @@ export const POSTS_QUERY = gql`
   }
 `;
 
-export default graphql(POSTS_QUERY, {
-  options: {
-    fetchPolicy: "cache-first"
-  },
-  props: ({ data: { loading, allPosts } }) => ({
-    loading,
-    allPosts
-  })
-})(Posts);
+const Posts = ({ currentUser }) => (
+  <Query query={POSTS_QUERY}>
+    {({ loading, error, data: { allPosts } }) => {
+      if (loading) return "Loading...";
+      if (error) return `Error! ${error.message}`;
+      return (
+        <div>
+          {allPosts.map(post => (
+            <Post key={post._id} post={post} currentUser={currentUser} />
+          ))}
+        </div>
+      );
+    }}
+  </Query>
+);
+
+export default Posts;
