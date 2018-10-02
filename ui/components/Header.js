@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 import Head from "./Head";
+import ProfileArea from "./ProfileArea";
 
 const Logo = styled.img`
   height: 50px;
@@ -82,15 +83,7 @@ const Header = ({ currentUser }) => {
         </MenuLink>
         <FlexEnd>
           {currentUser ? (
-            <span>
-              <a href="/logout">Log out</a>
-              <Link
-                as={`/@${currentUser.username}`}
-                href={`/profile?username=${currentUser.username}`}
-              >
-                <Avatar src={currentUser.avatar_url} />
-              </Link>
-            </span>
+            <ProfileArea currentUser={currentUser} />
           ) : (
             <a href="/login/github">Login</a>
           )}
