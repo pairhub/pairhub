@@ -21,16 +21,39 @@ const CREATE_POST = gql`
   }
 `;
 
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
 const Input = styled.textarea`
   border: 0;
   resize: none;
-  width: 100%;
-  min-height: 400px;
+  min-height: 300px;
   font-size: 18px;
   border-radius: 8px;
   padding: 15px;
   &:focus {
     outline: none;
+  }
+`;
+
+const SubmitButton = styled.button`
+  background: #0000ff;
+  display: block;
+  color: white;
+  font-size: 14px;
+  padding: 18px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 0;
+  cursor: pointer;
+  transition: background-color 50ms ease-in-out;
+  margin: 10px;
+
+  &:hover {
+    background: #0000af;
   }
 `;
 
@@ -56,7 +79,7 @@ class NewPost extends Component {
         }}
       >
         {createPost => (
-          <form
+          <Form
             onSubmit={e => {
               e.preventDefault();
               createPost({
@@ -76,8 +99,8 @@ class NewPost extends Component {
               autoFocus={true}
               placeholder="Write post.."
             />
-            <button type="submit">Submit</button>
-          </form>
+            <SubmitButton type="submit">Submit</SubmitButton>
+          </Form>
         )}
       </Mutation>
     );
