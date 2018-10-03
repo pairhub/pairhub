@@ -50,7 +50,13 @@ const Date = styled.div`
   font-weight: 300;
 `;
 
-const Actions = styled.div``;
+const Actions = styled.div`
+  margin-top: 5px;
+`;
+
+const Button = styled.button`
+  cursor: pointer;
+`;
 
 const DELETE_POST = gql`
   mutation deletePost($id: String!) {
@@ -86,20 +92,19 @@ const Post = ({ post, currentUser }) => {
               });
             }}
           >
-            {deletePost => (
-              <Actions>
-                {currentUser &&
-                  post.author._id === currentUser._id && (
-                    <span
-                      onClick={() =>
-                        deletePost({ variables: { id: post._id } })
-                      }
-                    >
-                      Delete
-                    </span>
-                  )}
-              </Actions>
-            )}
+            {deletePost =>
+              currentUser &&
+              post.author._id === currentUser._id && (
+                <Button
+                  onClick={() =>
+                    confirm("Are you sure you want to delete this post?") &&
+                    deletePost({ variables: { id: post._id } })
+                  }
+                >
+                  Delete
+                </Button>
+              )
+            }
           </Mutation>
         </Actions>
       </Card>
