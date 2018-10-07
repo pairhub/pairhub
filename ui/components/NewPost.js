@@ -71,10 +71,10 @@ class NewPost extends Component {
       <Mutation
         mutation={CREATE_POST}
         update={(cache, { data: { createPost } }) => {
-          const { allPosts } = cache.readQuery({ query: POSTS_QUERY });
+          const { posts } = cache.readQuery({ query: POSTS_QUERY });
           cache.writeQuery({
             query: POSTS_QUERY,
-            data: { allPosts: [createPost].concat(allPosts) }
+            data: { posts: [createPost].concat(posts) }
           });
         }}
       >

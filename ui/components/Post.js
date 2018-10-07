@@ -83,11 +83,11 @@ const Post = ({ post, currentUser }) => {
           <Mutation
             mutation={DELETE_POST}
             update={(cache, { data: { deletePost } }) => {
-              const { allPosts } = cache.readQuery({ query: POSTS_QUERY });
+              const { posts } = cache.readQuery({ query: POSTS_QUERY });
               cache.writeQuery({
                 query: POSTS_QUERY,
                 data: {
-                  allPosts: allPosts.filter(post => post._id !== deletePost._id)
+                  posts: posts.filter(post => post._id !== deletePost._id)
                 }
               });
             }}

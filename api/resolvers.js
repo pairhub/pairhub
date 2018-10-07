@@ -17,7 +17,7 @@ export default {
     allUsers: async (_, args, { User }) => User.find(),
     currentUser: (_, args, { currentUser }) => currentUser,
     post: async (_, { id }, { Post }) => Post.findOne({ _id: id }),
-    allPosts: async (_, args, { Post }) => Post.find().sort({ created_at: -1 }),
+    posts: async (_, args, { Post }) => Post.find().sort({ created_at: -1 }),
     comment: async (_, { id }, { Comment }) => Comment.findOne({ _id: id }),
   },
   Mutation: {
