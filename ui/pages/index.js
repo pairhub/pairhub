@@ -48,7 +48,6 @@ const Index = props => {
   // if (props.router.query.new) {
   //   //props.openModal("newPost");
   // }
-  console.log(props.router.query.s);
 
   return (
     <Layout {...props}>
