@@ -2,6 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import Head from "./Head";
 import ProfileArea from "./ProfileArea";
+import SearchBar from "./SearchBar";
 
 const Logo = styled.img`
   height: 50px;
@@ -18,14 +19,6 @@ const Container = styled.div`
 
 const FlexEnd = styled.div``;
 
-const Avatar = styled.img`
-  height: 50px;
-  width: 50px;
-  border-radius: 25px;
-  display: inline-block;
-  cursor: pointer;
-`;
-
 const MenuLink = styled.a`
   padding: 10px 15px;
   color: #7f7f7f;
@@ -39,31 +32,7 @@ const MenuLink = styled.a`
   }
 `;
 
-const Search = styled.input`
-  flex: 1 1 auto;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px 0 rgba(126, 126, 126, 0.075);
-  height: 50px;
-  padding: 0 15px;
-  font-size: 18px;
-  font-weight: 300;
-  border: 0;
-  margin-right: 20px;
-  transition: box-shadow 100ms ease-in-out;
-
-  ::placeholder {
-    color: #878787;
-    font-weight: 300;
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 2px 4px 0 rgba(126, 126, 126, 0.2);
-  }
-`;
-
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, searchPhrase }) => {
   return (
     <>
       <Head />
@@ -71,7 +40,7 @@ const Header = ({ currentUser }) => {
         <Link href="/">
           <Logo src="/static/pairhub-logo.png" />
         </Link>
-        <Search type="text" placeholder="Search posts" />
+        <SearchBar searchPhrase={searchPhrase} />
         <Link href="/about">
           <MenuLink>About</MenuLink>
         </Link>

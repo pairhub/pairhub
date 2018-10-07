@@ -34,7 +34,7 @@ export default gql`
     allUsers: [User]
     currentUser: User
     post(id: String!): Post
-    posts: [Post]
+    posts(searchPhrase: String): [Post]
     comment(id: String!): Comment
   }
 

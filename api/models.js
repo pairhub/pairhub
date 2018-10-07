@@ -22,7 +22,7 @@ export const User = mongoose.model('User', {
 });
 
 export const Post = mongoose.model('Post', {
-  content: String,
+  content: { type: String, text: true },
   authorId: String,
   created_at: {
     type: Date,
