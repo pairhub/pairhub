@@ -25,7 +25,7 @@ const Posts = ({ currentUser }) => (
       if (error) return `Error! ${error.message}`;
       return (
         <div>
-          {psts.map(post => (
+          {posts.map(post => (
             <Post key={post._id} post={post} currentUser={currentUser} />
           ))}
         </div>
