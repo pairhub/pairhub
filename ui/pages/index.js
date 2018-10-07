@@ -48,10 +48,14 @@ const Index = props => {
   // if (props.router.query.new) {
   //   //props.openModal("newPost");
   // }
+
   return (
     <Layout {...props}>
       <Grid>
-        <Posts currentUser={props.currentUser} />
+        <Posts
+          currentUser={props.currentUser}
+          searchPhrase={props.router.query.s}
+        />
         <Sidebar>
           <Button onClick={() => props.openModal("newPost")}>New post</Button>
           <Card>

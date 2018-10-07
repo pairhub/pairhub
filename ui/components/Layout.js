@@ -31,7 +31,10 @@ const Content = styled.div``;
 
 const Layout = props => (
   <MainLayout>
-    <Header currentUser={props.currentUser} />
+    <Header
+      currentUser={props.currentUser}
+      searchPhrase={props.router.query.s}
+    />
     <Content>{props.children}</Content>
   </MainLayout>
 );

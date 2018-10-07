@@ -92,19 +92,21 @@ const Post = ({ post, currentUser }) => {
               });
             }}
           >
-            {deletePost =>
-              currentUser &&
-              post.author._id === currentUser._id && (
-                <Button
-                  onClick={() =>
-                    confirm("Are you sure you want to delete this post?") &&
-                    deletePost({ variables: { id: post._id } })
-                  }
-                >
-                  Delete
-                </Button>
-              )
-            }
+            {deletePost => (
+              <Actions>
+                {currentUser &&
+                  post.author._id === currentUser._id && (
+                    <Button
+                      onClick={() =>
+                        confirm("Are you sure you want to delete this post?") &&
+                        deletePost({ variables: { id: post._id } })
+                      }
+                    >
+                      Delete
+                    </Button>
+                  )}
+              </Actions>
+            )}
           </Mutation>
         </Actions>
       </Card>
