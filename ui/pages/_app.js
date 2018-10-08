@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 
 import withApolloClient from "../lib/withApolloClient";
 import Modal from "../components/Modal";
+import "tippy.js/dist/tippy.css";
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -17,7 +18,7 @@ class MyApp extends App {
   }
 
   state = {
-    modal: false
+    modal: null
   };
 
   openModal = name => {

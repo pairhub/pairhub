@@ -6,7 +6,10 @@ import ProfilePage from "../components/ProfilePage";
 const Profile = props => {
   return (
     <Layout {...props}>
-      <ProfilePage username={props.router.query.username} />
+      <ProfilePage
+        username={props.router.query.username}
+        currentUser={props.currentUser}
+      />
     </Layout>
   );
 };

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 import Head from "./Head";
-import ProfileArea from "./ProfileArea";
+import ProfileDropdown from "./ProfileDropdown";
 import SearchBar from "./SearchBar";
 
 const Logo = styled.img`
@@ -52,7 +52,7 @@ const Header = ({ currentUser, searchPhrase }) => {
         </MenuLink>
         <FlexEnd>
           {currentUser ? (
-            <ProfileArea currentUser={currentUser} />
+            <ProfileDropdown currentUser={currentUser} />
           ) : (
             <a href="/login/github">Login</a>
           )}

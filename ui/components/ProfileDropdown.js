@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import Tippy from "@tippy.js/react";
-import "tippy.js/dist/tippy.css";
 
 const Avatar = styled.img`
   height: 50px;
@@ -37,7 +36,7 @@ const Item = styled.li`
   border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
-  
+
   a {
     color: #3d4045;
     display: block;
@@ -47,22 +46,20 @@ const Item = styled.li`
   &:hover {
     background: #f4f5f6;
   }
-  
+
   &:last-child {
     border-bottom: 0;
     a {
       color: #9aa1aa;
     }
   }
-
-  
 `;
 
 const Container = styled.div`
   position: relative;
 `;
 
-class ProfileArea extends Component {
+class ProfileDropdown extends Component {
   state = { dropdownExpanded: false };
 
   componentWillMount() {
@@ -115,4 +112,4 @@ class ProfileArea extends Component {
   }
 }
 
-export default ProfileArea;
+export default ProfileDropdown;

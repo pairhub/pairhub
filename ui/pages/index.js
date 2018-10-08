@@ -3,13 +3,7 @@ import Router, { withRouter } from "next/router";
 
 import Layout from "../components/Layout";
 import Posts from "../components/Posts";
-import { Card } from "../components/styled";
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 5fr 2fr;
-  grid-gap: 20px;
-`;
+import { Card, Grid } from "../components/styled";
 
 const Button = styled.button`
   background: #0000ff;

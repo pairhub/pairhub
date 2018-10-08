@@ -2,6 +2,8 @@ import styled from "styled-components";
 import moment from "moment";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import Tippy from "@tippy.js/react";
+import Link from "next/link";
 
 import { Card } from "./styled";
 
@@ -23,14 +25,14 @@ const Avatar = styled.img`
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 `;
 
-const AuthorName = styled.h3`
+const AuthorName = styled.a`
   font-size: 14px;
   font-weight: 700;
   color: #303030;
   margin: 0;
-  margin-bottom: 15px;
 `;
 
 const Username = styled.span`
@@ -44,10 +46,11 @@ const Content = styled.p`
   margin-bottom: 10px;
 `;
 
-const Date = styled.div`
+const DateArea = styled.div`
   color: #a2a2a2;
   font-size: 14px;
   font-weight: 300;
+  cursor: default;
 `;
 
 const Actions = styled.div`
@@ -73,10 +76,24 @@ const Post = ({ post, currentUser }) => {
       <Avatar src={post.author.avatar_url} />
       <Card>
         <Header>
-          <AuthorName>
-            {post.author.name} <Username>@{post.author.username}</Username>
-          </AuthorName>
-          <Date>{moment(Number(post.created_at)).format("MMM D")}</Date>
+          <Link
+            as={`/@${post.author.username}`}
+            href={`/profile?username=${post.author.username}`}
+          >
+            <AuthorName>
+              {post.author.name} <Username>@{post.author.username}</Username>
+            </AuthorName>
+          </Link>
+
+          <Tippy
+            content={moment(Number(post.created_at)).format("YYYY-MM-DD HH:mm")}
+            duration={100}
+            arrow
+          >
+            <DateArea>
+              {moment(Number(post.created_at)).format("MMM D")}
+            </DateArea>
+          </Tippy>
         </Header>
         <Content>{post.content}</Content>
         <Actions>
