@@ -1,7 +1,14 @@
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import styled from "styled-components";
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import Tippy from "@tippy.js/react";
 
-const USER_QUERY = gql`
+import Post from "./Post";
+import { Grid } from "./styled";
+
+const USER_WITH_POSTS_QUERY = gql`
   query userByUsername($username: String!) {
     user(username: $username) {
       userId
@@ -9,30 +16,90 @@ const USER_QUERY = gql`
       name
       github_url
       avatar_url
+      posts {
+        _id
+        content
+        created_at
+        author {
+          _id
+          name
+          username
+          avatar_url
+        }
+      }
     }
   }
 `;
 
-const ProfilePage = ({ username }) => {
+const ProfileArea = styled.div`
+  img {
+    border-radius: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+  }
+  h1 {
+    font-weight: 600;
+    font-size: 26px;
+    margin: 0;
+    color: #24292e;
+  }
+  h2 {
+    font-weight: 300;
+    font-size: 20px;
+    color: #666666;
+    margin: 0;
+  }
+  div {
+    margin: 5px 0;
+  }
+  a {
+    color: #666666;
+    font-size: 20px;
+    &:hover {
+      color: #24292e;
+    }
+  }
+`;
+
+const ProfilePage = ({ username, currentUser }) => {
   if (username) {
     return (
-      <Query query={USER_QUERY} variables={{ username }}>
+      <Query query={USER_WITH_POSTS_QUERY} variables={{ username }}>
         {({ loading, data: { user } }) => {
           if (loading) {
             return <p>Loading...</p>;
           } else if (user) {
             return (
-              <div>
-                <img
-                  src={user.avatar_url}
-                  style={{ borderRadius: "5px", marginBottom: "10px" }}
-                />
-                <h3>{user.username}</h3>
-                <h4>{user.name}</h4>
-                <p>
-                  <a href={user.github_url}>GitHub profile</a>
-                </p>
-              </div>
+              <Grid>
+                <div>
+                  {user.posts.map(post => (
+                    <Post
+                      key={post._id}
+                      post={post}
+                      currentUser={currentUser}
+                    />
+                  ))}
+                </div>
+                <ProfileArea>
+                  <img src={user.avatar_url} />
+                  <h1>{user.name}</h1>
+                  <h2>@{user.username}</h2>
+                  <div>
+                    <Tippy
+                      content="GitHub profile"
+                      placement="bottom"
+                      duration={100}
+                      distance={5}
+                    >
+                      <a href={user.github_url}>
+                        <Icon icon={faGithub} />
+                      </a>
+                    </Tippy>
+                  </div>
+
+                  <div />
+                </ProfileArea>
+              </Grid>
             );
           }
           return <p>404..</p>;

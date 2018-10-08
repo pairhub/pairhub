@@ -6,3 +6,9 @@ export const Card = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 4px 0 rgba(126, 126, 126, 0.17);
 `;
+
+export const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 5fr 2fr;
+  grid-gap: 20px;
+`;
