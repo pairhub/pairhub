@@ -12,6 +12,7 @@ const Overlay = styled.div`
   display: grid;
   justify-content: center;
   align-items: center;
+  z-index: 100;
 `;
 
 const ModalCard = styled.div`
