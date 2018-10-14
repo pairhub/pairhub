@@ -8,7 +8,7 @@ import Tippy from "@tippy.js/react";
 import Posts from "./Posts";
 import { Grid } from "./styled";
 
-const USER_WITH_POSTS_QUERY = gql`
+const USER_QUERY = gql`
   query userByUsername($username: String!) {
     user(username: $username) {
       userId
@@ -53,7 +53,7 @@ const ProfileArea = styled.div`
 const ProfilePage = ({ username, currentUser }) => {
   if (username) {
     return (
-      <Query query={USER_WITH_POSTS_QUERY} variables={{ username }}>
+      <Query query={USER_QUERY} variables={{ username }}>
         {({ loading, data: { user } }) => {
           if (loading) {
             return <p>Loading...</p>;
