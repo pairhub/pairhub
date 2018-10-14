@@ -5,7 +5,7 @@ import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import Tippy from "@tippy.js/react";
 
-import Post from "./Post";
+import Posts from "./Posts";
 import { Grid } from "./styled";
 
 const USER_WITH_POSTS_QUERY = gql`
@@ -16,17 +16,6 @@ const USER_WITH_POSTS_QUERY = gql`
       name
       github_url
       avatar_url
-      posts {
-        _id
-        content
-        created_at
-        author {
-          _id
-          name
-          username
-          avatar_url
-        }
-      }
     }
   }
 `;
@@ -71,15 +60,7 @@ const ProfilePage = ({ username, currentUser }) => {
           } else if (user) {
             return (
               <Grid>
-                <div>
-                  {user.posts.map(post => (
-                    <Post
-                      key={post._id}
-                      post={post}
-                      currentUser={currentUser}
-                    />
-                  ))}
-                </div>
+                <Posts authorId={user.userId} currentUser={currentUser} />
                 <ProfileArea>
                   <img src={user.avatar_url} />
                   <h1>{user.name}</h1>

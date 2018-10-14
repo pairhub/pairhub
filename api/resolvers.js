@@ -18,9 +18,25 @@ export default {
     allUsers: async (_, args, { User }) => User.find(),
     currentUser: (_, args, { currentUser }) => currentUser,
     post: async (_, { id }, { Post }) => Post.findOne({ _id: id }),
-    posts: async (_, { searchPhrase }, { Post }) => {
-      if (searchPhrase) return Post.find({ $text: { $search: searchPhrase } });
-      return Post.find().sort({ created_at: -1 });
+    posts: async (_, { offset, searchPhrase, authorId }, { Post }) => {
+      const limit = 20;
+
+      if (authorId) {
+        Post.find({ authorId })
+          .sort({ created_at: -1 })
+          .skip(offset || 0)
+          .limit(limit);
+      }
+      if (searchPhrase) {
+        return Post.find({ $text: { $search: searchPhrase } })
+          .sort({ created_at: -1 })
+          .skip(offset || 0)
+          .limit(limit);
+      }
+      return Post.find()
+        .sort({ created_at: -1 })
+        .skip(offset || 0)
+        .limit(limit);
     },
     comment: async (_, { id }, { Comment }) => Comment.findOne({ _id: id }),
   },
