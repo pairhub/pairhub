@@ -95,6 +95,7 @@ class ProfileDropdown extends Component {
             <List>
               <Item>
                 <Link
+                  prefetch
                   as={`/@${this.props.currentUser.username}`}
                   href={`/profile?username=${this.props.currentUser.username}`}
                 >
