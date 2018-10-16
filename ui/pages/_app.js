@@ -22,7 +22,7 @@ class MyApp extends App {
   };
 
   openModal = name => {
-    this.setState({ modal: name });
+    if (this.state.modal !== name) this.setState({ modal: name });
   };
 
   closeModal = () => {
@@ -52,6 +52,7 @@ class MyApp extends App {
                 <Component
                   {...pageProps}
                   openModal={this.openModal}
+                  activeModal={this.state.modal}
                   currentUser={currentUser}
                 />
               </>
