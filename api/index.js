@@ -10,7 +10,7 @@ import setupGitHubLogin from './auth';
 import { User, Post, Comment } from './models';
 
 dotenv.config();
-mongoose.connect('mongodb://localhost/db');
+mongoose.connect(process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : 'mongodb://localhost/db');
 
 const app = express();
 

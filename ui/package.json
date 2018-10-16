@@ -32,7 +32,7 @@
   },
   "scripts": {
     "dev": "node lib/server.js",
-    "build": "next build",
+    "build": "NODE_ENV=production next build",
     "start": "NODE_ENV=production node lib/server.js"
   },
   "repository": {

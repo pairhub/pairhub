@@ -1,10 +1,11 @@
 {
-  "name": "new-api",
+  "name": "pairhub-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node index.js"
+    "dev": "nodemon --exec babel-node index.js",
+    "start": "NODE_ENV=production babel-node index.js"
   },
   "author": "",
   "license": "ISC",
@@ -35,8 +36,6 @@
     "passport-github": "^1.1.0"
   },
   "babel": {
-    "presets": [
-      "env"
-    ]
+    "presets": ["env"]
   }
 }
