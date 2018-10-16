@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-import NewPost from "./NewPost";
+import NewPostModal from "./NewPostModal";
+import WelcomeModal from "./WelcomeModal";
 
 const Overlay = styled.div`
   position: fixed;
@@ -15,26 +16,22 @@ const Overlay = styled.div`
   z-index: 100;
 `;
 
-const ModalCard = styled.div`
-  background: white;
-  border-radius: 8px;
-  min-height: 400px;
-  min-width: 500px;
-`;
+const ModalCard = styled.div``;
 
 const modals = {
-  newPost: <NewPost />
+  newPost: NewPostModal,
+  welcome: WelcomeModal
 };
 
 export default ({ active, closeModal }) => {
-  let modal;
-  if (active === "newPost") {
-    modal = <NewPost closeModal={closeModal} />;
-  }
+  const ModalComponent = modals[active];
+
   return (
     active && (
       <Overlay onClick={closeModal}>
-        <ModalCard onClick={e => e.stopPropagation()}>{modal}</ModalCard>
+        <ModalCard onClick={e => e.stopPropagation()}>
+          <ModalComponent closeModal={closeModal} />
+        </ModalCard>
       </Overlay>
     )
   );

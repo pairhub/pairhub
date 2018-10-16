@@ -19,6 +19,7 @@ export const User = mongoose.model('User', {
     type: Date,
     default: Date.now,
   },
+  seenWelcomeModal: Boolean,
 });
 
 export const Post = mongoose.model('Post', {

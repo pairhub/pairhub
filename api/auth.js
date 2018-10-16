@@ -37,6 +37,7 @@ function setupGitHubLogin(app) {
         avatar_url: profile.photos[0].value,
         github_url: profile.profileUrl,
         email: (profile.emails && profile.emails[0].value) || null,
+        seenWelcomeModal: false,
       })
         .save()
         .then(result => done(null, result));
@@ -65,7 +66,12 @@ function setupGitHubLogin(app) {
     '/login/github/callback',
     passport.authenticate('github', { failureRedirect: '/' }),
     (req, res) => {
-      res.redirect(`/@${req.user.username}`);
+      if (!req.user.seenWelcomeModal) {
+        User.update({ _id: req.user._id }, { seenWelcomeModal: true }).exec();
+        res.redirect('/?welcome');
+      } else {
+        res.redirect('/');
+      }
     },
   );
 
