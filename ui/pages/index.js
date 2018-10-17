@@ -70,12 +70,6 @@ class Index extends Component {
                   PairHub is the friendly open source community to help you find
                   remote pair programming partners.
                 </Text>
-
-                <Text>
-                  Take a look at our guide for remote pair programming, review
-                  our code of conduct, check out the source code, say hello in
-                  the chat!
-                </Text>
               </Card>
             )}
           </Sidebar>
