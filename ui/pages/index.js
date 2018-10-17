@@ -1,6 +1,6 @@
 import { Component } from "react";
 import styled from "styled-components";
-import Router, { withRouter } from "next/router";
+import Router from "next/router";
 
 import Layout from "../components/Layout";
 import Posts from "../components/Posts";
@@ -85,4 +85,4 @@ class Index extends Component {
   }
 }
 
-export default withRouter(Index);
+export default Index;

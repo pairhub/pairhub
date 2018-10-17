@@ -1,5 +1,3 @@
-import { withRouter } from "next/router";
-
 import Layout from "../components/Layout";
 import ProfilePage from "../components/ProfilePage";
 
@@ -14,4 +12,4 @@ const Profile = props => {
   );
 };
 
-export default withRouter(Profile);
+export default Profile;

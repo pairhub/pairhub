@@ -30,7 +30,7 @@ class MyApp extends App {
   };
 
   render() {
-    const { Component, pageProps, apolloClient } = this.props;
+    const { Component, pageProps, apolloClient, router } = this.props;
     return (
       <Container>
         <ApolloProvider client={apolloClient}>
@@ -54,6 +54,7 @@ class MyApp extends App {
                   openModal={this.openModal}
                   activeModal={this.state.modal}
                   currentUser={currentUser}
+                  router={router}
                 />
               </>
             )}

@@ -1,5 +1,3 @@
-import { withRouter } from "next/router";
-
 import SinglePost from "../components/SinglePost";
 import Layout from "../components/Layout";
 
@@ -11,4 +9,4 @@ const Post = props => {
   );
 };
 
-export default withRouter(Post);
+export default Post;
