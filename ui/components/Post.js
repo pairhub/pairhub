@@ -97,22 +97,28 @@ const Post = ({ post, currentUser }) => {
         </Header>
         <Content>{post.content}</Content>
         <Actions>
-          <Mutation
-            mutation={DELETE_POST}
-            update={(cache, { data: { deletePost } }) => {
-              const { posts } = cache.readQuery({ query: POSTS_QUERY });
-              cache.writeQuery({
-                query: POSTS_QUERY,
-                data: {
-                  posts: posts.filter(post => post._id !== deletePost._id)
-                }
-              });
-            }}
-          >
-            {deletePost => (
-              <Actions>
-                {currentUser &&
-                  post.author._id === currentUser._id && (
+          {currentUser && (
+            <>
+              <a
+                href={`https://gitter.im/${post.author.username}`}
+                target="_blank"
+              >
+                <Button>DM</Button>
+              </a>
+              {currentUser._id === post.author._id && (
+                <Mutation
+                  mutation={DELETE_POST}
+                  update={(cache, { data: { deletePost } }) => {
+                    const { posts } = cache.readQuery({ query: POSTS_QUERY });
+                    cache.writeQuery({
+                      query: POSTS_QUERY,
+                      data: {
+                        posts: posts.filter(post => post._id !== deletePost._id)
+                      }
+                    });
+                  }}
+                >
+                  {deletePost => (
                     <Button
                       onClick={() =>
                         confirm("Are you sure you want to delete this post?") &&
@@ -122,9 +128,10 @@ const Post = ({ post, currentUser }) => {
                       Delete
                     </Button>
                   )}
-              </Actions>
-            )}
-          </Mutation>
+                </Mutation>
+              )}
+            </>
+          )}
         </Actions>
       </Card>
     </Container>
