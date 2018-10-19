@@ -67,7 +67,7 @@ function setupGitHubLogin(app) {
     passport.authenticate('github', { failureRedirect: '/' }),
     (req, res) => {
       if (!req.user.seenWelcomeModal) {
-        User.update({ _id: req.user._id }, { seenWelcomeModal: true }).exec();
+        User.updateOne({ _id: req.user._id }, { seenWelcomeModal: true }).exec();
         res.redirect('/?welcome');
       } else {
         res.redirect('/');
