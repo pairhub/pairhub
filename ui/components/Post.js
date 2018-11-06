@@ -44,6 +44,7 @@ const Content = styled.p`
   font-weight: 300;
   margin-top: 5px;
   margin-bottom: 10px;
+  line-height: 1.5;
 `;
 
 const DateArea = styled.div`
