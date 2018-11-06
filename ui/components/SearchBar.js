@@ -7,12 +7,12 @@ const Input = styled.input`
   background: white;
   border-radius: 8px;
   box-shadow: 0 1px 4px 0 rgba(126, 126, 126, 0.075);
-  height: 50px;
+  height: 45px;
   padding: 0 15px;
   font-size: 18px;
   font-weight: 300;
   border: 0;
-  margin-right: 20px;
+  margin-right: 10px;
   transition: box-shadow 100ms ease-in-out;
 
   ::placeholder {

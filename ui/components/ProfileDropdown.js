@@ -4,9 +4,9 @@ import styled from "styled-components";
 import Tippy from "@tippy.js/react";
 
 const Avatar = styled.img`
-  height: 50px;
-  width: 50px;
   border-radius: 25px;
+  height: 45px;
+  width: 45px;
   display: inline-block;
   cursor: pointer;
 `;
@@ -57,6 +57,7 @@ const Item = styled.li`
 
 const Container = styled.div`
   position: relative;
+  margin-left: 10px;
 `;
 
 class ProfileDropdown extends Component {
