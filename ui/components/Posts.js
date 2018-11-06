@@ -50,7 +50,7 @@ class Posts extends Component {
               variables: { offset: posts.length },
               updateQuery: (prev, { fetchMoreResult }) => {
                 if (!fetchMoreResult) return prev;
-                if (fetchMoreResult.posts.length === 0) {
+                if (fetchMoreResult.posts.length < 20) {
                   this.setState({ hasMore: false });
                 }
 
@@ -65,11 +65,10 @@ class Posts extends Component {
                 <Post key={post._id} post={post} currentUser={currentUser} />
               ))}
               <Center>
-                {this.state.hasMore ? (
-                  <button onClick={onLoadMore}>Load more</button>
-                ) : (
-                  <span>No more posts</span>
-                )}
+                {posts.length >= 20 &&
+                  this.state.hasMore && (
+                    <button onClick={onLoadMore}>Load more</button>
+                  )}
               </Center>
             </div>
           );
