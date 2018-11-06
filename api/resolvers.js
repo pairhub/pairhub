@@ -22,7 +22,7 @@ export default {
       const limit = 20;
 
       if (authorId) {
-        Post.find({ authorId })
+        return Post.find({ authorId })
           .sort({ created_at: -1 })
           .skip(offset || 0)
           .limit(limit);
