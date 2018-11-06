@@ -37,5 +37,20 @@
   },
   "babel": {
     "presets": ["env"]
+  },
+  "now": {
+    "alias": "api.pairhub.io",
+    "scale": {
+      "iad1": {
+        "min": 1,
+        "max": "auto"
+      }
+    },
+    "env": {
+      "GITHUB_CLIENT_ID": "@githubclientid",
+      "GITHUB_CLIENT_SECRET": "@githubclientsecret",
+      "SESSION_SECRET": "@sessionsecret",
+      "MONGODB_URI": "@mongodburi"
+    }
   }
 }
