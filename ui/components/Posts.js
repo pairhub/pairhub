@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Post from "./Post";
 
 export const POSTS_QUERY = gql`
-  query posts($offset: Int, $searchPhrase: String, $authorId: Int) {
+  query posts($offset: Int, $searchPhrase: String, $authorId: String) {
     posts(offset: $offset, searchPhrase: $searchPhrase, authorId: $authorId)
       @connection(key: "posts") {
       _id
