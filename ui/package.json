@@ -48,7 +48,7 @@
   "now": {
     "alias": "pairhub.io",
     "scale": {
-      "iad1": {
+      "bru1": {
         "min": 1,
         "max": "auto"
       }
