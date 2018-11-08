@@ -20,6 +20,7 @@ function setupGitHubLogin(app) {
       NODE_ENV !== 'production'
         ? 'http://localhost:3000/login/github/callback'
         : 'https://pairhub.io/login/github/callback',
+    scope: ['user:email'],
   };
 
   passport.use(new GitHubStrategy(githubOptions, (accessToken, refreshToken, profile, done) => {
