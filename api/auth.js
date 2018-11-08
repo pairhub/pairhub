@@ -24,7 +24,7 @@ function setupGitHubLogin(app) {
   };
 
   passport.use(new GitHubStrategy(githubOptions, (accessToken, refreshToken, profile, done) => {
-    User.findOne({ userId: profile.id }).then((res) => {
+    User.findOne({ userId: profile._json.node_id }).then((res) => {
       // Found a user
       if (res) {
         // TODO: Add updating of GitHub details here?
@@ -32,9 +32,10 @@ function setupGitHubLogin(app) {
       }
       // Found no user, add new user
       return new User({
-        userId: profile.id,
+        userId: profile._json.node_id,
         username: profile.username,
         name: profile.displayName,
+        bio: profile._json.bio,
         avatar_url: profile.photos[0].value,
         github_url: profile.profileUrl,
         email: (profile.emails && profile.emails[0].value) || null,
