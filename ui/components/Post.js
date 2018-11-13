@@ -51,7 +51,7 @@ const DateArea = styled.div`
   color: #a2a2a2;
   font-size: 14px;
   font-weight: 300;
-  cursor: default;
+  cursor: pointer;
 `;
 
 const Actions = styled.div`
@@ -91,9 +91,11 @@ const Post = ({ post, currentUser }) => {
             duration={100}
             arrow
           >
-            <DateArea>
-              {moment(Number(post.created_at)).format("MMM D")}
-            </DateArea>
+            <Link as={`/post/${post._id}`} href={`/post?id=${post._id}`}>
+              <DateArea>
+                {moment(Number(post.created_at)).format("MMM D")}
+              </DateArea>
+            </Link>
           </Tippy>
         </Header>
         <Content>{post.content}</Content>
