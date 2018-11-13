@@ -53,10 +53,9 @@ class Posts extends Component {
                 if (fetchMoreResult.posts.length < 20) {
                   this.setState({ hasMore: false });
                 }
-
-                return Object.assign({}, prev, {
+                return {
                   posts: [...prev.posts, ...fetchMoreResult.posts]
-                });
+                };
               }
             });
           return (
