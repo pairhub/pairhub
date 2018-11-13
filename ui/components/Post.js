@@ -7,8 +7,6 @@ import Link from "next/link";
 
 import { Card } from "./styled";
 
-import { POSTS_QUERY } from "../components/Posts";
-
 const Container = styled.div`
   display: grid;
   grid-gap: 20px;
@@ -111,15 +109,20 @@ const Post = ({ post, currentUser }) => {
               {currentUser._id === post.author._id && (
                 <Mutation
                   mutation={DELETE_POST}
-                  update={(cache, { data: { deletePost } }) => {
-                    const { posts } = cache.readQuery({ query: POSTS_QUERY });
-                    cache.writeQuery({
-                      query: POSTS_QUERY,
-                      data: {
-                        posts: posts.filter(post => post._id !== deletePost._id)
-                      }
-                    });
-                  }}
+                  refetchQueries={["posts"]}
+                  // update={(cache, { data: { deletePost } }) => {
+                  //   const { posts } = cache.readQuery({
+                  //     query: POSTS_QUERY
+                  //     //variables: variables
+                  //   });
+                  //   cache.writeQuery({
+                  //     query: POSTS_QUERY,
+                  //     //variables: variables,
+                  //     data: {
+                  //       posts: posts.filter(post => post._id !== deletePost._id)
+                  //     }
+                  //   });
+                  // }}
                 >
                   {deletePost => (
                     <Button
