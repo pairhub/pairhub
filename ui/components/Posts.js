@@ -40,6 +40,9 @@ class Posts extends Component {
 
   render() {
     const { currentUser, searchPhrase, authorId } = this.props;
+    const showNewPostForm =
+      currentUser && !(authorId && authorId !== currentUser.userId);
+
     return (
       <Query
         query={POSTS_QUERY}
@@ -66,7 +69,7 @@ class Posts extends Component {
           return (
             <div>
               <Flipper flipKey={this.state.focus}>
-                {currentUser && (
+                {showNewPostForm && (
                   <NewPost
                     currentUser={currentUser}
                     onFocus={this.onFocus}
