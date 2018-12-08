@@ -39,16 +39,12 @@ const Sidebar = styled.div``;
 
 export default props => (
   <Sidebar>
-    {props.currentUser ? (
-      <Button onClick={() => props.openModal("newPost")}>New post</Button>
-    ) : (
-      <Card>
-        <CardTitle>👋 Welcome to PairHub!</CardTitle>
-        <Text>
-          PairHub is the friendly open source community to help you find remote
-          pair programming partners.
-        </Text>
-      </Card>
-    )}
+    <Card>
+      <CardTitle>👋 Welcome to PairHub!</CardTitle>
+      <Text>
+        PairHub is the friendly open source community to help you find remote
+        pair programming partners.
+      </Text>
+    </Card>
   </Sidebar>
 );

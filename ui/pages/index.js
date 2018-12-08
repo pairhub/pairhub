@@ -19,7 +19,7 @@ class Index extends Component {
     return (
       <Grid>
         <Posts currentUser={currentUser} searchPhrase={router.query.s} />
-        <Sidebar currentUser={currentUser} openModal={openModal} />
+        <Sidebar />
       </Grid>
     );
   }

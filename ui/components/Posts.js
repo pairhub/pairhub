@@ -3,6 +3,8 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import styled from "styled-components";
 import Post from "./Post";
+import NewPost from "./NewPost";
+import { Flipper } from "react-flip-toolkit";
 
 export const POSTS_QUERY = gql`
   query posts($offset: Int, $searchPhrase: String, $authorId: String) {
@@ -27,11 +29,14 @@ const Center = styled.div`
 `;
 
 class Posts extends Component {
-  state = { hasMore: true };
+  state = { hasMore: true, focus: false };
 
   componentWillReceiveProps() {
     this.setState({ hasMore: true });
   }
+
+  onFocus = () => this.setState({ focus: true });
+  onBlur = () => this.setState({ focus: false });
 
   render() {
     const { currentUser, searchPhrase, authorId } = this.props;
@@ -60,15 +65,25 @@ class Posts extends Component {
             });
           return (
             <div>
-              {posts.map(post => (
-                <Post key={post._id} post={post} currentUser={currentUser} />
-              ))}
-              <Center>
-                {posts.length >= 20 &&
-                  this.state.hasMore && (
+              <Flipper flipKey={this.state.focus}>
+                {currentUser && (
+                  <NewPost
+                    currentUser={currentUser}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
+                    focus={this.state.focus}
+                  />
+                )}
+                {posts.map(post => (
+                  <Post key={post._id} post={post} currentUser={currentUser} />
+                ))}
+
+                <Center>
+                  {posts.length >= 20 && this.state.hasMore && (
                     <button onClick={onLoadMore}>Load more</button>
                   )}
-              </Center>
+                </Center>
+              </Flipper>
             </div>
           );
         }}

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Link from "next/link";
 
 export const Card = styled.div`
   background: white;
@@ -12,3 +13,23 @@ export const Grid = styled.div`
   grid-template-columns: 5fr 2fr;
   grid-gap: 20px;
 `;
+
+export const Container = styled.div`
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: auto 1fr;
+  margin-bottom: 25px;
+`;
+
+export const AvatarImg = styled.img`
+  width: 45px;
+  height: 45px;
+  border-radius: 25px;
+  cursor: pointer;
+`;
+
+export const Avatar = ({ src, username }) => (
+  <Link as={`/@${username}`} href={`/profile?username=${username}`}>
+    <AvatarImg src={src} />
+  </Link>
+);

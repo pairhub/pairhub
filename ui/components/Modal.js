@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-import NewPostModal from "./NewPostModal";
 import WelcomeModal from "./WelcomeModal";
 
 const Overlay = styled.div`
@@ -19,7 +18,6 @@ const Overlay = styled.div`
 const ModalCard = styled.div``;
 
 const modals = {
-  newPost: NewPostModal,
   welcome: WelcomeModal
 };
 

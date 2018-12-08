@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Post from "../components/Post";
 import { Grid } from "../components/styled";
 import { Card } from "../components/styled";
+import Sidebar from "../components/Sidebar";
 
 const CardTitle = styled.h3`
   margin: 0;
@@ -43,12 +44,6 @@ export default props => (
         return <Post post={post} currentUser={props.currentUser} />;
       }}
     </Query>
-    <Card>
-      <CardTitle>👋 Welcome to PairHub!</CardTitle>
-      <Text>
-        PairHub is the friendly open source community to help you find remote
-        pair programming partners.
-      </Text>
-    </Card>
+    <Sidebar />
   </Grid>
 );
