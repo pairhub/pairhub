@@ -29,8 +29,6 @@ const List = styled.ul`
 `;
 
 const Item = styled.li`
-  padding: 6px 8px;
-
   font-size: 14px;
   line-height: 18px;
   border-radius: 8px;
@@ -40,6 +38,7 @@ const Item = styled.li`
   a {
     color: #3d4045;
     display: block;
+    padding: 6px 8px;
     text-decoration: none;
   }
 
