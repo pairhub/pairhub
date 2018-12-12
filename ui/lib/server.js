@@ -33,6 +33,12 @@ app
       app.render(req, res, "/post", params);
     });
 
+    server.get("/:owner/:repo", (req, res) => {
+      const { owner, repo } = req.params;
+      const params = { name: `${owner}/${repo}` };
+      app.render(req, res, "/repository", params);
+    });
+
     server.get("*", (req, res) => {
       return handle(req, res);
     });
