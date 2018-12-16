@@ -43,7 +43,7 @@ const DateArea = styled.div`
 `;
 
 const Actions = styled.div`
-  margin-top: 5px;
+  margin-top: 10px;
 `;
 
 const Button = styled.button`
