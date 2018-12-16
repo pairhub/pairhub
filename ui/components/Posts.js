@@ -7,12 +7,26 @@ import NewPost from "./NewPost";
 import { Flipper } from "react-flip-toolkit";
 
 export const POSTS_QUERY = gql`
-  query posts($offset: Int, $searchPhrase: String, $authorId: String) {
-    posts(offset: $offset, searchPhrase: $searchPhrase, authorId: $authorId)
-      @connection(key: "posts", filter: ["searchPhrase", "authorId"]) {
+  query posts(
+    $offset: Int
+    $searchPhrase: String
+    $userId: String
+    $repository: String
+  ) {
+    posts(
+      offset: $offset
+      searchPhrase: $searchPhrase
+      userId: $userId
+      repository: $repository
+    )
+      @connection(
+        key: "posts"
+        filter: ["searchPhrase", "userId", "repository"]
+      ) {
       _id
       content
       created_at
+      repository
       author {
         _id
         name
@@ -39,19 +53,19 @@ class Posts extends Component {
   onBlur = () => this.setState({ focus: false });
 
   render() {
-    const { currentUser, searchPhrase, authorId } = this.props;
+    const { currentUser, searchPhrase, userId, repository } = this.props;
     const showNewPostForm =
-      currentUser && !(authorId && authorId !== currentUser.userId);
+      currentUser && !(userId && userId !== currentUser.userId);
 
     return (
       <Query
         query={POSTS_QUERY}
-        variables={{ offset: 0, searchPhrase, authorId }}
+        variables={{ offset: 0, searchPhrase, userId, repository }}
       >
         {({ loading, error, data: { posts }, fetchMore }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
-          if (posts.length === 0) return "No posts found";
+          // if (posts.length === 0) return "No posts found";
 
           const onLoadMore = () =>
             fetchMore({
@@ -75,6 +89,7 @@ class Posts extends Component {
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
                     focus={this.state.focus}
+                    repository={repository}
                   />
                 )}
                 {posts.map(post => (
