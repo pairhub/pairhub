@@ -2,7 +2,7 @@ import Head from "next/head";
 
 export default () => (
   <Head>
-    <title>PairHub</title>
+    <title>PairHub - Find remote pair programming partners</title>
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <meta name="description" content="Find remote pair programming partners" />
     <link
