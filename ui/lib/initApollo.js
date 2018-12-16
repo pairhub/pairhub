@@ -10,12 +10,17 @@ if (!process.browser) {
   global.fetch = fetch;
 }
 
+const API_URI =
+  process.env.NODE_ENV !== "production"
+    ? "http://localhost:3000/graphql"
+    : "https://pairhub.io/graphql";
+
 function create(initialState) {
   return new ApolloClient({
     connectToDevTools: process.browser,
     ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
     link: new HttpLink({
-      uri: "/graphql",
+      uri: API_URI,
       credentials: "same-origin" // Additional fetch() options like `credentials` or `headers`
     }),
     cache: new InMemoryCache().restore(initialState || {})
