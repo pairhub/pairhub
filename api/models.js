@@ -5,11 +5,12 @@ export const User = mongoose.model('User', {
     type: String,
     required: true,
     unique: true,
+    index: true,
   },
   username: {
     type: String,
     required: true,
-    unique: true,
+    index: true,
   },
   name: String,
   avatar_url: String,
@@ -24,7 +25,8 @@ export const User = mongoose.model('User', {
 
 export const Post = mongoose.model('Post', {
   content: { type: String, text: true },
-  authorId: String,
+  userId: { type: String, index: true },
+  repository: { type: String, index: true },
   created_at: {
     type: Date,
     default: Date.now,
@@ -33,8 +35,8 @@ export const Post = mongoose.model('Post', {
 
 export const Comment = mongoose.model('Comment', {
   content: String,
-  authorId: String,
-  postId: mongoose.Schema.Types.ObjectId,
+  userId: String,
+  postId: { type: mongoose.Schema.Types.ObjectId, index: true },
   created_at: {
     type: Date,
     default: Date.now,
