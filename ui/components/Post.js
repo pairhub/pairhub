@@ -31,7 +31,7 @@ const Username = styled.span`
 const Content = styled.p`
   font-weight: 300;
   margin-top: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 0;
   line-height: 1.5;
 `;
 
@@ -61,6 +61,7 @@ const DELETE_POST = gql`
 const Tags = styled.div`
   display: flex;
   justify-content: flex-start;
+  margin-top: 10px;
 `;
 
 const GreyButtonBox = styled.div`
@@ -118,8 +119,9 @@ const Post = ({ post, currentUser }) => {
             </Tippy>
           </Header>
           <Content>{post.content}</Content>
-          <Tags>
-            {post.repository && (
+
+          {post.repository && (
+            <Tags>
               <Link
                 as={`/${post.repository}`}
                 href={`/repository?repository=${post.repository}`}
@@ -130,52 +132,49 @@ const Post = ({ post, currentUser }) => {
                   </GreyButtonBox>
                 </a>
               </Link>
-            )}
-          </Tags>
+            </Tags>
+          )}
 
-          <Actions>
-            {currentUser && (
-              <>
-                <a
-                  href={`https://gitter.im/${post.author.username}`}
-                  target="_blank"
+          {currentUser && (
+            <Actions>
+              <a
+                href={`https://gitter.im/${post.author.username}`}
+                target="_blank"
+              >
+                <Button>DM</Button>
+              </a>
+              {currentUser._id === post.author._id && (
+                <Mutation
+                  mutation={DELETE_POST}
+                  refetchQueries={["posts"]}
+                  // update={(cache, { data: { deletePost } }) => {
+                  //   const { posts } = cache.readQuery({
+                  //     query: POSTS_QUERY
+                  //     //variables: variables
+                  //   });
+                  //   cache.writeQuery({
+                  //     query: POSTS_QUERY,
+                  //     //variables: variables,
+                  //     data: {
+                  //       posts: posts.filter(post => post._id !== deletePost._id)
+                  //     }
+                  //   });
+                  // }}
                 >
-                  <Button>DM</Button>
-                </a>
-                {currentUser._id === post.author._id && (
-                  <Mutation
-                    mutation={DELETE_POST}
-                    refetchQueries={["posts"]}
-                    // update={(cache, { data: { deletePost } }) => {
-                    //   const { posts } = cache.readQuery({
-                    //     query: POSTS_QUERY
-                    //     //variables: variables
-                    //   });
-                    //   cache.writeQuery({
-                    //     query: POSTS_QUERY,
-                    //     //variables: variables,
-                    //     data: {
-                    //       posts: posts.filter(post => post._id !== deletePost._id)
-                    //     }
-                    //   });
-                    // }}
-                  >
-                    {deletePost => (
-                      <Button
-                        onClick={() =>
-                          confirm(
-                            "Are you sure you want to delete this post?"
-                          ) && deletePost({ variables: { id: post._id } })
-                        }
-                      >
-                        Delete
-                      </Button>
-                    )}
-                  </Mutation>
-                )}
-              </>
-            )}
-          </Actions>
+                  {deletePost => (
+                    <Button
+                      onClick={() =>
+                        confirm("Are you sure you want to delete this post?") &&
+                        deletePost({ variables: { id: post._id } })
+                      }
+                    >
+                      Delete
+                    </Button>
+                  )}
+                </Mutation>
+              )}
+            </Actions>
+          )}
         </Card>
       </Container>
     </Flipped>
