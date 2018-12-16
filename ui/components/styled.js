@@ -19,6 +19,7 @@ export const Container = styled.div`
   grid-gap: 20px;
   grid-template-columns: auto 1fr;
   margin-bottom: 25px;
+  place-self: start stretch;
 `;
 
 export const AvatarImg = styled.img`
