@@ -11,6 +11,7 @@ const Logo = styled.img`
   height: 45px;
   width: 45px;
   margin-right: 20px;
+  border-radius: 3px;
   cursor: pointer;
 `;
 
@@ -21,22 +22,27 @@ const Container = styled.div`
 `;
 
 const MenuLink = styled.a`
-  padding: 12px 15px;
-  color: ${props => (props.blue ? "#0000ff" : "#7f7f7f")};
+  padding: 12px;
+  color: ${props => (props.blue ? "white" : "#7f7f7f")};
+  background-color: ${props => (props.blue ? "#0000ff" : "transparent")};
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
+  margin-left: 6px;
   transition: color 50ms ease-in-out;
   text-decoration: none;
   display: block;
-  border-radius: 4px;
-  svg {
-    font-size: 12px;
-    margin-left: 4px;
-  }
+  border-radius: 6px;
+
   &:hover {
-    background-color: rgba(90, 100, 109, 0.05);
-    color: ${props => (props.blue ? "#0000af" : "#404040")};
+    background-color: ${props =>
+      props.blue ? "#0000af" : "rgba(90, 100, 109, 0.05)"};
+    color: ${props => (props.blue ? "white" : "#404040")};
   }
+`;
+
+const SmallIcon = styled(Icon)`
+  font-size: 12px;
+  margin-left: 4px;
 `;
 
 const Header = ({ currentUser, searchPhrase }) => {
@@ -45,17 +51,17 @@ const Header = ({ currentUser, searchPhrase }) => {
       <Head />
       <Container>
         <Link href="/">
-          <Logo src="/static/pairhub-logo.png" />
+          <Logo src="/static/pairhub-logo-white-180.png" />
         </Link>
         <SearchBar searchPhrase={searchPhrase} />
         <Link href="/about">
           <MenuLink>About</MenuLink>
         </Link>
         <MenuLink href="https://gitter.im/pairhub/Lobby" target="_blank">
-          Chat <Icon icon={faExternalLinkAlt} />
+          Chat <SmallIcon icon={faExternalLinkAlt} />
         </MenuLink>
         <MenuLink href="https://github.com/pairhub/pairhub" target="_blank">
-          Source <Icon icon={faExternalLinkAlt} />
+          Source <SmallIcon icon={faExternalLinkAlt} />
         </MenuLink>
         {currentUser ? (
           <ProfileDropdown currentUser={currentUser} />

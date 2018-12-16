@@ -12,7 +12,7 @@ const Input = styled.input`
   font-size: 18px;
   font-weight: 300;
   border: 0;
-  margin-right: 10px;
+  margin-right: 5px;
   transition: box-shadow 100ms ease-in-out;
 
   ::placeholder {
