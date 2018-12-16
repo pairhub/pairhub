@@ -1,26 +1,6 @@
 import styled from "styled-components";
 import { Card } from "../components/styled";
 
-const Button = styled.button`
-  background: #0000ff;
-  width: 100%;
-  display: block;
-  color: white;
-  font-size: 14px;
-  padding: 18px;
-  border-radius: 6px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border: 0;
-  cursor: pointer;
-  transition: background-color 50ms ease-in-out;
-  margin-bottom: 20px;
-
-  &:hover {
-    background: #0000af;
-  }
-`;
-
 const CardTitle = styled.h3`
   margin: 0;
   font-size: 18px;
@@ -35,10 +15,8 @@ const Text = styled.p`
   margin: 10px 0;
 `;
 
-const Sidebar = styled.div``;
-
-export default props => (
-  <Sidebar>
+export default () => (
+  <div>
     <Card>
       <CardTitle>👋 Welcome to PairHub!</CardTitle>
       <Text>
@@ -46,5 +24,5 @@ export default props => (
         pair programming partners.
       </Text>
     </Card>
-  </Sidebar>
+  </div>
 );

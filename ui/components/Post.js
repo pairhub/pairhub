@@ -7,6 +7,8 @@ import Link from "next/link";
 import { Flipped } from "react-flip-toolkit";
 
 import { Card, Container, Avatar } from "./styled";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 
 const Header = styled.div`
   display: flex;
@@ -56,6 +58,34 @@ const DELETE_POST = gql`
   }
 `;
 
+const Tags = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
+
+const GreyButtonBox = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 7px 10px;
+  font-weight: 500;
+  font-size: 14px;
+  color: ${props => (props.active ? "#404040" : "#7f7f7f")};
+  border-radius: 6px;
+  background-color: rgba(90, 100, 109, 0.05);
+  cursor: pointer;
+
+  transition: background-color 50ms ease-in-out;
+  transition: color 50ms ease-in-out;
+  span {
+    margin-left: 8px;
+    text-decoration: none !important;
+  }
+  &:hover {
+    background-color: rgba(90, 100, 109, 0.07);
+    color: #404040;
+  }
+`;
+
 const Post = ({ post, currentUser }) => {
   if (!post) return null;
   return (
@@ -88,6 +118,21 @@ const Post = ({ post, currentUser }) => {
             </Tippy>
           </Header>
           <Content>{post.content}</Content>
+          <Tags>
+            {post.repository && (
+              <Link
+                as={`/${post.repository}`}
+                href={`/repository?repository=${post.repository}`}
+              >
+                <a style={{ textDecoration: "none" }}>
+                  <GreyButtonBox>
+                    <Icon icon={faGithub} /> <span>{post.repository}</span>
+                  </GreyButtonBox>
+                </a>
+              </Link>
+            )}
+          </Tags>
+
           <Actions>
             {currentUser && (
               <>

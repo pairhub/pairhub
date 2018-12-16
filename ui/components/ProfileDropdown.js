@@ -72,10 +72,7 @@ class ProfileDropdown extends Component {
 
   handleClick = e => {
     if (this.state.dropdownExpanded) {
-      if (this.node.contains(e.target)) {
-        return;
-      }
-      this.toggleDropdown();
+      if (!this.node.contains(e.target)) this.toggleDropdown();
     }
   };
 

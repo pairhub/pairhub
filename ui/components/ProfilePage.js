@@ -60,7 +60,7 @@ const ProfilePage = ({ username, currentUser }) => {
           } else if (user) {
             return (
               <Grid>
-                <Posts authorId={user.userId} currentUser={currentUser} />
+                <Posts userId={user.userId} currentUser={currentUser} />
                 <ProfileArea>
                   <img src={user.avatar_url} />
                   <h1>{user.name}</h1>

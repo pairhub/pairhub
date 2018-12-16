@@ -4,42 +4,35 @@ import gql from "graphql-tag";
 import { Grid } from "../components/styled";
 import Posts from "../components/Posts";
 import RepositoryInfo from "../components/RepositoryInfo";
-const GITHUB_SEARCH_QUERY = gql`
-  query GitHub_search($query: String!) {
-    GitHub_search(first: 1, type: REPOSITORY, query: $query) {
-      nodes {
-        ... on GitHub_Repository {
-          nameWithOwner
-          description
-          url
-          owner {
-            avatarUrl
-          }
-          issues(states: [OPEN]) {
-            totalCount
-          }
-          stargazers {
-            totalCount
-          }
-        }
-      }
+
+const REPOSITORY_QUERY = gql`
+  query repository($owner: String!, $name: String!) {
+    repository(owner: $owner, name: $name) {
+      full_name
+      description
+      avatar_url
+      url
+      open_issues_count
+      stargazers_count
     }
   }
 `;
 
 export default ({ router, currentUser }) => {
   const {
-    query: { name }
+    query: { repository }
   } = router;
+
+  const [owner, name] = repository.split("/");
   return (
     <Grid>
-      <Posts currentUser={currentUser} repository={name} />
-      <Query query={GITHUB_SEARCH_QUERY} variables={{ query: name }}>
-        {({ loading, error, data: { GitHub_search } }) => {
+      <Posts currentUser={currentUser} repository={repository} />
+      <Query query={REPOSITORY_QUERY} variables={{ owner, name }}>
+        {({ loading, error, data: { repository } }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
-          if (!GitHub_search.nodes[0]) return "no repo found";
-          return <RepositoryInfo repository={GitHub_search.nodes[0]} />;
+          if (!repository) return "no repo found";
+          return <RepositoryInfo repository={repository} />;
         }}
       </Query>
     </Grid>

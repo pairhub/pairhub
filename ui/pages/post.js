@@ -25,6 +25,7 @@ const POST_QUERY = gql`
       _id
       content
       created_at
+      repository
       author {
         _id
         name

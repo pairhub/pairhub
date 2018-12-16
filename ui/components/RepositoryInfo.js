@@ -66,17 +66,17 @@ export default ({ repository }) => (
       <ProfileArea>
         <a href={repository.url} target="_blank">
           <Title>
-            <img src={repository.owner.avatarUrl} /> {repository.nameWithOwner}
+            <img src={repository.avatar_url} /> {repository.full_name}
           </Title>
         </a>
         <h2>{repository.description}</h2>
         <span>
           <a href={`${repository.url}/issues`}>
-            {repository.issues.totalCount} open issues
+            {repository.open_issues_count} open issues
           </a>{" "}
           •{" "}
           <a href={`${repository.url}/stargazers`}>
-            {repository.stargazers.totalCount} stars
+            {repository.stargazers_count} stars
           </a>
         </span>
       </ProfileArea>
