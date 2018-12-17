@@ -78,6 +78,7 @@ class MyApp extends App {
                 }
               }
             `}
+            fetchPolicy="no-cache"
           >
             {({ data: { currentUser } }) => (
               <>
@@ -87,15 +88,13 @@ class MyApp extends App {
                     currentUser={currentUser}
                     searchPhrase={router.query.s}
                   />
-                  <div>
-                    <Component
-                      {...pageProps}
-                      openModal={this.openModal}
-                      activeModal={this.state.modal}
-                      currentUser={currentUser}
-                      router={router}
-                    />
-                  </div>
+                  <Component
+                    {...pageProps}
+                    openModal={this.openModal}
+                    activeModal={this.state.modal}
+                    currentUser={currentUser}
+                    router={router}
+                  />
                 </MainLayout>
               </>
             )}
