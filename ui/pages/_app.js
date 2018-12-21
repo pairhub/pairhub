@@ -69,7 +69,7 @@ class MyApp extends App {
         <ApolloProvider client={apolloClient}>
           <Query
             query={gql`
-              {
+              query currentUser {
                 currentUser {
                   _id
                   avatar_url
@@ -78,7 +78,6 @@ class MyApp extends App {
                 }
               }
             `}
-            fetchPolicy="no-cache"
           >
             {({ data: { currentUser } }) => (
               <>
