@@ -62,7 +62,7 @@ const Container = styled.div`
 class ProfileDropdown extends Component {
   state = { dropdownExpanded: false };
 
-  componentWillMount() {
+  componentDidMount() {
     document.addEventListener("mousedown", this.handleClick, false);
   }
 

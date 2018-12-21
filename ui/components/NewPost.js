@@ -46,6 +46,7 @@ const Input = styled(TextArea)`
   resize: none;
   font-size: 16px;
   line-height: 1.5;
+  min-height: 24px;
   padding: 15px;
   background-color: transparent;
 
@@ -90,7 +91,7 @@ class NewPost extends Component {
     repository: this.props.repository
   };
 
-  componentWillMount() {
+  componentDidMount() {
     document.addEventListener("mousedown", this.handleClick, false);
   }
 
