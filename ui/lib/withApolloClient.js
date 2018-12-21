@@ -1,23 +1,49 @@
 import React from "react";
-import initApollo from "./initApollo";
-import Head from "next/head";
 import { getDataFromTree } from "react-apollo";
+import Head from "next/head";
+
+import initApollo from "./initApollo";
+
+function getCookie(req = {}) {
+  return req.headers && req.headers.cookie
+    ? req.headers.cookie
+    : document.cookie;
+}
 
 export default App => {
   return class Apollo extends React.Component {
-    static displayName = "withApollo(App)";
+    static displayName = `withAata(${App.displayName})`;
+
     static async getInitialProps(ctx) {
-      const { Component, router } = ctx;
+      const {
+        Component,
+        router,
+        ctx: { req, res }
+      } = ctx;
+
+      const apollo = initApollo(
+        {},
+        {
+          getToken: () => getCookie(req)
+        }
+      );
+
+      ctx.ctx.apolloClient = apollo;
 
       let appProps = {};
       if (App.getInitialProps) {
         appProps = await App.getInitialProps(ctx);
       }
 
-      // Run all GraphQL queries in the component tree
-      // and extract the resulting data
-      const apollo = initApollo();
+      if (res && res.finished) {
+        // When redirecting, the response is finished.
+        // No point in continuing to render
+        return {};
+      }
+
       if (!process.browser) {
+        // Run all graphql queries in the component tree
+        // and extract the resulting data
         try {
           // Run all GraphQL queries
           await getDataFromTree(
@@ -40,7 +66,7 @@ export default App => {
         Head.rewind();
       }
 
-      // Extract query data from the Apollo store
+      // Extract query data from the Apollo's store
       const apolloState = apollo.cache.extract();
 
       return {
@@ -51,7 +77,11 @@ export default App => {
 
     constructor(props) {
       super(props);
-      this.apolloClient = initApollo(props.apolloState);
+      // `getDataFromTree` renders the component first, the client is passed off as a property.
+      // After that rendering is done using Next's normal rendering pipeline
+      this.apolloClient = initApollo(props.apolloState, {
+        getToken: () => getCookie()
+      });
     }
 
     render() {
