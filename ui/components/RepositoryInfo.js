@@ -1,25 +1,6 @@
 import styled from "styled-components";
-import Tippy from "@tippy.js/react";
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
-
 import { Card } from "./styled";
 
-const CardTitle = styled.h3`
-  margin: 0;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.33;
-`;
-
-const Text = styled.p`
-  color: #62676d;
-  font-size: 16px;
-  line-height: 1.5;
-  margin: 10px 0;
-`;
-
-const Sidebar = styled.div``;
 const Title = styled.h1`
   img {
     height: 26px;
