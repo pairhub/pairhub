@@ -1,5 +1,4 @@
 <h1 align="center">
-  <br>
   <a href="https://pairhub.io"><img src="https://pairhub.io/static/pairhub-logo-white-180.png" alt="Markdownify" width="110"></a>
   <br>
   PairHub
