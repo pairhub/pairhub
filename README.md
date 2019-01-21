@@ -5,7 +5,7 @@
   <br>
 </h1>
 
-[PairHub](https://pairhub.io) is a platform/community to help you find remote pair programming partners. 
+<p align="center"><a href="https://pairhub.io" target="_blank">PairHub</a> is a platform/community to help you find remote pair programming partners.</p>
 
 ### Vision/idea
 Make remote pair programming more accessible!
