@@ -27,6 +27,7 @@ export const Post = mongoose.model('Post', {
   content: { type: String, text: true },
   userId: { type: String, index: true },
   repository: { type: String, index: true },
+  calendar_link: { type: String },
   created_at: {
     type: Date,
     default: Date.now,

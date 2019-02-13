@@ -120,6 +120,14 @@ const Post = ({ post, currentUser }) => {
           </Header>
           <Content>{post.content}</Content>
 
+          {post.calendar_link && (
+            <>
+              <a href={post.calendar_link} target="_blank">
+                Calendar link
+              </a>
+            </>
+          )}
+
           {post.repository && (
             <Tags>
               <Link

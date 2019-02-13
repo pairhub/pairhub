@@ -9,12 +9,21 @@ import { POSTS_QUERY } from "./Posts";
 import AddRepo from "./AddRepo";
 
 const CREATE_POST = gql`
-  mutation createPost($content: String!, $repository: String) {
-    createPost(content: $content, repository: $repository) {
+  mutation createPost(
+    $content: String!
+    $repository: String
+    $calendarLink: String
+  ) {
+    createPost(
+      content: $content
+      repository: $repository
+      calendarLink: $calendarLink
+    ) {
       _id
       content
       created_at
       repository
+      calendar_link
       author {
         _id
         name
@@ -55,6 +64,8 @@ const Input = styled(TextArea)`
   }
 `;
 
+const CalendarLinkInput = styled.input``;
+
 const SubmitButton = styled.button`
   display: block;
   color: white;
@@ -88,7 +99,8 @@ const MetaContainer = styled.div`
 class NewPost extends Component {
   state = {
     value: "",
-    repository: this.props.repository
+    repository: this.props.repository,
+    calendarLink: null
   };
 
   componentDidMount() {
@@ -109,6 +121,10 @@ class NewPost extends Component {
     this.setState({
       value: e.target.value
     });
+  };
+
+  onCalendarLinkChange = e => {
+    this.setState({ calendarLink: e.target.value });
   };
 
   setRepository = name => {
@@ -147,7 +163,8 @@ class NewPost extends Component {
                 createPost({
                   variables: {
                     content: this.state.value,
-                    repository: this.state.repository
+                    repository: this.state.repository,
+                    calendarLink: this.state.calendarLink
                   }
                 }).then(() => {
                   this.setState({ value: "", repository: null });
@@ -171,6 +188,10 @@ class NewPost extends Component {
                       repository={this.state.repository}
                       setRepository={this.setRepository}
                       clearRepository={this.clearRepository}
+                    />
+                    <CalendarLinkInput
+                      placeholder="Add a calendly/canumeet link here"
+                      onChange={this.onCalendarLinkChange}
                     />
                     <SubmitButton
                       type="submit"
