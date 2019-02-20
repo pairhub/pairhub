@@ -8,6 +8,7 @@ import { Flipped } from "react-flip-toolkit";
 
 import { Card, Container, Avatar } from "./styled";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 
 const Header = styled.div`
@@ -70,6 +71,7 @@ const GreyButtonBox = styled.div`
   padding: 7px 10px;
   font-weight: 500;
   font-size: 14px;
+  margin-right: 10px;
   color: ${props => (props.active ? "#404040" : "#7f7f7f")};
   border-radius: 6px;
   background-color: rgba(90, 100, 109, 0.05);
@@ -85,10 +87,14 @@ const GreyButtonBox = styled.div`
     background-color: rgba(90, 100, 109, 0.07);
     color: #404040;
   }
+  a {
+    text-decoration: none !important;
+  }
 `;
 
 const Post = ({ post, currentUser }) => {
   if (!post) return null;
+  console.log({ post });
   return (
     <Flipped flipId={post._id}>
       <Container key={post._id}>
@@ -120,28 +126,36 @@ const Post = ({ post, currentUser }) => {
           </Header>
           <Content>{post.content}</Content>
 
-          {post.calendar_link && (
-            <>
-              <a href={post.calendar_link} target="_blank">
-                Calendar link
-              </a>
-            </>
-          )}
-
-          {post.repository && (
-            <Tags>
-              <Link
-                as={`/${post.repository}`}
-                href={`/repository?repository=${post.repository}`}
+          <Tags>
+            {post.repository && (
+              // <Link
+              //   as={`/${post.repository}`}
+              //   href={`/repository?repository=${post.repository}`}
+              // >
+              <a
+                href={`https://github.com/${post.repository}`}
+                target="_blank"
+                style={{ textDecoration: "none" }}
               >
-                <a style={{ textDecoration: "none" }}>
-                  <GreyButtonBox>
-                    <Icon icon={faGithub} /> <span>{post.repository}</span>
-                  </GreyButtonBox>
-                </a>
-              </Link>
-            </Tags>
-          )}
+                <GreyButtonBox>
+                  <Icon icon={faGithub} /> <span>{post.repository}</span>
+                </GreyButtonBox>
+              </a>
+              // </Link>
+            )}
+
+            {post.calendar_link && (
+              <a
+                href={post.calendar_link}
+                target="_blank"
+                style={{ textDecoration: "none" }}
+              >
+                <GreyButtonBox>
+                  <Icon icon={faCalendarAlt} /> <span>Calendar link</span>
+                </GreyButtonBox>
+              </a>
+            )}
+          </Tags>
 
           {currentUser && (
             <Actions>

@@ -7,6 +7,7 @@ import { Flipped } from "react-flip-toolkit";
 import { Container, Avatar } from "./styled";
 import { POSTS_QUERY } from "./Posts";
 import AddRepo from "./AddRepo";
+import AddCalendarLink from "./AddCalendarLink";
 
 const CREATE_POST = gql`
   mutation createPost(
@@ -67,6 +68,7 @@ const Input = styled(TextArea)`
 const CalendarLinkInput = styled.input``;
 
 const SubmitButton = styled.button`
+  justify-self: end;
   display: block;
   color: white;
   font-size: 16px;
@@ -87,7 +89,7 @@ const SubmitButton = styled.button`
 
 const MetaContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin: 8px;
   margin-top: 0px;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
@@ -100,7 +102,7 @@ class NewPost extends Component {
   state = {
     value: "",
     repository: this.props.repository,
-    calendarLink: null
+    calendarLink: ""
   };
 
   componentDidMount() {
@@ -123,9 +125,9 @@ class NewPost extends Component {
     });
   };
 
-  onCalendarLinkChange = e => {
-    this.setState({ calendarLink: e.target.value });
-  };
+  setCalendarLink = value => this.setState({ calendarLink: value });
+
+  clearCalendarLink = () => this.setState({ calendarLink: "" });
 
   setRepository = name => {
     this.setState({ repository: name });
@@ -189,9 +191,14 @@ class NewPost extends Component {
                       setRepository={this.setRepository}
                       clearRepository={this.clearRepository}
                     />
-                    <CalendarLinkInput
+                    {/* <CalendarLinkInput
                       placeholder="Add a calendly/canumeet link here"
                       onChange={this.onCalendarLinkChange}
+                    /> */}
+                    <AddCalendarLink
+                      calendarLink={this.state.calendarLink}
+                      setCalendarLink={this.setCalendarLink}
+                      clearCalendarLink={this.clearCalendarLink}
                     />
                     <SubmitButton
                       type="submit"

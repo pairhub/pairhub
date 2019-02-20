@@ -34,3 +34,25 @@ export const Avatar = ({ src, username }) => (
     <AvatarImg src={src} />
   </Link>
 );
+
+export const GreyBox = styled.div`
+  margin-right: 10px;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding: 0px 10px;
+  font-weight: 500;
+  font-size: 16px;
+  color: ${props => (props.hasFocus ? "#404040" : "#7f7f7f")};
+  border-radius: 8px;
+  background-color: ${props =>
+    props.hasFocus ? "rgba(90, 100, 109, 0.05)" : "transparent"};
+  cursor: pointer;
+  span {
+    margin-left: 15px;
+  }
+  &:hover {
+    background-color: rgba(90, 100, 109, 0.05);
+    color: #404040;
+  }
+`;
