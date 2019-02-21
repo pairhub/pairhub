@@ -1,11 +1,11 @@
-import Downshift from "downshift";
-import gql from "graphql-tag";
-import styled from "styled-components";
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import Downshift from 'downshift';
+import gql from 'graphql-tag';
+import TypeaheadResultsContainer from './TypeaheadResultsContainer';
 
-import TypeaheadResultsContainer from "./TypeaheadResultsContainer";
+import { DownshiftInput, GreyBox, CancelIcon, RepoLabel, ResultList } from '../styles/AddRepo';
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 const searchQuery = gql`
   query searchRepositories($query: String!) {
@@ -13,59 +13,6 @@ const searchQuery = gql`
       full_name
     }
   }
-`;
-
-const ResultList = styled.div`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  font-size: 14px;
-  position: absolute;
-  left: -8px;
-`;
-
-const Input = styled.input`
-  background: transparent;
-  padding: 12px 8px;
-  color: #404040;
-  font-weight: 500;
-  border-radius: 8px;
-  border: 0;
-  margin: 0;
-  font-size: 16px;
-  &:focus {
-    outline: none;
-  }
-`;
-
-const CancelIcon = styled(Icon)`
-  margin-left: 10px;
-  color: #7f7f7f;
-  &:hover {
-    color: #404040;
-  }
-`;
-
-const GreyBox = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 0px 10px;
-  font-weight: 500;
-  font-size: 16px;
-  color: ${props => (props.active ? "#404040" : "#7f7f7f")};
-  border-radius: 8px;
-  background-color: ${props =>
-    props.active ? "rgba(90, 100, 109, 0.05)" : "transparent"};
-  cursor: pointer;
-
-  &:hover {
-    background-color: rgba(90, 100, 109, 0.05);
-    color: #404040;
-  }
-`;
-
-const RepoLabel = styled.span`
-  margin-left: 10px;
 `;
 
 const itemToResult = i => <span>{i.full_name}</span>;
@@ -92,7 +39,7 @@ class AddRepository extends React.Component {
                 props.setRepository(selection.full_name);
                 this.toggleAddRepo();
               }}
-              itemToString={item => (item ? item.full_name : "")}
+              itemToString={item => (item ? item.full_name : '')}
             >
               {({
                 getInputProps,
@@ -102,10 +49,10 @@ class AddRepository extends React.Component {
                 isOpen,
                 inputValue,
                 highlightedIndex,
-                selectedItem
+                selectedItem,
               }) => (
-                <div style={{ position: "relative" }}>
-                  <Input
+                <div style={{ position: 'relative' }}>
+                  <DownshiftInput
                     {...getInputProps()}
                     autoFocus
                     placeholder="Search repo..."
@@ -121,7 +68,7 @@ class AddRepository extends React.Component {
                           highlightedIndex,
                           itemToResult,
                           searchQuery,
-                          queryDataToResultsArray
+                          queryDataToResultsArray,
                         }}
                       />
                     )}
@@ -134,14 +81,11 @@ class AddRepository extends React.Component {
           <RepoLabel>
             {props.repository ? (
               <>
-                {props.repository}{" "}
-                <CancelIcon
-                  onClick={props.clearRepository}
-                  icon={faTimesCircle}
-                />
+                {props.repository}{' '}
+                <CancelIcon onClick={props.clearRepository} icon={faTimesCircle} />
               </>
             ) : (
-              "Add repository"
+              'Add repository'
             )}
           </RepoLabel>
         )}

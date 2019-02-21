@@ -1,28 +1,16 @@
-import React, { Component } from "react";
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
-import styled from "styled-components";
-import Post from "./Post";
-import NewPost from "./NewPost";
-import { Flipper } from "react-flip-toolkit";
+import React, { Component } from 'react';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
+import { Flipper } from 'react-flip-toolkit';
+import Post from './Post';
+import NewPost from './NewPost';
+
+import { Center } from '../styles/Shared';
 
 export const POSTS_QUERY = gql`
-  query posts(
-    $offset: Int
-    $searchPhrase: String
-    $userId: String
-    $repository: String
-  ) {
-    posts(
-      offset: $offset
-      searchPhrase: $searchPhrase
-      userId: $userId
-      repository: $repository
-    )
-      @connection(
-        key: "posts"
-        filter: ["searchPhrase", "userId", "repository"]
-      ) {
+  query posts($offset: Int, $searchPhrase: String, $userId: String, $repository: String) {
+    posts(offset: $offset, searchPhrase: $searchPhrase, userId: $userId, repository: $repository)
+      @connection(key: "posts", filter: ["searchPhrase", "userId", "repository"]) {
       _id
       content
       created_at
@@ -37,11 +25,6 @@ export const POSTS_QUERY = gql`
   }
 `;
 
-const Center = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
 class Posts extends Component {
   state = { hasMore: true, focus: false };
 
@@ -54,16 +37,12 @@ class Posts extends Component {
 
   render() {
     const { currentUser, searchPhrase, userId, repository } = this.props;
-    const showNewPostForm =
-      currentUser && !(userId && userId !== currentUser.userId);
+    const showNewPostForm = currentUser && !(userId && userId !== currentUser.userId);
 
     return (
-      <Query
-        query={POSTS_QUERY}
-        variables={{ offset: 0, searchPhrase, userId, repository }}
-      >
+      <Query query={POSTS_QUERY} variables={{ offset: 0, searchPhrase, userId, repository }}>
         {({ loading, error, data: { posts }, fetchMore }) => {
-          if (loading) return "Loading...";
+          if (loading) return 'Loading...';
           if (error) return `Error! ${error.message}`;
           // if (posts.length === 0) return "No posts found";
 
@@ -76,9 +55,9 @@ class Posts extends Component {
                   this.setState({ hasMore: false });
                 }
                 return {
-                  posts: [...prev.posts, ...fetchMoreResult.posts]
+                  posts: [...prev.posts, ...fetchMoreResult.posts],
                 };
-              }
+              },
             });
           return (
             <div>

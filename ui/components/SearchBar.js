@@ -1,38 +1,15 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import Router from "next/router";
+import React, { Component } from 'react';
+import Router from 'next/router';
 
-const Input = styled.input`
-  flex: 1 1 auto;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px 0 rgba(126, 126, 126, 0.075);
-  height: 45px;
-  padding: 0 15px;
-  font-size: 18px;
-  font-weight: 300;
-  border: 0;
-  margin-right: 5px;
-  transition: box-shadow 100ms ease-in-out;
-
-  ::placeholder {
-    color: #878787;
-    font-weight: 300;
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 2px 4px 0 rgba(126, 126, 126, 0.2);
-  }
-`;
+import { Input } from '../styles/Shared';
 
 class SearchBar extends Component {
   state = {
-    value: this.props.searchPhrase || ""
+    value: this.props.searchPhrase || '',
   };
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ value: nextProps.searchPhrase || "" });
+    this.setState({ value: nextProps.searchPhrase || '' });
   }
 
   onChange = e => {
@@ -40,13 +17,13 @@ class SearchBar extends Component {
   };
 
   onKeyPress = e => {
-    if (e.key === "Enter") this.handleEnter();
+    if (e.key === 'Enter') this.handleEnter();
   };
 
   handleEnter = () => {
     if (this.state.value !== this.props.searchPhrase) {
-      if (this.state.value === "") {
-        Router.push("/");
+      if (this.state.value === '') {
+        Router.push('/');
       } else {
         Router.push(`/?s=${this.state.value}`);
       }

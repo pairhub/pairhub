@@ -1,12 +1,18 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import gql from "graphql-tag";
-import { Mutation } from "react-apollo";
-import TextArea from "react-textarea-autosize";
-import { Flipped } from "react-flip-toolkit";
-import { Container, Avatar } from "./styled";
-import { POSTS_QUERY } from "./Posts";
-import AddRepo from "./AddRepo";
+import React, { Component } from 'react';
+import gql from 'graphql-tag';
+import { Mutation } from 'react-apollo';
+import { POSTS_QUERY } from './Posts';
+import AddRepo from './AddRepo';
+
+import { MetaContainer } from '../styles/NewPost';
+import {
+  Avatar,
+  Form,
+  InputContainer,
+  Container,
+  TextareaInput,
+  SubmitButton,
+} from '../styles/Shared';
 
 const CREATE_POST = gql`
   mutation createPost($content: String!, $repository: String) {
@@ -25,78 +31,18 @@ const CREATE_POST = gql`
   }
 `;
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const InputContainer = styled.div`
-  border-radius: 8px;
-  background-color: ${props => (props.isActive ? "white" : "transparent")};
-  box-shadow: ${props =>
-    props.isActive ? "0 2px 4px 0 rgba(126, 126, 126, 0.17)" : "0"};
-  transition: background-color 1000ms ease-out;
-  transition: box-shadow 100ms ease-out;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Input = styled(TextArea)`
-  border: 0;
-  resize: none;
-  font-size: 16px;
-  line-height: 1.5;
-  min-height: 24px;
-  padding: 15px;
-  background-color: transparent;
-
-  &:focus {
-    outline: none;
-  }
-`;
-
-const SubmitButton = styled.button`
-  display: block;
-  color: white;
-  font-size: 16px;
-  font-weight: 500;
-  padding: 12px 15px;
-  border-radius: 6px;
-  border: 0;
-  cursor: ${props => (props.canSubmit ? "pointer" : "disabled")};
-  background-color: ${props =>
-    props.canSubmit ? "#0000ff" : "rgba(0,0,255,0.2)"};
-  transition: background-color 100ms ease-in-out;
-
-  &:hover {
-    background-color: ${props =>
-      props.canSubmit ? "#0000af" : "rgba(0,0,255,0.2)"};
-  }
-`;
-
-const MetaContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 8px;
-  margin-top: 0px;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
-  padding-top: 8px;
-  z-index: 1;
-  position: relative;
-`;
-
 class NewPost extends Component {
   state = {
-    value: "",
-    repository: this.props.repository
+    value: '',
+    repository: this.props.repository,
   };
 
   componentDidMount() {
-    document.addEventListener("mousedown", this.handleClick, false);
+    document.addEventListener('mousedown', this.handleClick, false);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClick, false);
+    document.removeEventListener('mousedown', this.handleClick, false);
   }
 
   handleClick = e => {
@@ -107,7 +53,7 @@ class NewPost extends Component {
 
   onChange = e => {
     this.setState({
-      value: e.target.value
+      value: e.target.value,
     });
   };
 
@@ -136,7 +82,7 @@ class NewPost extends Component {
             const { posts } = cache.readQuery({ query: POSTS_QUERY });
             cache.writeQuery({
               query: POSTS_QUERY,
-              data: { posts: [createPost].concat(posts) }
+              data: { posts: [createPost].concat(posts) },
             });
           }}
         >
@@ -147,19 +93,16 @@ class NewPost extends Component {
                 createPost({
                   variables: {
                     content: this.state.value,
-                    repository: this.state.repository
-                  }
+                    repository: this.state.repository,
+                  },
                 }).then(() => {
-                  this.setState({ value: "", repository: null });
+                  this.setState({ value: '', repository: null });
                   this.props.onBlur();
                 });
               }}
             >
-              <InputContainer
-                isActive={isActive}
-                innerRef={c => (this.node = c)}
-              >
-                <Input
+              <InputContainer isActive={isActive} innerRef={c => (this.node = c)}>
+                <TextareaInput
                   value={this.state.value}
                   onChange={this.onChange}
                   onFocus={this.props.onFocus}

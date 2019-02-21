@@ -1,28 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import { Query } from "react-apollo";
-import withDebouncedProp from "./withDebouncedProp";
+import React from 'react';
+import { Query } from 'react-apollo';
+import withDebouncedProp from './withDebouncedProp';
 
-const Wrapper = styled.div`
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  min-width: 100px;
-  border-radius: 8px;
-  padding: 8px;
-  background: white;
-  overflow: hidden;
-`;
+import { ResultItem, Wrapper } from '../styles/TypeadheadResultsContainer';
 
-const ResultItem = styled.li`
-  margin: 0;
-  border-radius: 6px;
-  padding: 10px 8px;
-  font-weight: 500;
-  color: #3d4045;
-`;
-
-const TypeaheadResultsContainer = withDebouncedProp("inputValue", 250)(
+const TypeaheadResultsContainer = withDebouncedProp('inputValue', 250)(
   ({
     inputValue,
     getMenuProps,
@@ -30,15 +12,11 @@ const TypeaheadResultsContainer = withDebouncedProp("inputValue", 250)(
     highlightedIndex,
     itemToResult,
     searchQuery,
-    queryDataToResultsArray
+    queryDataToResultsArray,
   }) => {
     if (!inputValue) return null;
     return (
-      <Query
-        query={searchQuery}
-        variables={{ query: inputValue }}
-        fetchPolicy="no-cache"
-      >
+      <Query query={searchQuery} variables={{ query: inputValue }} fetchPolicy="no-cache">
         {({ loading, error, data }) => {
           if (loading)
             return (
@@ -64,9 +42,8 @@ const TypeaheadResultsContainer = withDebouncedProp("inputValue", 250)(
                       key: item.full_name,
                       item,
                       style: {
-                        backgroundColor:
-                          highlightedIndex === index ? "#f8f9fa" : "white"
-                      }
+                        backgroundColor: highlightedIndex === index ? '#f8f9fa' : 'white',
+                      },
                     })}
                   >
                     {itemToResult(item)}

@@ -1,89 +1,30 @@
-import styled from "styled-components";
-import moment from "moment";
-import gql from "graphql-tag";
-import { Mutation } from "react-apollo";
-import Tippy from "@tippy.js/react";
-import Link from "next/link";
-import { Flipped } from "react-flip-toolkit";
+import moment from 'moment';
+import gql from 'graphql-tag';
+import { Mutation } from 'react-apollo';
+import Tippy from '@tippy.js/react';
+import Link from 'next/link';
+import { Flipped } from 'react-flip-toolkit';
 
-import { Card, Container, Avatar } from "./styled";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-`;
-
-const AuthorName = styled.a`
-  font-size: 14px;
-  font-weight: 700;
-  color: #303030;
-  margin: 0;
-`;
-
-const Username = styled.span`
-  font-weight: 300;
-  color: #a2a2a2;
-`;
-
-const Content = styled.p`
-  font-weight: 300;
-  margin-top: 5px;
-  margin-bottom: 0;
-  line-height: 1.5;
-`;
-
-const DateArea = styled.div`
-  color: #a2a2a2;
-  font-size: 14px;
-  font-weight: 300;
-  cursor: pointer;
-`;
-
-const Actions = styled.div`
-  margin-top: 10px;
-`;
-
-const Button = styled.button`
-  cursor: pointer;
-`;
+import {
+  Actions,
+  AuthorName,
+  Content,
+  DateArea,
+  GreyButtonBox,
+  Header,
+  SimpleButton,
+  Tags,
+  Username,
+} from '../styles/Post';
+import { Avatar, Card, Container } from '../styles/Shared';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 
 const DELETE_POST = gql`
   mutation deletePost($id: String!) {
     deletePost(id: $id) {
       _id
     }
-  }
-`;
-
-const Tags = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 10px;
-`;
-
-const GreyButtonBox = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 7px 10px;
-  font-weight: 500;
-  font-size: 14px;
-  color: ${props => (props.active ? "#404040" : "#7f7f7f")};
-  border-radius: 6px;
-  background-color: rgba(90, 100, 109, 0.05);
-  cursor: pointer;
-
-  transition: background-color 50ms ease-in-out;
-  transition: color 50ms ease-in-out;
-  span {
-    margin-left: 8px;
-    text-decoration: none !important;
-  }
-  &:hover {
-    background-color: rgba(90, 100, 109, 0.07);
-    color: #404040;
   }
 `;
 
@@ -105,16 +46,12 @@ const Post = ({ post, currentUser }) => {
             </Link>
 
             <Tippy
-              content={moment(Number(post.created_at)).format(
-                "YYYY-MM-DD HH:mm"
-              )}
+              content={moment(Number(post.created_at)).format('YYYY-MM-DD HH:mm')}
               duration={100}
               arrow
             >
               <Link as={`/post/${post._id}`} href={`/post?id=${post._id}`}>
-                <DateArea>
-                  {moment(Number(post.created_at)).format("MMM D")}
-                </DateArea>
+                <DateArea>{moment(Number(post.created_at)).format('MMM D')}</DateArea>
               </Link>
             </Tippy>
           </Header>
@@ -122,11 +59,8 @@ const Post = ({ post, currentUser }) => {
 
           {post.repository && (
             <Tags>
-              <Link
-                as={`/${post.repository}`}
-                href={`/repository?repository=${post.repository}`}
-              >
-                <a style={{ textDecoration: "none" }}>
+              <Link as={`/${post.repository}`} href={`/repository?repository=${post.repository}`}>
+                <a style={{ textDecoration: 'none' }}>
                   <GreyButtonBox>
                     <Icon icon={faGithub} /> <span>{post.repository}</span>
                   </GreyButtonBox>
@@ -137,16 +71,13 @@ const Post = ({ post, currentUser }) => {
 
           {currentUser && (
             <Actions>
-              <a
-                href={`https://gitter.im/${post.author.username}`}
-                target="_blank"
-              >
-                <Button>DM</Button>
+              <a href={`https://gitter.im/${post.author.username}`} target="_blank">
+                <SimpleButton>DM</SimpleButton>
               </a>
               {currentUser._id === post.author._id && (
                 <Mutation
                   mutation={DELETE_POST}
-                  refetchQueries={["posts"]}
+                  refetchQueries={['posts']}
                   // update={(cache, { data: { deletePost } }) => {
                   //   const { posts } = cache.readQuery({
                   //     query: POSTS_QUERY
@@ -162,14 +93,14 @@ const Post = ({ post, currentUser }) => {
                   // }}
                 >
                   {deletePost => (
-                    <Button
+                    <SimpleButton
                       onClick={() =>
-                        confirm("Are you sure you want to delete this post?") &&
+                        confirm('Are you sure you want to delete this post?') &&
                         deletePost({ variables: { id: post._id } })
                       }
                     >
                       Delete
-                    </Button>
+                    </SimpleButton>
                   )}
                 </Mutation>
               )}
