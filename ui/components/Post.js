@@ -8,6 +8,7 @@ import { Flipped } from "react-flip-toolkit";
 
 import { Card, Container, Avatar } from "./styled";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 
 const Header = styled.div`
@@ -68,6 +69,7 @@ const GreyButtonBox = styled.div`
   display: flex;
   align-items: center;
   padding: 7px 10px;
+  margin-right: 4px;
   font-weight: 500;
   font-size: 14px;
   color: ${props => (props.active ? "#404040" : "#7f7f7f")};
@@ -85,6 +87,13 @@ const GreyButtonBox = styled.div`
     background-color: rgba(90, 100, 109, 0.07);
     color: #404040;
   }
+`;
+
+const GreyRepoLink = GreyButtonBox.withComponent("a");
+
+const ExternalLinkIcon = styled(Icon)`
+  font-size: 12px;
+  margin-left: 2px;
 `;
 
 const Post = ({ post, currentUser }) => {
@@ -132,6 +141,12 @@ const Post = ({ post, currentUser }) => {
                   </GreyButtonBox>
                 </a>
               </Link>
+              <GreyRepoLink
+                href={`https://github.com/${post.repository}`}
+                target="_blank"
+              >
+                <ExternalLinkIcon icon={faExternalLinkAlt} />
+              </GreyRepoLink>
             </Tags>
           )}
 
