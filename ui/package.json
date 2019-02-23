@@ -18,7 +18,7 @@
     "express": "^4.16.4",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.10.1",
-    "http-proxy-middleware": "^0.18.0",
+    "http-proxy-middleware": "^0.19.1",
     "isomorphic-unfetch": "^2.1.1",
     "moment": "^2.24.0",
     "next": "^7.0.3",

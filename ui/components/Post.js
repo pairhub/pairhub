@@ -8,7 +8,7 @@ import { Flipped } from "react-flip-toolkit";
 
 import { Card, Container, Avatar } from "./styled";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarAlt, faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 
 const Header = styled.div`
@@ -69,6 +69,7 @@ const GreyButtonBox = styled.div`
   display: flex;
   align-items: center;
   padding: 7px 10px;
+  margin-right: 4px;
   font-weight: 500;
   font-size: 14px;
   margin-right: 10px;
@@ -90,6 +91,13 @@ const GreyButtonBox = styled.div`
   a {
     text-decoration: none !important;
   }
+`;
+
+const GreyRepoLink = GreyButtonBox.withComponent("a");
+
+const ExternalLinkIcon = styled(Icon)`
+  font-size: 12px;
+  margin-left: 2px;
 `;
 
 const Post = ({ post, currentUser }) => {
@@ -128,10 +136,11 @@ const Post = ({ post, currentUser }) => {
 
           <Tags>
             {post.repository && (
-              // <Link
-              //   as={`/${post.repository}`}
-              //   href={`/repository?repository=${post.repository}`}
-              // >
+              <>
+              <Link
+                as={`/${post.repository}`}
+                href={`/repository?repository=${post.repository}`}
+              >
               <a
                 href={`https://github.com/${post.repository}`}
                 target="_blank"
@@ -141,7 +150,15 @@ const Post = ({ post, currentUser }) => {
                   <Icon icon={faGithub} /> <span>{post.repository}</span>
                 </GreyButtonBox>
               </a>
-              // </Link>
+              
+             </Link>
+             <GreyRepoLink
+               href={`https://github.com/${post.repository}`}
+               target="_blank"
+             >
+               <ExternalLinkIcon icon={faExternalLinkAlt} />
+             </GreyRepoLink>
+             </>
             )}
 
             {post.calendar_link && (
@@ -159,12 +176,14 @@ const Post = ({ post, currentUser }) => {
 
           {currentUser && (
             <Actions>
-              <a
-                href={`https://gitter.im/${post.author.username}`}
-                target="_blank"
-              >
-                <Button>DM</Button>
-              </a>
+              {currentUser._id !== post.author._id && (
+                <a
+                  href={`https://gitter.im/${post.author.username}`}
+                  target="_blank"
+                >
+                  <Button>DM</Button>
+                </a>
+              )}
               {currentUser._id === post.author._id && (
                 <Mutation
                   mutation={DELETE_POST}
