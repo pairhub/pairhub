@@ -102,8 +102,6 @@ const GreyButtonBox = styled.div`
   }
 `;
 
-const GreyRepoLink = GreyButtonBox.withComponent("a");
-
 const ExternalLinkIcon = styled(Icon)`
   font-size: 11px;
   margin-left: 2px;
@@ -112,7 +110,6 @@ const ExternalLinkIcon = styled(Icon)`
 
 const Post = ({ post, currentUser }) => {
   if (!post) return null;
-  console.log({ post });
   return (
     <Flipped flipId={post._id}>
       <Container key={post._id}>

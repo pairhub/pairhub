@@ -3,7 +3,6 @@ import styled from "styled-components";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import TextArea from "react-textarea-autosize";
-import { Flipped } from "react-flip-toolkit";
 import { Container, Avatar } from "./styled";
 import { POSTS_QUERY } from "./Posts";
 import AddRepo from "./AddRepo";
@@ -65,10 +64,8 @@ const Input = styled(TextArea)`
   }
 `;
 
-const CalendarLinkInput = styled.input``;
-
 const SubmitButton = styled.button`
-  justify-self: end;
+  margin-left: auto;
   display: block;
   color: white;
   font-size: 16px;
@@ -98,6 +95,7 @@ const MetaContainer = styled.div`
   position: relative;
 `;
 
+const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
 class NewPost extends Component {
   state = {
     value: "",
@@ -126,8 +124,6 @@ class NewPost extends Component {
   };
 
   setCalendarLink = value => this.setState({ calendarLink: value });
-
-  clearCalendarLink = () => this.setState({ calendarLink: "" });
 
   setRepository = name => {
     this.setState({ repository: name });
@@ -162,16 +158,27 @@ class NewPost extends Component {
             <Form
               onSubmit={e => {
                 e.preventDefault();
-                createPost({
-                  variables: {
-                    content: this.state.value,
-                    repository: this.state.repository,
-                    calendarLink: this.state.calendarLink
-                  }
-                }).then(() => {
-                  this.setState({ value: "", repository: null });
-                  this.props.onBlur();
-                });
+                if (
+                  !this.state.calendarLink.length ||
+                  urlRegex.test(this.state.calendarLink)
+                ) {
+                  createPost({
+                    variables: {
+                      content: this.state.value,
+                      repository: this.state.repository,
+                      calendarLink: this.state.calendarLink
+                    }
+                  }).then(() => {
+                    this.setState({
+                      value: "",
+                      repository: null,
+                      calendarLink: ""
+                    });
+                    this.props.onBlur();
+                  });
+                } else {
+                  alert("Enter a valid calendar link url");
+                }
               }}
             >
               <InputContainer
@@ -191,14 +198,9 @@ class NewPost extends Component {
                       setRepository={this.setRepository}
                       clearRepository={this.clearRepository}
                     />
-                    {/* <CalendarLinkInput
-                      placeholder="Add a calendly/canumeet link here"
-                      onChange={this.onCalendarLinkChange}
-                    /> */}
                     <AddCalendarLink
                       calendarLink={this.state.calendarLink}
                       setCalendarLink={this.setCalendarLink}
-                      clearCalendarLink={this.clearCalendarLink}
                     />
                     <SubmitButton
                       type="submit"

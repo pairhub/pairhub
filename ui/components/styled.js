@@ -38,7 +38,6 @@ export const Avatar = ({ src, username }) => (
 export const GreyBox = styled.div`
   margin-right: 10px;
   display: flex;
-  flex: 1;
   align-items: center;
   padding: 0px 10px;
   font-weight: 500;
@@ -54,5 +53,19 @@ export const GreyBox = styled.div`
   &:hover {
     background-color: rgba(90, 100, 109, 0.05);
     color: #404040;
+  }
+`;
+
+export const Input = styled.input`
+  background: transparent;
+  padding: 12px 8px;
+  color: #404040;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 0;
+  margin: 0;
+  font-size: 16px;
+  &:focus {
+    outline: none;
   }
 `;

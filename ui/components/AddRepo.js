@@ -1,10 +1,11 @@
 import Downshift from "downshift";
 import gql from "graphql-tag";
 import styled from "styled-components";
+import Tippy from "@tippy.js/react";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
-import { GreyBox } from "./styled";
+import { GreyBox, Input } from "./styled";
 
 import TypeaheadResultsContainer from "./TypeaheadResultsContainer";
 
@@ -23,20 +24,6 @@ const ResultList = styled.div`
   font-size: 14px;
   position: absolute;
   left: -8px;
-`;
-
-const Input = styled.input`
-  background: transparent;
-  padding: 12px 8px;
-  color: #404040;
-  font-weight: 500;
-  border-radius: 8px;
-  border: 0;
-  margin: 0;
-  font-size: 16px;
-  &:focus {
-    outline: none;
-  }
 `;
 
 const CancelIcon = styled(Icon)`
@@ -80,13 +67,19 @@ const AddRepository = props => {
               selectedItem
             }) => (
               <div style={{ position: "relative" }}>
-                <Input
-                  {...getInputProps()}
-                  //autoFocus
-                  placeholder="Add repository"
-                  onFocus={() => setFocus(true)}
-                  onBlur={() => setFocus(false)}
-                />
+                <Tippy
+                  content="If you would like to pair on<br/> a specific GitHub repository"
+                  placement="bottom"
+                  arrow
+                >
+                  <Input
+                    {...getInputProps()}
+                    placeholder="Add repository"
+                    onFocus={() => setFocus(true)}
+                    onBlur={() => setFocus(false)}
+                    size="15"
+                  />
+                </Tippy>
                 {/* <div onClick={clearSelection}>clear</div> */}
                 <ResultList {...getMenuProps()}>
                   {isOpen && (
