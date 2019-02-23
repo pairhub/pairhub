@@ -3,18 +3,27 @@ import styled from "styled-components";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import TextArea from "react-textarea-autosize";
-import { Flipped } from "react-flip-toolkit";
 import { Container, Avatar } from "./styled";
 import { POSTS_QUERY } from "./Posts";
 import AddRepo from "./AddRepo";
+import AddCalendarLink from "./AddCalendarLink";
 
 const CREATE_POST = gql`
-  mutation createPost($content: String!, $repository: String) {
-    createPost(content: $content, repository: $repository) {
+  mutation createPost(
+    $content: String!
+    $repository: String
+    $calendarLink: String
+  ) {
+    createPost(
+      content: $content
+      repository: $repository
+      calendarLink: $calendarLink
+    ) {
       _id
       content
       created_at
       repository
+      calendar_link
       author {
         _id
         name
@@ -56,6 +65,7 @@ const Input = styled(TextArea)`
 `;
 
 const SubmitButton = styled.button`
+  margin-left: auto;
   display: block;
   color: white;
   font-size: 16px;
@@ -76,7 +86,7 @@ const SubmitButton = styled.button`
 
 const MetaContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin: 8px;
   margin-top: 0px;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
@@ -85,10 +95,12 @@ const MetaContainer = styled.div`
   position: relative;
 `;
 
+const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
 class NewPost extends Component {
   state = {
     value: "",
-    repository: this.props.repository
+    repository: this.props.repository,
+    calendarLink: ""
   };
 
   componentDidMount() {
@@ -110,6 +122,8 @@ class NewPost extends Component {
       value: e.target.value
     });
   };
+
+  setCalendarLink = value => this.setState({ calendarLink: value });
 
   setRepository = name => {
     this.setState({ repository: name });
@@ -144,15 +158,27 @@ class NewPost extends Component {
             <Form
               onSubmit={e => {
                 e.preventDefault();
-                createPost({
-                  variables: {
-                    content: this.state.value,
-                    repository: this.state.repository
-                  }
-                }).then(() => {
-                  this.setState({ value: "", repository: null });
-                  this.props.onBlur();
-                });
+                if (
+                  !this.state.calendarLink.length ||
+                  urlRegex.test(this.state.calendarLink)
+                ) {
+                  createPost({
+                    variables: {
+                      content: this.state.value,
+                      repository: this.state.repository,
+                      calendarLink: this.state.calendarLink
+                    }
+                  }).then(() => {
+                    this.setState({
+                      value: "",
+                      repository: null,
+                      calendarLink: ""
+                    });
+                    this.props.onBlur();
+                  });
+                } else {
+                  alert("Enter a valid calendar link url");
+                }
               }}
             >
               <InputContainer
@@ -171,6 +197,10 @@ class NewPost extends Component {
                       repository={this.state.repository}
                       setRepository={this.setRepository}
                       clearRepository={this.clearRepository}
+                    />
+                    <AddCalendarLink
+                      calendarLink={this.state.calendarLink}
+                      setCalendarLink={this.setCalendarLink}
                     />
                     <SubmitButton
                       type="submit"

@@ -68,13 +68,13 @@ export default {
     },
   },
   Mutation: {
-    createPost: async (_, { content, repository }, { currentUser, Post }) => {
+    createPost: async (_, { content, repository, calendarLink }, { currentUser, Post }) => {
       if (!currentUser) throw new Error('Not logged in');
-
       return new Post({
         content,
         userId: currentUser.userId,
         repository,
+        calendar_link: calendarLink,
       }).save();
     },
     deletePost: async (_, { id }, { Post, currentUser }) => {

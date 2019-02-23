@@ -8,7 +8,10 @@ import { Flipped } from "react-flip-toolkit";
 
 import { Card, Container, Avatar } from "./styled";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCalendarAlt,
+  faExternalLinkAlt
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 
 const Header = styled.div`
@@ -68,32 +71,41 @@ const Tags = styled.div`
 const GreyButtonBox = styled.div`
   display: flex;
   align-items: center;
-  padding: 7px 10px;
   margin-right: 4px;
   font-weight: 500;
   font-size: 14px;
-  color: ${props => (props.active ? "#404040" : "#7f7f7f")};
+  margin-right: 10px;
   border-radius: 6px;
-  background-color: rgba(90, 100, 109, 0.05);
+  overflow: hidden;
   cursor: pointer;
 
   transition: background-color 50ms ease-in-out;
   transition: color 50ms ease-in-out;
   span {
-    margin-left: 8px;
+    margin-left: 6px;
     text-decoration: none !important;
   }
-  &:hover {
-    background-color: rgba(90, 100, 109, 0.07);
-    color: #404040;
+  a {
+    padding: 7px 8px;
+    display: block;
+    background-color: rgba(90, 100, 109, 0.05);
+    color: ${props => (props.active ? "#404040" : "#7f7f7f")};
+
+    &:hover {
+      background-color: rgba(90, 100, 109, 0.1);
+      color: #404040;
+    }
+    &:nth-child(2) {
+      padding-left: 5px;
+    }
+    text-decoration: none !important;
   }
 `;
 
-const GreyRepoLink = GreyButtonBox.withComponent("a");
-
 const ExternalLinkIcon = styled(Icon)`
-  font-size: 12px;
+  font-size: 11px;
   margin-left: 2px;
+  opacity: 0.6;
 `;
 
 const Post = ({ post, currentUser }) => {
@@ -129,26 +141,41 @@ const Post = ({ post, currentUser }) => {
           </Header>
           <Content>{post.content}</Content>
 
-          {post.repository && (
-            <Tags>
-              <Link
-                as={`/${post.repository}`}
-                href={`/repository?repository=${post.repository}`}
-              >
-                <a style={{ textDecoration: "none" }}>
-                  <GreyButtonBox>
-                    <Icon icon={faGithub} /> <span>{post.repository}</span>
-                  </GreyButtonBox>
+          <Tags>
+            {post.repository && (
+              <>
+                <GreyButtonBox>
+                  <Link
+                    as={`/${post.repository}`}
+                    href={`/repository?repository=${post.repository}`}
+                  >
+                    <a style={{ textDecoration: "none" }}>
+                      <Icon icon={faGithub} /> <span>{post.repository}</span>{" "}
+                    </a>
+                  </Link>
+                  <a
+                    href={`https://github.com/${post.repository}`}
+                    target="_blank"
+                  >
+                    <ExternalLinkIcon icon={faExternalLinkAlt} />
+                  </a>
+                </GreyButtonBox>
+              </>
+            )}
+
+            {post.calendar_link && (
+              <GreyButtonBox>
+                <a
+                  href={post.calendar_link}
+                  target="_blank"
+                  style={{ textDecoration: "none" }}
+                >
+                  <Icon icon={faCalendarAlt} /> <span>Calendar</span>{" "}
+                  <ExternalLinkIcon icon={faExternalLinkAlt} />
                 </a>
-              </Link>
-              <GreyRepoLink
-                href={`https://github.com/${post.repository}`}
-                target="_blank"
-              >
-                <ExternalLinkIcon icon={faExternalLinkAlt} />
-              </GreyRepoLink>
-            </Tags>
-          )}
+              </GreyButtonBox>
+            )}
+          </Tags>
 
           {currentUser && (
             <Actions>
