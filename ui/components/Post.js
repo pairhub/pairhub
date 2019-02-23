@@ -152,12 +152,14 @@ const Post = ({ post, currentUser }) => {
 
           {currentUser && (
             <Actions>
-              <a
-                href={`https://gitter.im/${post.author.username}`}
-                target="_blank"
-              >
-                <Button>DM</Button>
-              </a>
+              {currentUser._id !== post.author._id && (
+                <a
+                  href={`https://gitter.im/${post.author.username}`}
+                  target="_blank"
+                >
+                  <Button>DM</Button>
+                </a>
+              )}
               {currentUser._id === post.author._id && (
                 <Mutation
                   mutation={DELETE_POST}
