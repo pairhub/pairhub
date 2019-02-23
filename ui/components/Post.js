@@ -143,6 +143,7 @@ const Post = ({ post, currentUser }) => {
               >
                 <Button>DM</Button>
               </a>
+							<Button>Edit</Button>
               {currentUser._id === post.author._id && (
                 <Mutation
                   mutation={DELETE_POST}
