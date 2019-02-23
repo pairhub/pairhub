@@ -70,7 +70,6 @@ export default {
   Mutation: {
     createPost: async (_, { content, repository, calendarLink }, { currentUser, Post }) => {
       if (!currentUser) throw new Error('Not logged in');
-      console.log({ calendarLink });
       return new Post({
         content,
         userId: currentUser.userId,
