@@ -217,6 +217,7 @@ const Post = ({ post, currentUser }) => {
                   )}
                 </Mutation>
               )}
+              <Button>Share</Button>
             </Actions>
           )}
         </Card>
