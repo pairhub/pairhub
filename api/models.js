@@ -27,11 +27,12 @@ export const Post = mongoose.model('Post', {
   content: { type: String, text: true },
   userId: { type: String, index: true },
   repository: { type: String, index: true },
-  calendar_link: { type: String },
+  calendarLink: { type: String },
   created_at: {
     type: Date,
     default: Date.now,
   },
+  updated_at: Date,
 });
 
 export const Comment = mongoose.model('Comment', {

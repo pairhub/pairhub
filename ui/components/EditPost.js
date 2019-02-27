@@ -3,18 +3,21 @@ import styled from "styled-components";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import TextArea from "react-textarea-autosize";
+import { _find } from "lodash";
 import { Container, Avatar } from "./styled";
 import { POSTS_QUERY } from "./Posts";
 import AddRepo from "./AddRepo";
 import AddCalendarLink from "./AddCalendarLink";
 
-const CREATE_POST = gql`
-  mutation createPost(
-    $content: String!
+const EDIT_POST = gql`
+  mutation editPost(
+    $postId: String!
+    $content: String
     $repository: String
     $calendarLink: String
   ) {
-    createPost(
+    editPost(
+      postId: $postId
       content: $content
       repository: $repository
       calendarLink: $calendarLink
@@ -64,8 +67,7 @@ const Input = styled(TextArea)`
   }
 `;
 
-const SubmitButton = styled.button`
-  margin-left: auto;
+const EditButton = styled.button`
   display: block;
   color: white;
   font-size: 16px;
@@ -84,6 +86,25 @@ const SubmitButton = styled.button`
   }
 `;
 
+const CancelButton = styled.button`
+  margin-left: auto;
+  margin-right: 10px;
+  display: block;
+  color: black;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 15px;
+  border-radius: 6px;
+  border: 0;
+  cursor: "pointer";
+  background-color: transparent;
+  transition: background-color 100ms ease-in-out;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+`;
+
 const MetaContainer = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -96,30 +117,16 @@ const MetaContainer = styled.div`
 `;
 
 const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
-class NewPost extends Component {
+class EditPost extends Component {
   state = {
-    value: "",
-    repository: this.props.repository,
-    calendarLink: ""
-  };
-
-  componentDidMount() {
-    document.addEventListener("mousedown", this.handleClick, false);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClick, false);
-  }
-
-  handleClick = e => {
-    if (this.props.focus) {
-      if (!this.node.contains(e.target)) this.props.onBlur();
-    }
+    content: this.props.post.content,
+    repository: this.props.post.repository,
+    calendarLink: this.props.post.calendarLink
   };
 
   onChange = e => {
     this.setState({
-      value: e.target.value
+      content: e.target.value
     });
   };
 
@@ -135,46 +142,37 @@ class NewPost extends Component {
   };
 
   render() {
-    const { currentUser } = this.props;
+    const {
+      currentUser,
+      cancelEdit,
+      post: { _id: postId }
+    } = this.props;
 
-    const isText = this.state.value.length > 0;
-    const isActive = isText || this.props.focus;
-
+    const isText = this.state.content.length > 0;
+    const isActive = true;
     return (
       <Container>
         <Avatar src={currentUser.avatar_url} username={currentUser.username} />
 
-        <Mutation
-          mutation={CREATE_POST}
-          update={(cache, { data: { createPost } }) => {
-            const { posts } = cache.readQuery({ query: POSTS_QUERY });
-            cache.writeQuery({
-              query: POSTS_QUERY,
-              data: { posts: [createPost].concat(posts) }
-            });
-          }}
-        >
-          {createPost => (
+        <Mutation mutation={EDIT_POST}>
+          {editPost => (
             <Form
               onSubmit={e => {
                 e.preventDefault();
                 if (
-                  !this.state.calendarLink.length ||
+                  !this.state.calendarLink ||
+                  // this.state.calendarLink &&
                   urlRegex.test(this.state.calendarLink)
                 ) {
-                  createPost({
+                  editPost({
                     variables: {
-                      content: this.state.value,
+                      postId,
+                      content: this.state.content,
                       repository: this.state.repository,
                       calendarLink: this.state.calendarLink
                     }
                   }).then(() => {
-                    this.setState({
-                      value: "",
-                      repository: null,
-                      calendarLink: ""
-                    });
-                    this.props.onBlur();
+                    cancelEdit();
                   });
                 } else {
                   alert("Enter a valid calendar link url");
@@ -186,9 +184,8 @@ class NewPost extends Component {
                 innerRef={c => (this.node = c)}
               >
                 <Input
-                  value={this.state.value}
+                  value={this.state.content}
                   onChange={this.onChange}
-                  onFocus={this.props.onFocus}
                   placeholder={`What would you like to pair on?`}
                 />
                 {isActive && (
@@ -202,14 +199,15 @@ class NewPost extends Component {
                       calendarLink={this.state.calendarLink}
                       setCalendarLink={this.setCalendarLink}
                     />
-                    <SubmitButton
+                    <CancelButton onClick={cancelEdit}>Cancel</CancelButton>
+                    <EditButton
                       type="submit"
                       focus={isActive}
                       canSubmit={isText}
                       disabled={!isText}
                     >
-                      Post
-                    </SubmitButton>
+                      Edit
+                    </EditButton>
                   </MetaContainer>
                 )}
               </InputContainer>
@@ -221,4 +219,4 @@ class NewPost extends Component {
   }
 }
 
-export default NewPost;
+export default EditPost;

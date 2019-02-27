@@ -13,6 +13,7 @@ import {
   faExternalLinkAlt
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
+import EditPost from "./EditPost";
 
 const Header = styled.div`
   display: flex;
@@ -110,6 +111,17 @@ const ExternalLinkIcon = styled(Icon)`
 
 const Post = ({ post, currentUser }) => {
   if (!post) return null;
+
+  const [editing, setEditing] = React.useState(false);
+
+  if (editing)
+    return (
+      <EditPost
+        currentUser={currentUser}
+        post={post}
+        cancelEdit={() => setEditing(false)}
+      />
+    );
   return (
     <Flipped flipId={post._id}>
       <Container key={post._id}>
@@ -163,10 +175,10 @@ const Post = ({ post, currentUser }) => {
               </>
             )}
 
-            {post.calendar_link && (
+            {post.calendarLink && (
               <GreyButtonBox>
                 <a
-                  href={post.calendar_link}
+                  href={post.calendarLink}
                   target="_blank"
                   style={{ textDecoration: "none" }}
                 >
@@ -188,34 +200,38 @@ const Post = ({ post, currentUser }) => {
                 </a>
               )}
               {currentUser._id === post.author._id && (
-                <Mutation
-                  mutation={DELETE_POST}
-                  refetchQueries={["posts"]}
-                  // update={(cache, { data: { deletePost } }) => {
-                  //   const { posts } = cache.readQuery({
-                  //     query: POSTS_QUERY
-                  //     //variables: variables
-                  //   });
-                  //   cache.writeQuery({
-                  //     query: POSTS_QUERY,
-                  //     //variables: variables,
-                  //     data: {
-                  //       posts: posts.filter(post => post._id !== deletePost._id)
-                  //     }
-                  //   });
-                  // }}
-                >
-                  {deletePost => (
-                    <Button
-                      onClick={() =>
-                        confirm("Are you sure you want to delete this post?") &&
-                        deletePost({ variables: { id: post._id } })
-                      }
-                    >
-                      Delete
-                    </Button>
-                  )}
-                </Mutation>
+                <>
+                  <Mutation
+                    mutation={DELETE_POST}
+                    refetchQueries={["posts"]}
+                    // update={(cache, { data: { deletePost } }) => {
+                    //   const { posts } = cache.readQuery({
+                    //     query: POSTS_QUERY
+                    //     //variables: variables
+                    //   });
+                    //   cache.writeQuery({
+                    //     query: POSTS_QUERY,
+                    //     //variables: variables,
+                    //     data: {
+                    //       posts: posts.filter(post => post._id !== deletePost._id)
+                    //     }
+                    //   });
+                    // }}
+                  >
+                    {deletePost => (
+                      <Button
+                        onClick={() =>
+                          confirm(
+                            "Are you sure you want to delete this post?"
+                          ) && deletePost({ variables: { id: post._id } })
+                        }
+                      >
+                        Delete
+                      </Button>
+                    )}
+                  </Mutation>
+                  <Button onClick={() => setEditing(true)}>Edit</Button>
+                </>
               )}
             </Actions>
           )}

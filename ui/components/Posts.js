@@ -27,7 +27,7 @@ export const POSTS_QUERY = gql`
       content
       created_at
       repository
-      calendar_link
+      calendarLink
       author {
         _id
         name
