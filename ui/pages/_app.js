@@ -40,68 +40,63 @@ const MainLayout = styled.div`
   justify-content: center;
 `;
 
-class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
-    let pageProps = {};
+const MyApp = ({ Component, pageProps, apolloClient, router }) => {
+  const [modal, setModal] = React.useState(null);
 
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-    return { pageProps };
-  }
-
-  state = {
-    modal: null
+  const openModal = name => {
+    if (modal !== name) setModal(name);
   };
 
-  openModal = name => {
-    if (this.state.modal !== name) this.setState({ modal: name });
+  const closeModal = () => {
+    setModal(null);
   };
 
-  closeModal = () => {
-    this.setState({ modal: null });
-  };
-
-  render() {
-    const { Component, pageProps, apolloClient, router } = this.props;
-    return (
-      <Container>
-        <ApolloProvider client={apolloClient}>
-          <Query
-            query={gql`
-              query currentUser {
-                currentUser {
-                  _id
-                  avatar_url
-                  userId
-                  username
-                }
+  return (
+    <Container>
+      <ApolloProvider client={apolloClient}>
+        <Query
+          query={gql`
+            query currentUser {
+              currentUser {
+                _id
+                avatar_url
+                userId
+                username
               }
-            `}
-          >
-            {({ data: { currentUser } }) => (
-              <>
-                <Modal active={this.state.modal} closeModal={this.closeModal} />
-                <MainLayout>
-                  <Header
-                    currentUser={currentUser}
-                    searchPhrase={router.query.s}
-                  />
-                  <Component
-                    {...pageProps}
-                    openModal={this.openModal}
-                    activeModal={this.state.modal}
-                    currentUser={currentUser}
-                    router={router}
-                  />
-                </MainLayout>
-              </>
-            )}
-          </Query>
-        </ApolloProvider>
-      </Container>
-    );
+            }
+          `}
+        >
+          {({ data: { currentUser } }) => (
+            <>
+              <Modal active={modal} closeModal={closeModal} />
+              <MainLayout>
+                <Header
+                  currentUser={currentUser}
+                  searchPhrase={router.query.s}
+                />
+                <Component
+                  {...pageProps}
+                  openModal={openModal}
+                  activeModal={modal}
+                  currentUser={currentUser}
+                  router={router}
+                />
+              </MainLayout>
+            </>
+          )}
+        </Query>
+      </ApolloProvider>
+    </Container>
+  );
+};
+
+MyApp.getInitialProps = async ({ Component, ctx }) => {
+  let pageProps = {};
+
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
   }
-}
+  return { pageProps };
+};
 
 export default withApolloClient(MyApp);
