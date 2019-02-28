@@ -31,8 +31,7 @@ injectGlobal`
   }
 `;
 
-// shortens post with elipsis to keep content within
-// twitter's 280 character limit
+// shortens post with elipsis to keep tweet within 280 character limit
 const truncateTweet = (text, max) =>
   text.substr(0, max).trim() + (text.length > max ? "..." : "");
 
@@ -42,17 +41,17 @@ const SocialButton = ({ post }) => {
       content={
         <>
           <TwitterButton
-            // url, hashtags, via, and elipsis make up 57 characters
-            title={truncateTweet(post.content, 223)}
-            url={`https://pairhub.io/@${post.author.username}`}
-            hashtags={["pairprogramming"]}
+            // url, hashtags, via, and elipsis make up 52 characters
+            title={truncateTweet(post.content, 228)}
+            url={`https://pairhub.io/post/${post._id}`}
+            hashtags={["pairwithme"]}
             via={"pairhub"}
           >
             <TwitterIcon size={30} />
           </TwitterButton>
           <FacebookButton
-            url={`https://pairhub.io/@${post.author.username}`}
-            hashtag="#pairhub"
+            url={`https://pairhub.io/post/${post._id}`}
+            hashtag="#pairwithme"
           >
             <FacebookIcon size={30} />
           </FacebookButton>
