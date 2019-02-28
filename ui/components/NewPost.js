@@ -23,7 +23,7 @@ const CREATE_POST = gql`
       content
       created_at
       repository
-      calendar_link
+      calendarLink
       author {
         _id
         name
@@ -171,7 +171,7 @@ const NewPost = ({
                 placeholder={`What would you like to pair on?`}
               />
               {isActive && (
-                <MetaContainer isActive={isActive}>
+                <MetaContainer>
                   <AddRepo
                     repository={repository}
                     setRepository={setRepository}
@@ -183,7 +183,6 @@ const NewPost = ({
                   />
                   <SubmitButton
                     type="submit"
-                    focus={isActive}
                     canSubmit={isText}
                     disabled={!isText}
                   >
