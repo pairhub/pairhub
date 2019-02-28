@@ -1,11 +1,9 @@
-import React, { Component } from "react";
 import styled from "styled-components";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import TextArea from "react-textarea-autosize";
 import { _find } from "lodash";
 import { Container, Avatar } from "./styled";
-import { POSTS_QUERY } from "./Posts";
 import AddRepo from "./AddRepo";
 import AddCalendarLink from "./AddCalendarLink";
 
@@ -96,7 +94,7 @@ const CancelButton = styled.button`
   padding: 12px 15px;
   border-radius: 6px;
   border: 0;
-  cursor: "pointer";
+  cursor: pointer;
   background-color: transparent;
   transition: background-color 100ms ease-in-out;
 
@@ -117,106 +115,70 @@ const MetaContainer = styled.div`
 `;
 
 const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
-class EditPost extends Component {
-  state = {
-    content: this.props.post.content,
-    repository: this.props.post.repository,
-    calendarLink: this.props.post.calendarLink
-  };
 
-  onChange = e => {
-    this.setState({
-      content: e.target.value
-    });
-  };
+const EditPost = ({ post, currentUser, cancelEdit }) => {
+  const [content, setContent] = React.useState(post.content);
+  const [repository, setRepository] = React.useState(post.repository);
+  const [calendarLink, setCalendarLink] = React.useState(post.calendarLink);
 
-  setCalendarLink = value => this.setState({ calendarLink: value });
+  const isText = content.length > 0;
+  return (
+    <Container>
+      <Avatar src={currentUser.avatar_url} username={currentUser.username} />
 
-  setRepository = name => {
-    this.setState({ repository: name });
-  };
-
-  clearRepository = e => {
-    e.stopPropagation();
-    this.setState({ repository: null });
-  };
-
-  render() {
-    const {
-      currentUser,
-      cancelEdit,
-      post: { _id: postId }
-    } = this.props;
-
-    const isText = this.state.content.length > 0;
-    const isActive = true;
-    return (
-      <Container>
-        <Avatar src={currentUser.avatar_url} username={currentUser.username} />
-
-        <Mutation mutation={EDIT_POST}>
-          {editPost => (
-            <Form
-              onSubmit={e => {
-                e.preventDefault();
-                if (
-                  !this.state.calendarLink ||
-                  // this.state.calendarLink &&
-                  urlRegex.test(this.state.calendarLink)
-                ) {
-                  editPost({
-                    variables: {
-                      postId,
-                      content: this.state.content,
-                      repository: this.state.repository,
-                      calendarLink: this.state.calendarLink
-                    }
-                  }).then(() => {
-                    cancelEdit();
-                  });
-                } else {
-                  alert("Enter a valid calendar link url");
-                }
-              }}
-            >
-              <InputContainer
-                isActive={isActive}
-                innerRef={c => (this.node = c)}
-              >
-                <Input
-                  value={this.state.content}
-                  onChange={this.onChange}
-                  placeholder={`What would you like to pair on?`}
+      <Mutation mutation={EDIT_POST}>
+        {editPost => (
+          <Form
+            onSubmit={e => {
+              e.preventDefault();
+              if (!calendarLink || urlRegex.test(calendarLink)) {
+                editPost({
+                  variables: {
+                    postId: post._id,
+                    content,
+                    repository,
+                    calendarLink
+                  }
+                }).then(() => {
+                  cancelEdit();
+                });
+              } else {
+                alert("Enter a valid calendar link url");
+              }
+            }}
+          >
+            <InputContainer isActive={true}>
+              <Input
+                value={content}
+                onChange={e => setContent(e.target.value)}
+                placeholder={`What would you like to pair on?`}
+              />
+              <MetaContainer isActive={true}>
+                <AddRepo
+                  repository={repository}
+                  setRepository={setRepository}
+                  clearRepository={() => setRepository(null)}
                 />
-                {isActive && (
-                  <MetaContainer isActive={isActive}>
-                    <AddRepo
-                      repository={this.state.repository}
-                      setRepository={this.setRepository}
-                      clearRepository={this.clearRepository}
-                    />
-                    <AddCalendarLink
-                      calendarLink={this.state.calendarLink}
-                      setCalendarLink={this.setCalendarLink}
-                    />
-                    <CancelButton onClick={cancelEdit}>Cancel</CancelButton>
-                    <EditButton
-                      type="submit"
-                      focus={isActive}
-                      canSubmit={isText}
-                      disabled={!isText}
-                    >
-                      Edit
-                    </EditButton>
-                  </MetaContainer>
-                )}
-              </InputContainer>
-            </Form>
-          )}
-        </Mutation>
-      </Container>
-    );
-  }
-}
+                <AddCalendarLink
+                  calendarLink={calendarLink}
+                  setCalendarLink={setCalendarLink}
+                />
+                <CancelButton onClick={cancelEdit}>Cancel</CancelButton>
+                <EditButton
+                  type="submit"
+                  focus={true}
+                  canSubmit={isText}
+                  disabled={!isText}
+                >
+                  Edit
+                </EditButton>
+              </MetaContainer>
+            </InputContainer>
+          </Form>
+        )}
+      </Mutation>
+    </Container>
+  );
+};
 
 export default EditPost;
