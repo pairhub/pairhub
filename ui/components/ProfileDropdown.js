@@ -59,55 +59,52 @@ const Container = styled.div`
   margin-left: 10px;
 `;
 
-class ProfileDropdown extends Component {
-  state = { dropdownExpanded: false };
+const ProfileDropdown = ({ currentUser }) => {
+  const [dropdownExpanded, setDropdownExpanded] = React.useState(false);
 
-  componentDidMount() {
-    document.addEventListener("mousedown", this.handleClick, false);
-  }
+  const inputRef = React.useRef(null);
 
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClick, false);
-  }
+  const toggleDropdown = () => {
+    setDropdownExpanded(!dropdownExpanded);
+  };
 
-  handleClick = e => {
-    if (this.state.dropdownExpanded) {
-      if (!this.node.contains(e.target)) this.toggleDropdown();
+  const handleClick = e => {
+    if (dropdownExpanded) {
+      if (inputRef.current && !inputRef.current.contains(e.target))
+        toggleDropdown();
     }
   };
 
-  toggleDropdown = () => {
-    this.setState({ dropdownExpanded: !this.state.dropdownExpanded });
-  };
+  React.useEffect(() => {
+    document.addEventListener("mousedown", handleClick, false);
+    return () => {
+      document.removeEventListener("mousedown", handleClick, false);
+    };
+  });
 
-  render() {
-    return (
-      <Container innerRef={c => (this.node = c)}>
-        <Avatar
-          onClick={this.toggleDropdown}
-          src={this.props.currentUser.avatar_url}
-        />
-        {this.state.dropdownExpanded && (
-          <Dropdown>
-            <List>
-              <Item>
-                <Link
-                  prefetch
-                  as={`/@${this.props.currentUser.username}`}
-                  href={`/profile?username=${this.props.currentUser.username}`}
-                >
-                  <a>Profile</a>
-                </Link>
-              </Item>
-              <Item>
-                <a href="/logout">Log out</a>
-              </Item>
-            </List>
-          </Dropdown>
-        )}
-      </Container>
-    );
-  }
-}
+  return (
+    <Container innerRef={inputRef}>
+      <Avatar onClick={toggleDropdown} src={currentUser.avatar_url} />
+      {dropdownExpanded && (
+        <Dropdown>
+          <List>
+            <Item>
+              <Link
+                prefetch
+                as={`/@${currentUser.username}`}
+                href={`/profile?username=${currentUser.username}`}
+              >
+                <a>Profile</a>
+              </Link>
+            </Item>
+            <Item>
+              <a href="/logout">Log out</a>
+            </Item>
+          </List>
+        </Dropdown>
+      )}
+    </Container>
+  );
+};
 
 export default ProfileDropdown;

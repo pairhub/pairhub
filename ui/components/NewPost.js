@@ -96,129 +96,107 @@ const MetaContainer = styled.div`
 `;
 
 const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
-class NewPost extends Component {
-  state = {
-    value: "",
-    repository: this.props.repository,
-    calendarLink: ""
-  };
+const NewPost = ({
+  repository: initialRepository,
+  focus,
+  onFocus,
+  onBlur,
+  currentUser
+}) => {
+  const [value, setValue] = React.useState("");
+  const [repository, setRepository] = React.useState(initialRepository);
+  const [calendarLink, setCalendarLink] = React.useState("");
 
-  componentDidMount() {
-    document.addEventListener("mousedown", this.handleClick, false);
-  }
+  const inputRef = React.useRef(null);
 
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClick, false);
-  }
+  React.useEffect(() => {
+    const handleClick = e => {
+      if (focus) {
+        if (inputRef.current && !inputRef.current.contains(e.target)) onBlur();
+      }
+    };
+    document.addEventListener("mousedown", handleClick, false);
+    return () => document.removeEventListener("mousedown", handleClick, false);
+  }, [focus]);
 
-  handleClick = e => {
-    if (this.props.focus) {
-      if (!this.node.contains(e.target)) this.props.onBlur();
-    }
-  };
-
-  onChange = e => {
-    this.setState({
-      value: e.target.value
-    });
-  };
-
-  setCalendarLink = value => this.setState({ calendarLink: value });
-
-  setRepository = name => {
-    this.setState({ repository: name });
-  };
-
-  clearRepository = e => {
+  const clearRepository = e => {
     e.stopPropagation();
-    this.setState({ repository: null });
+    setRepository(null);
   };
 
-  render() {
-    const { currentUser } = this.props;
+  const isText = value.length > 0;
+  const isActive = isText || focus; /* || this.state.addRepo; */
 
-    const isText = this.state.value.length > 0;
-    const isActive = isText || this.props.focus;
+  return (
+    <Container>
+      <Avatar src={currentUser.avatar_url} username={currentUser.username} />
 
-    return (
-      <Container>
-        <Avatar src={currentUser.avatar_url} username={currentUser.username} />
-
-        <Mutation
-          mutation={CREATE_POST}
-          update={(cache, { data: { createPost } }) => {
-            const { posts } = cache.readQuery({ query: POSTS_QUERY });
-            cache.writeQuery({
-              query: POSTS_QUERY,
-              data: { posts: [createPost].concat(posts) }
-            });
-          }}
-        >
-          {createPost => (
-            <Form
-              onSubmit={e => {
-                e.preventDefault();
-                if (
-                  !this.state.calendarLink.length ||
-                  urlRegex.test(this.state.calendarLink)
-                ) {
-                  createPost({
-                    variables: {
-                      content: this.state.value,
-                      repository: this.state.repository,
-                      calendarLink: this.state.calendarLink
-                    }
-                  }).then(() => {
-                    this.setState({
-                      value: "",
-                      repository: null,
-                      calendarLink: ""
-                    });
-                    this.props.onBlur();
-                  });
-                } else {
-                  alert("Enter a valid calendar link url");
-                }
-              }}
-            >
-              <InputContainer
-                isActive={isActive}
-                innerRef={c => (this.node = c)}
-              >
-                <Input
-                  value={this.state.value}
-                  onChange={this.onChange}
-                  onFocus={this.props.onFocus}
-                  placeholder={`What would you like to pair on?`}
-                />
-                {isActive && (
-                  <MetaContainer isActive={isActive}>
-                    <AddRepo
-                      repository={this.state.repository}
-                      setRepository={this.setRepository}
-                      clearRepository={this.clearRepository}
-                    />
-                    <AddCalendarLink
-                      calendarLink={this.state.calendarLink}
-                      setCalendarLink={this.setCalendarLink}
-                    />
-                    <SubmitButton
-                      type="submit"
-                      focus={isActive}
-                      canSubmit={isText}
-                      disabled={!isText}
-                    >
-                      Post
-                    </SubmitButton>
-                  </MetaContainer>
-                )}
-              </InputContainer>
-            </Form>
-          )}
-        </Mutation>
-      </Container>
-    );
-  }
-}
+      <Mutation
+        mutation={CREATE_POST}
+        update={(cache, { data: { createPost } }) => {
+          const { posts } = cache.readQuery({ query: POSTS_QUERY });
+          cache.writeQuery({
+            query: POSTS_QUERY,
+            data: { posts: [createPost].concat(posts) }
+          });
+        }}
+      >
+        {createPost => (
+          <Form
+            onSubmit={e => {
+              e.preventDefault();
+              if (!calendarLink.length || urlRegex.test(calendarLink)) {
+                createPost({
+                  variables: {
+                    content: value,
+                    repository: repository,
+                    calendarLink: calendarLink
+                  }
+                }).then(() => {
+                  setValue("");
+                  setRepository(null);
+                  setCalendarLink("");
+                  onBlur();
+                });
+              } else {
+                alert("Enter a valid calendar link url");
+              }
+            }}
+          >
+            <InputContainer isActive={isActive} innerRef={inputRef}>
+              <Input
+                value={value}
+                onChange={e => setValue(e.target.value)}
+                onFocus={onFocus}
+                placeholder={`What would you like to pair on?`}
+              />
+              {isActive && (
+                <MetaContainer isActive={isActive}>
+                  <AddRepo
+                    repository={repository}
+                    setRepository={setRepository}
+                    clearRepository={clearRepository}
+                  />
+                  <AddCalendarLink
+                    calendarLink={calendarLink}
+                    setCalendarLink={setCalendarLink}
+                  />
+                  <SubmitButton
+                    type="submit"
+                    focus={isActive}
+                    canSubmit={isText}
+                    disabled={!isText}
+                  >
+                    Post
+                  </SubmitButton>
+                </MetaContainer>
+              )}
+            </InputContainer>
+          </Form>
+        )}
+      </Mutation>
+    </Container>
+  );
+};
 
 export default NewPost;

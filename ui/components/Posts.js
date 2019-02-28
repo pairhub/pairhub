@@ -43,72 +43,70 @@ const Center = styled.div`
   justify-content: center;
 `;
 
-class Posts extends Component {
-  state = { hasMore: true, focus: false };
+const Posts = ({ currentUser, searchPhrase, userId, repository }) => {
+  const [hasMore, setHasMore] = React.useState(true);
+  const [focus, setFocus] = React.useState(false);
 
-  componentWillReceiveProps() {
-    this.setState({ hasMore: true });
-  }
+  const onFocus = () => setFocus(true);
+  const onBlur = () => setFocus(false);
 
-  onFocus = () => this.setState({ focus: true });
-  onBlur = () => this.setState({ focus: false });
+  React.useEffect(() => {
+    setHasMore(true);
+  }, [currentUser, searchPhrase, userId, repository]);
 
-  render() {
-    const { currentUser, searchPhrase, userId, repository } = this.props;
-    const showNewPostForm =
-      currentUser && !(userId && userId !== currentUser.userId);
+  const showNewPostForm =
+    currentUser && !(userId && userId !== currentUser.userId);
 
-    return (
-      <Query
-        query={POSTS_QUERY}
-        variables={{ offset: 0, searchPhrase, userId, repository }}
-      >
-        {({ loading, error, data: { posts }, fetchMore }) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
-          // if (posts.length === 0) return "No posts found";
+  return (
+    <Query
+      query={POSTS_QUERY}
+      variables={{ offset: 0, searchPhrase, userId, repository }}
+    >
+      {({ loading, error, data: { posts }, fetchMore }) => {
+        if (loading) return "Loading...";
+        if (error) return `Error! ${error.message}`;
+        // if (posts.length === 0) return "No posts found";
 
-          const onLoadMore = () =>
-            fetchMore({
-              variables: { offset: posts.length },
-              updateQuery: (prev, { fetchMoreResult }) => {
-                if (!fetchMoreResult) return prev;
-                if (fetchMoreResult.posts.length < 20) {
-                  this.setState({ hasMore: false });
-                }
-                return {
-                  posts: [...prev.posts, ...fetchMoreResult.posts]
-                };
+        const onLoadMore = () =>
+          fetchMore({
+            variables: { offset: posts.length },
+            updateQuery: (prev, { fetchMoreResult }) => {
+              if (!fetchMoreResult) return prev;
+              if (fetchMoreResult.posts.length < 20) {
+                setHasMore(false);
               }
-            });
-          return (
-            <div>
-              <Flipper flipKey={this.state.focus}>
-                {showNewPostForm && (
-                  <NewPost
-                    currentUser={currentUser}
-                    onFocus={this.onFocus}
-                    onBlur={this.onBlur}
-                    focus={this.state.focus}
-                    repository={repository}
-                  />
-                )}
-                {posts.map(post => (
-                  <Post key={post._id} post={post} currentUser={currentUser} />
-                ))}
+              return {
+                posts: [...prev.posts, ...fetchMoreResult.posts]
+              };
+            }
+          });
+        return (
+          <div>
+            <Flipper flipKey={focus}>
+              {showNewPostForm && (
+                <NewPost
+                  currentUser={currentUser}
+                  onFocus={onFocus}
+                  onBlur={onBlur}
+                  focus={focus}
+                  repository={repository}
+                />
+              )}
+              {posts.map(post => (
+                <Post key={post._id} post={post} currentUser={currentUser} />
+              ))}
 
-                <Center>
-                  {posts.length >= 20 && this.state.hasMore && (
-                    <button onClick={onLoadMore}>Load more</button>
-                  )}
-                </Center>
-              </Flipper>
-            </div>
-          );
-        }}
-      </Query>
-    );
-  }
-}
+              <Center>
+                {posts.length >= 20 && hasMore && (
+                  <button onClick={onLoadMore}>Load more</button>
+                )}
+              </Center>
+            </Flipper>
+          </div>
+        );
+      }}
+    </Query>
+  );
+};
 
 export default Posts;

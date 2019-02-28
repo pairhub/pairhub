@@ -5,6 +5,7 @@ import { Mutation } from "react-apollo";
 import Tippy from "@tippy.js/react";
 import Link from "next/link";
 import { Flipped } from "react-flip-toolkit";
+import SocialButton from "./SocialButton";
 
 import { Card, Container, Avatar } from "./styled";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
@@ -233,6 +234,7 @@ const Post = ({ post, currentUser }) => {
                   <Button onClick={() => setEditing(true)}>Edit</Button>
                 </>
               )}
+              <SocialButton post={post} />
             </Actions>
           )}
         </Card>

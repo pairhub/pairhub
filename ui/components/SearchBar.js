@@ -26,44 +26,34 @@ const Input = styled.input`
   }
 `;
 
-class SearchBar extends Component {
-  state = {
-    value: this.props.searchPhrase || ""
-  };
+const SearchBar = ({ searchPhrase: initialSearchPhrase = "" }) => {
+  const [searchPhrase, setSearchPhrase] = React.useState(initialSearchPhrase);
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({ value: nextProps.searchPhrase || "" });
-  }
+  React.useEffect(() => {
+    setSearchPhrase(searchPhrase);
+  }, [initialSearchPhrase]);
 
-  onChange = e => {
-    this.setState({ value: e.target.value });
-  };
-
-  onKeyPress = e => {
-    if (e.key === "Enter") this.handleEnter();
-  };
-
-  handleEnter = () => {
-    if (this.state.value !== this.props.searchPhrase) {
-      if (this.state.value === "") {
-        Router.push("/");
-      } else {
-        Router.push(`/?s=${this.state.value}`);
-      }
+  const handleEnter = () => {
+    if (searchPhrase === "") {
+      Router.push("/");
+    } else {
+      Router.push(`/?s=${searchPhrase}`);
     }
   };
 
-  render() {
-    return (
-      <Input
-        type="text"
-        placeholder="Search posts"
-        value={this.state.value}
-        onChange={this.onChange}
-        onKeyPress={this.onKeyPress}
-      />
-    );
-  }
-}
+  const onKeyPress = e => {
+    if (e.key === "Enter") handleEnter();
+  };
+
+  return (
+    <Input
+      type="text"
+      placeholder="Search posts"
+      value={searchPhrase}
+      onChange={e => setSearchPhrase(e.target.value)}
+      onKeyPress={onKeyPress}
+    />
+  );
+};
 
 export default SearchBar;
