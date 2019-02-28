@@ -42,9 +42,8 @@ const Form = styled.form`
 
 const InputContainer = styled.div`
   border-radius: 8px;
-  background-color: ${props => (props.isActive ? "white" : "transparent")};
-  box-shadow: ${props =>
-    props.isActive ? "0 2px 4px 0 rgba(126, 126, 126, 0.17)" : "0"};
+  background-color: white;
+  box-shadow: 0 2px 4px 0 rgba(126, 126, 126, 0.17);
   transition: background-color 1000ms ease-out;
   transition: box-shadow 100ms ease-out;
   display: flex;
@@ -153,7 +152,7 @@ const EditPost = ({ post, currentUser, cancelEdit }) => {
                 onChange={e => setContent(e.target.value)}
                 placeholder={`What would you like to pair on?`}
               />
-              <MetaContainer isActive={true}>
+              <MetaContainer>
                 <AddRepo
                   repository={repository}
                   setRepository={setRepository}
@@ -164,13 +163,8 @@ const EditPost = ({ post, currentUser, cancelEdit }) => {
                   setCalendarLink={setCalendarLink}
                 />
                 <CancelButton onClick={cancelEdit}>Cancel</CancelButton>
-                <EditButton
-                  type="submit"
-                  focus={true}
-                  canSubmit={isText}
-                  disabled={!isText}
-                >
-                  Edit
+                <EditButton type="submit" canSubmit={isText} disabled={!isText}>
+                  Save
                 </EditButton>
               </MetaContainer>
             </InputContainer>
