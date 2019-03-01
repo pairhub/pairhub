@@ -18,9 +18,16 @@ export default gql`
     content: String!
     author: User!
     repository: String
+    tags: [Tag]
     comments: [Comment]
     created_at: String!
     calendarLink: String
+  }
+
+  type Tag {
+    _id: String!
+    content: String!
+    posts: [Post]!
   }
 
   type Comment {
@@ -47,15 +54,20 @@ export default gql`
     currentUser: User
     post(id: String!): Post
     posts(offset: Int, searchPhrase: String, userId: String, repository: String): [Post]
+    tag(id: String!): Tag
+    tags(offset: Int): [Tag]
     repository(owner: String!, name: String!): Repository
     searchRepositories(query: String!): [Repository]
     comment(id: String!): Comment
   }
 
   type Mutation {
-    createPost(content: String!, repository: String, calendarLink: String): Post
-    editPost(postId: String!, content: String, repository: String, calendarLink: String): Post
+    createPost(content: String!, repository: String, calendarLink: String tags:[String]): Post
+    editPost(postId: String!, content: String, repository: String, calendarLink: String tags:[String]): Post
     deletePost(id: String!): Post
+    createTag(content: String!): Tag
+    editTag(id: String! content: String): Tag
+    deleteTag(id: String!): Tag
     createComment(postId: String!, content: String!): Comment
   }
 `;

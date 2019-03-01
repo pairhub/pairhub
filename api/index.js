@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 import typeDefs from './schema';
 import resolvers from './resolvers';
 import setupGitHubLogin from './auth';
-import { User, Post, Comment } from './models';
+import { User, Post, Comment, Tag } from './models';
 
 dotenv.config();
 mongoose.connect(process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI : 'mongodb://localhost/db');
@@ -24,6 +24,7 @@ const server = new ApolloServer({
     User,
     Post,
     Comment,
+    Tag,
   }),
 });
 

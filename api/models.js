@@ -27,6 +27,9 @@ export const Post = mongoose.model('Post', {
   content: { type: String, text: true },
   userId: { type: String, index: true },
   repository: { type: String, index: true },
+  tags: [{
+    type: mongoose.Schema.Types.ObjectId, index: true,
+  }],
   calendarLink: { type: String },
   created_at: {
     type: Date,
@@ -43,4 +46,13 @@ export const Comment = mongoose.model('Comment', {
     type: Date,
     default: Date.now,
   },
+});
+
+export const Tag = mongoose.model('Tag', {
+  content: String,
+  created_at: {
+    type: Date,
+    default: Date.now,
+  },
+  updated_at: Date,
 });

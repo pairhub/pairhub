@@ -8,8 +8,12 @@ export default {
   },
   Post: {
     comments: async (parent, args, { Comment }) => Comment.find({ postId: parent._id }),
+    tags: async (parent, args, { Tag }) => Tag.find({ _id: parent.tags }),
     author: async (parent, args, { User }) => User.findOne({ userId: parent.userId }),
     created_at: parent => new Date(parent.created_at).getTime(),
+  },
+  Tag: {
+    posts: async (parent, args, { Post }) => Post.find({ tags: parent._id }),
   },
   Comment: {
     post: async (parent, args, { Post }) => Post.findOne({ _id: parent.postId }),
@@ -51,6 +55,8 @@ export default {
         .skip(offset || 0)
         .limit(limit);
     },
+    tag: async (_, { id }, { Tag }) => Tag.findOne({ _id: id }),
+    tags: async (_, args, { Tag }) => Tag.find(args),
     comment: async (_, { id }, { Comment }) => Comment.findOne({ _id: id }),
     repository: async (_, { owner, name }) => {
       const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = process.env;
@@ -68,31 +74,27 @@ export default {
     },
   },
   Mutation: {
-    createPost: async (_, { content, repository, calendarLink }, { currentUser, Post }) => {
+    createPost: async (_, args, { currentUser, Post }) => {
       if (!currentUser) throw new Error('Not logged in');
       return new Post({
-        content,
         userId: currentUser.userId,
-        repository,
-        calendarLink,
+        ...args,
       }).save();
     },
-    editPost: async (_, {
-      postId, content, repository, calendarLink,
-    }, { currentUser, Post }) => {
+    editPost: async (_, { postId, ...args }, { currentUser, Post }) => {
       if (!currentUser) throw new Error('Not logged in');
       // const post = await Post.findOne({ _id: postId });
       // if (!post || post.userId !== currentUser.userId) {
       //   throw new Error('No post or not your own post');
       // }
-
       return Post.findOneAndUpdate(
-        { _id: postId, userId: currentUser.userId },
+        {
+          _id: postId,
+          userId: currentUser.userId,
+        },
         {
           $set: {
-            content,
-            repository,
-            calendarLink,
+            ...args,
             updated_at: new Date(),
           },
         },
@@ -102,6 +104,27 @@ export default {
     deletePost: async (_, { id }, { Post, currentUser }) => {
       if (!currentUser) throw new Error('Not logged in');
       return Post.findOneAndRemove({ _id: id, userId: currentUser.userId });
+    },
+    createTag: async (_, { content }, { Tag, currentUser }) => {
+      if (!currentUser) throw new Error('Not logged in');
+      return new Tag({ content }).save();
+    },
+    editTag: async (_, { id, ...args }, { Tag, currentUser }) => {
+      if (!currentUser) throw new Error('Not logged in');
+      return Tag.findOneAndUpdate(
+        { _id: id },
+        {
+          $set: {
+            ...args,
+            updated_at: new Date(),
+          },
+        },
+        { new: true },
+      );
+    },
+    deleteTag: async (_, { id }, { Tag, currentUser }) => {
+      if (!currentUser) throw new Error('Not logged in');
+      return Tag.findOneAndRemove({ _id: id });
     },
     createComment: async (_, { postId, content }, { Comment, currentUser }) => {
       if (!currentUser) throw new Error('Not logged in');
