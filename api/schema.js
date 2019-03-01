@@ -20,7 +20,7 @@ export default gql`
     repository: String
     comments: [Comment]
     created_at: String!
-    calendar_link: String
+    calendarLink: String
   }
 
   type Comment {
@@ -54,6 +54,7 @@ export default gql`
 
   type Mutation {
     createPost(content: String!, repository: String, calendarLink: String): Post
+    editPost(postId: String!, content: String, repository: String, calendarLink: String): Post
     deletePost(id: String!): Post
     createComment(postId: String!, content: String!): Comment
   }

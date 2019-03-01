@@ -74,8 +74,30 @@ export default {
         content,
         userId: currentUser.userId,
         repository,
-        calendar_link: calendarLink,
+        calendarLink,
       }).save();
+    },
+    editPost: async (_, {
+      postId, content, repository, calendarLink,
+    }, { currentUser, Post }) => {
+      if (!currentUser) throw new Error('Not logged in');
+      // const post = await Post.findOne({ _id: postId });
+      // if (!post || post.userId !== currentUser.userId) {
+      //   throw new Error('No post or not your own post');
+      // }
+
+      return Post.findOneAndUpdate(
+        { _id: postId, userId: currentUser.userId },
+        {
+          $set: {
+            content,
+            repository,
+            calendarLink,
+            updated_at: new Date(),
+          },
+        },
+        { new: true },
+      );
     },
     deletePost: async (_, { id }, { Post, currentUser }) => {
       if (!currentUser) throw new Error('Not logged in');

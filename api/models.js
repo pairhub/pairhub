@@ -27,11 +27,12 @@ const PostSchema = new mongoose.Schema({
   content: String,
   userId: { type: String, index: true },
   repository: String,
-  calendar_link: String,
+  calendarLink: String,
   created_at: {
     type: Date,
     default: Date.now,
   },
+  updated_at: Date,
 }).index({ content: 'text', repository: 'text' });
 
 export const Post = mongoose.model('Post', PostSchema);

@@ -124,70 +124,56 @@ const cards = [
   </>
 ];
 
-class WelcomeModal extends Component {
-  state = {
-    step: 0
-  };
+const WelcomeModal = () => {
+  const [step, setStep] = React.useState(0);
 
-  componentWillMount() {
-    window.addEventListener("keydown", this.handleKeyDown);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("keydown", this.handleKeyDown);
-  }
-
-  handleKeyDown = e => {
+  const handleKeyDown = e => {
     if (e.key === "ArrowRight") {
-      this.nextCard();
+      nextCard();
     } else if (e.key === "ArrowLeft") {
-      this.prevCard();
+      prevCard();
     }
   };
 
-  nextCard = () => {
-    if (this.state.step < cards.length - 1)
-      this.setState({ step: this.state.step + 1 });
+  React.useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  });
+
+  const nextCard = () => {
+    if (step < cards.length - 1) setStep(step + 1);
   };
 
-  prevCard = () => {
-    if (this.state.step > 0) this.setState({ step: this.state.step - 1 });
+  const prevCard = () => {
+    if (step > 0) setStep(step - 1);
   };
 
-  setCard = step => {
-    this.setState({ step });
+  const setCard = step => {
+    setStep(step);
   };
 
-  render() {
-    return (
-      <>
-        <Container>
-          <Arrow onClick={this.prevCard} active={this.state.step > 0}>
-            <Icon icon={faArrowCircleLeft} />
-          </Arrow>
-          <CardContainer>{cards[this.state.step]}</CardContainer>
-          <Arrow
-            onClick={this.nextCard}
-            active={this.state.step < cards.length - 1}
-          >
-            <Icon icon={faArrowCircleRight} />
-          </Arrow>
-        </Container>
-        <ProgressDots>
-          {cards.map((_, i) => (
-            <ProgressDot
-              key={i}
-              onClick={() => this.setCard(i)}
-              filled={i <= this.state.step}
-            >
-              <Icon icon={faCircle} />
-            </ProgressDot>
-          ))}
-        </ProgressDots>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <Container>
+        <Arrow onClick={prevCard} active={step > 0}>
+          <Icon icon={faArrowCircleLeft} />
+        </Arrow>
+        <CardContainer>{cards[step]}</CardContainer>
+        <Arrow onClick={nextCard} active={step < cards.length - 1}>
+          <Icon icon={faArrowCircleRight} />
+        </Arrow>
+      </Container>
+      <ProgressDots>
+        {cards.map((_, i) => (
+          <ProgressDot key={i} onClick={() => setCard(i)} filled={i <= step}>
+            <Icon icon={faCircle} />
+          </ProgressDot>
+        ))}
+      </ProgressDots>
+    </>
+  );
+};
+
 export default WelcomeModal;
 
 // <li>Join Gitter chat</li>
