@@ -66,23 +66,33 @@ const DELETE_POST = gql`
 
 const Tags = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   margin-top: 10px;
+
+  @media (min-width: 620px) {
+    flex-direction: row;
+  }
 `;
 
 const GreyButtonBox = styled.div`
   display: flex;
-  align-items: center;
-  margin-right: 4px;
+  align-items: stretch;
   font-weight: 500;
   font-size: 14px;
-  margin-right: 10px;
+  margin-bottom: 5px;
   border-radius: 6px;
   overflow: hidden;
   cursor: pointer;
 
   transition: background-color 50ms ease-in-out;
   transition: color 50ms ease-in-out;
+
+  @media (min-width: 620px) {
+    margin-right: 5px;
+    margin-bottom: 0;
+  }
+
   span {
     margin-left: 6px;
     text-decoration: none !important;

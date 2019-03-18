@@ -34,7 +34,6 @@ const MainLayout = styled.div`
   max-width: 940px;
   margin: 0 auto;
   padding: 0 20px;
-  grid-template-rows: 100px 1fr;
   grid-template-columns: 1fr;
   grid-gap: 20px;
   justify-content: center;

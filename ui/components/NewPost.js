@@ -65,7 +65,6 @@ const Input = styled(TextArea)`
 `;
 
 const SubmitButton = styled.button`
-  margin-left: auto;
   display: block;
   color: white;
   font-size: 16px;
@@ -82,10 +81,15 @@ const SubmitButton = styled.button`
     background-color: ${props =>
       props.canSubmit ? "#0000af" : "rgba(0,0,255,0.2)"};
   }
+
+  @media (min-width: 620px) {
+    margin-left: auto;
+  }
 `;
 
 const MetaContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   margin: 8px;
   margin-top: 0px;
@@ -93,6 +97,10 @@ const MetaContainer = styled.div`
   padding-top: 8px;
   z-index: 1;
   position: relative;
+
+  @media (min-width: 620px) {
+    flex-direction: row;
+  }
 `;
 
 const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;

@@ -12,7 +12,6 @@ const Input = styled.input`
   font-size: 18px;
   font-weight: 300;
   border: 0;
-  margin-right: 5px;
   transition: box-shadow 100ms ease-in-out;
 
   ::placeholder {
@@ -23,6 +22,10 @@ const Input = styled.input`
   &:focus {
     outline: none;
     box-shadow: 0 2px 4px 0 rgba(126, 126, 126, 0.2);
+  }
+
+  @media (min-width: 795px) {
+    margin-right: 5px;
   }
 `;
 
