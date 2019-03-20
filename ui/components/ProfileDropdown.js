@@ -12,7 +12,7 @@ const Avatar = styled.img`
 `;
 
 const Dropdown = styled.div`
-  width: 150px;
+  width: 100px;
   right: 0px;
   position: absolute;
   background: white;

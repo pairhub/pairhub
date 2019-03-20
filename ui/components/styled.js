@@ -10,8 +10,12 @@ export const Card = styled.div`
 
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: 5fr 2fr;
   grid-gap: 20px;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 795px) {
+    grid-template-columns: 5fr 2fr;
+  }
 `;
 
 export const Container = styled.div`

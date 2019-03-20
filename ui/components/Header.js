@@ -7,6 +7,8 @@ import Head from "./Head";
 import ProfileDropdown from "./ProfileDropdown";
 import SearchBar from "./SearchBar";
 
+const minWidth = '795px';
+
 const Logo = styled.img`
   height: 45px;
   width: 45px;
@@ -15,10 +17,38 @@ const Logo = styled.img`
   cursor: pointer;
 `;
 
-const Container = styled.div`
+const HeaderContainer = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   margin: 25px 0;
+
+  @media (min-width: ${minWidth}) {
+    flex-direction: row;
+  }
+`;
+
+const SearchBarContainer = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+  order: 2;
+
+  @media (min-width: ${minWidth}) {
+    order: 1;
+  }
+`;
+
+const NavLinksContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  order: 1;
+
+  @media (min-width: ${minWidth}) {
+    margin-bottom: 0;
+    order: 2;
+  }
 `;
 
 const MenuLink = styled.a`
@@ -27,7 +57,6 @@ const MenuLink = styled.a`
   background-color: ${props => (props.blue ? "#0000ff" : "transparent")};
   font-weight: 500;
   font-size: 16px;
-  margin-left: 6px;
   transition: color 50ms ease-in-out;
   text-decoration: none;
   display: block;
@@ -49,28 +78,32 @@ const Header = ({ currentUser, searchPhrase }) => {
   return (
     <>
       <Head />
-      <Container>
-        <Link href="/">
-          <Logo src="/static/pairhub-logo-white-180.png" />
-        </Link>
-        <SearchBar searchPhrase={searchPhrase} />
-        <Link href="/about">
-          <MenuLink>About</MenuLink>
-        </Link>
-        <MenuLink href="https://gitter.im/pairhub/Lobby" target="_blank">
-          Chat <SmallIcon icon={faExternalLinkAlt} />
-        </MenuLink>
-        <MenuLink href="https://github.com/pairhub/pairhub" target="_blank">
-          Source <SmallIcon icon={faExternalLinkAlt} />
-        </MenuLink>
-        {currentUser ? (
-          <ProfileDropdown currentUser={currentUser} />
-        ) : (
-          <MenuLink blue href="/login/github">
-            <Icon icon={faGithub} /> Login with GitHub
+      <HeaderContainer>
+        <SearchBarContainer>
+          <Link href="/">
+            <Logo src="/static/pairhub-logo-white-180.png" />
+          </Link>
+          <SearchBar searchPhrase={searchPhrase} />
+        </SearchBarContainer>
+        <NavLinksContainer>
+          <Link href="/about">
+            <MenuLink>About</MenuLink>
+          </Link>
+          <MenuLink href="https://gitter.im/pairhub/Lobby" target="_blank">
+            Chat <SmallIcon icon={faExternalLinkAlt} />
           </MenuLink>
-        )}
-      </Container>
+          <MenuLink href="https://github.com/pairhub/pairhub" target="_blank">
+            Source <SmallIcon icon={faExternalLinkAlt} />
+          </MenuLink>
+          {currentUser ? (
+            <ProfileDropdown currentUser={currentUser} />
+          ) : (
+            <MenuLink blue href="/login/github">
+              <Icon icon={faGithub} /> Login with GitHub
+            </MenuLink>
+          )}
+        </NavLinksContainer>
+      </HeaderContainer>
     </>
   );
 };
