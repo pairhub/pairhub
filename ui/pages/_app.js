@@ -8,6 +8,7 @@ import withApolloClient from "../lib/withApolloClient";
 
 import Header from "../components/Header";
 import Modal from "../components/Modal";
+import { initGA, logPageViews } from "../lib/analytics";
 
 import "tippy.js/dist/tippy.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -41,6 +42,11 @@ const MainLayout = styled.div`
 
 const MyApp = ({ Component, pageProps, apolloClient, router }) => {
   const [modal, setModal] = React.useState(null);
+
+  React.useEffect(() => {
+    initGA();
+    logPageViews();
+  }, []);
 
   const openModal = name => {
     if (modal !== name) setModal(name);
