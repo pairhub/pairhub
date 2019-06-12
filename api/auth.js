@@ -4,6 +4,7 @@ import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import mongoose from 'mongoose';
 import { User } from './models';
+import inviteToSlack from './slack';
 
 function setupGitHubLogin(app) {
   const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, NODE_ENV } = process.env;
@@ -42,7 +43,10 @@ function setupGitHubLogin(app) {
         seenWelcomeModal: false,
       })
         .save()
-        .then(result => done(null, result));
+        .then((result) => {
+          if (profile.emails) inviteToSlack(profile.emails[0].value);
+          return done(null, result);
+        });
     });
   }));
 
