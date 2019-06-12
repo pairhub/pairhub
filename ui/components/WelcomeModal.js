@@ -11,6 +11,7 @@ import {
 const Container = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
 `;
 
 const CardContainer = styled.div`
@@ -38,17 +39,23 @@ const CardContainer = styled.div`
     margin-top: 8px;
   }
   img {
+    max-width: 100%;
+    height: auto;
     border-radius: 8px;
   }
 `;
 
 const Arrow = styled.div`
   font-size: 50px;
-  color: ${props => (props.active ? "rgba(0, 0, 0, 0.3)" : "rgba(0,0,0,0)")};
   padding: 20px;
+  color: ${props => (props.active ? "rgba(0, 0, 0, 0.3)" : "rgba(0,0,0,0)")};
   cursor: ${props => (props.active ? "pointer" : "default")};
   &:hover {
     color: ${props => (props.active ? "rgba(0, 0, 0, 0.8)" : "rgba(0,0,0,0)")};
+  }
+  @media only screen and (max-width: 750px) {
+    font-size: 30px;
+    padding: 5px;
   }
 `;
 
@@ -110,17 +117,8 @@ const cards = [
     </a>
   </>,
   <>
-    <h2>Also, join the Gitter chat and say hi!</h2>
-
-    <p>
-      By joining Gitter (with your GitHub account) you will be able to receive
-      direct messages from other users.
-    </p>
-    <a href="https://gitter.im/pairhub/Lobby" target="_blank">
-      <Button>
-        Go to chat <Icon icon={faExternalLinkAlt} />
-      </Button>
-    </a>
+    <h2>We've sent a Slack invite to your email</h2>
+    <p>Join and say hi! 👋</p>
   </>
 ];
 
@@ -165,7 +163,7 @@ const WelcomeModal = () => {
       </Container>
       <ProgressDots>
         {cards.map((_, i) => (
-          <ProgressDot key={i} onClick={() => setCard(i)} filled={i <= step}>
+          <ProgressDot key={i} onClick={() => setCard(i)} filled={i === step}>
             <Icon icon={faCircle} />
           </ProgressDot>
         ))}
@@ -175,8 +173,3 @@ const WelcomeModal = () => {
 };
 
 export default WelcomeModal;
-
-// <li>Join Gitter chat</li>
-// <li>Create your first post</li>
-// <li>Read guide</li>
-// <li>Read code of conduct</li>
