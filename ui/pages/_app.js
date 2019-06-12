@@ -8,7 +8,7 @@ import withApolloClient from "../lib/withApolloClient";
 
 import Header from "../components/Header";
 import Modal from "../components/Modal";
-import { initGA, logPageViews } from "../lib/analytics";
+import { initGA, logPageViews, logPageView } from "../lib/analytics";
 
 import "tippy.js/dist/tippy.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -45,6 +45,7 @@ const MyApp = ({ Component, pageProps, apolloClient, router }) => {
 
   React.useEffect(() => {
     initGA();
+    logPageView();
     logPageViews();
   }, []);
 

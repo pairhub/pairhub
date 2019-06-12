@@ -5,14 +5,15 @@ export const initGA = () => {
   ReactGA.initialize("UA-7337696-12");
 };
 
-export const logPageView = ({ url }) => {
-  ReactGA.set({ page: url });
-  ReactGA.pageview(url);
+export const logPageView = () => {
+  ReactGA.set({ page: window.location.pathname });
+  ReactGA.pageview(window.location.pathname);
+  console.log(window.location.pathname);
 };
 
 export function logPageViews() {
   Router.events.on("routeChangeComplete", url => {
-    logPageView(url);
+    logPageView();
   });
 }
 
