@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "apollo-server-express": "^2.3.0",
+    "axios": "^0.19.0",
     "body-parser": "^1.18.3",
     "connect-mongo": "^2.0.3",
     "dotenv": "^5.0.1",
@@ -37,9 +38,7 @@
     "passport-github": "^1.1.0"
   },
   "babel": {
-    "presets": [
-      "env"
-    ]
+    "presets": ["env"]
   },
   "now": {
     "alias": "api.pairhub.io",
@@ -53,7 +52,8 @@
       "GITHUB_CLIENT_ID": "@githubclientid",
       "GITHUB_CLIENT_SECRET": "@githubclientsecret",
       "SESSION_SECRET": "@sessionsecret",
-      "MONGODB_URI": "@mongodburi"
+      "MONGODB_URI": "@mongodburi",
+      "SLACK_TOKEN": "@slacktoken"
     }
   }
 }

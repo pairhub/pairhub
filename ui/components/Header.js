@@ -7,7 +7,7 @@ import Head from "./Head";
 import ProfileDropdown from "./ProfileDropdown";
 import SearchBar from "./SearchBar";
 
-const minWidth = '795px';
+const minWidth = "795px";
 
 const Logo = styled.img`
   height: 45px;
@@ -89,9 +89,6 @@ const Header = ({ currentUser, searchPhrase }) => {
           <Link href="/about">
             <MenuLink>About</MenuLink>
           </Link>
-          <MenuLink href="https://gitter.im/pairhub/Lobby" target="_blank">
-            Chat <SmallIcon icon={faExternalLinkAlt} />
-          </MenuLink>
           <MenuLink href="https://github.com/pairhub/pairhub" target="_blank">
             Source <SmallIcon icon={faExternalLinkAlt} />
           </MenuLink>
