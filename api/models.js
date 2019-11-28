@@ -23,17 +23,20 @@ export const User = mongoose.model('User', {
   seenWelcomeModal: Boolean,
 });
 
-export const Post = mongoose.model('Post', {
-  content: { type: String, text: true },
+const PostSchema = new mongoose.Schema({
+  content: String,
   userId: { type: String, index: true },
-  repository: { type: String, index: true },
-  calendarLink: { type: String },
+  repository: String,
+  calendarLink: String,
   created_at: {
     type: Date,
     default: Date.now,
   },
   updated_at: Date,
-});
+}).index({ content: 'text', repository: 'text' });
+
+export const Post = mongoose.model('Post', PostSchema);
+Post.syncIndexes();
 
 export const Comment = mongoose.model('Comment', {
   content: String,
