@@ -33,7 +33,7 @@
     "graphql": "^0.13.2",
     "graphql-tools": "^4.0.3",
     "mongoose": "^5.3.16",
-    "node-fetch": "^2.3.0",
+    "node-fetch": "^2.6.1",
     "passport": "^0.4.0",
     "passport-github": "^1.1.0"
   },
