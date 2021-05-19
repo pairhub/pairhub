@@ -6,12 +6,12 @@ export default (props) => {
       position: { angle: angleLeftEye },
     },
     buttons,
-  } = useMightyMouse(true, "left-eye", { x: 10, y: 10 });
+  } = useMightyMouse(true, "left-eye", { x: 5, y: 5 });
   const {
     selectedElement: {
       position: { angle: angleRightEye },
     },
-  } = useMightyMouse(true, "right-eye", { x: 10, y: 10 });
+  } = useMightyMouse(true, "right-eye", { x: 5, y: 5 });
 
   const styleLeftEye = {
     transform: `rotate(${-angleLeftEye + 180}deg)`,
