@@ -13,12 +13,13 @@ export default (props) => {
     },
   } = useMightyMouse(true, "right-eye", { x: 5, y: 5 });
 
-  const styleLeftEye = {
+  const styleLeftEye: React.CSSProperties = {
     transform: `rotate(${-angleLeftEye + 180}deg)`,
     transformBox: "fill-box",
     transformOrigin: "center",
   };
-  const styleRightEye = {
+
+  const styleRightEye: React.CSSProperties = {
     transform: `rotate(${-angleRightEye + 180}deg)`,
     transformBox: "fill-box",
     transformOrigin: "center",
