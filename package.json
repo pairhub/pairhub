@@ -8,8 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "@headlessui/react": "^1.2.0",
+    "@heroicons/react": "^1.0.1",
     "@prisma/client": "^2.22.1",
     "next": "^10.2.0",
+    "next-auth": "^3.23.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-mighty-mouse": "^1.4.31"
