@@ -5,7 +5,7 @@ import Dropdown from "../components/Dropdown";
 import Logo from "../components/Logo";
 
 export default function Home() {
-  const [session, loading] = useSession();
+  const [session] = useSession();
   return (
     <div className="text-white">
       <header className="">
@@ -46,8 +46,7 @@ export default function Home() {
         </h1>
         <div className="space-y-4 max-w-lg">
           <p className="text-gray-300 text-xl">
-            It makes coding a little bit more human, fun and provides tons of
-            quick learning.
+            It makes coding a little bit more human.
           </p>
           <p className="text-gray-300 text-xl">
             PairHub will help you find people and projects to pair on.
