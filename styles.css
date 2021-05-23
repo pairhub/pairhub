@@ -3,5 +3,11 @@
 @tailwind utilities;
 
 html {
-  @apply bg-gray-900;
+  @apply bg-gray-50;
+}
+.markdown div {
+  @apply text-gray-700 space-y-2;
+}
+.markdown a {
+  @apply underline text-black;
 }
